@@ -5,6 +5,7 @@ import { SiteLayout } from "@/components/layout/site-layout";
 import { client } from "@/sanity/client";
 import type { FOOTER_MENU_QUERY_RESULT } from "../../sanity.types";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
 
 const FOOTER_MENU_QUERY = defineQuery(`*[_id == "configuration"][0]{
   footerMenu[]->{
@@ -50,6 +51,7 @@ export default async function RootLayout({
     >
       <body className="bg-background text-foreground-primary text-lg">
         <SiteLayout footerMenu={footerMenu}>{children}</SiteLayout>
+        <Analytics />
       </body>
     </html>
   );
