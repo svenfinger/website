@@ -142,6 +142,14 @@ export type Configuration = {
       _key: string;
     } & PageReference
   >;
+  socialShareImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
 };
 
 export type Page = {
@@ -328,11 +336,12 @@ export type NOTES_QUERY_RESULT = Array<{
 }>;
 
 // Source: ../frontend/src/app/layout.tsx
-// Variable: FOOTER_MENU_QUERY
-// Query: *[_id == "configuration"][0]{  footerMenu[]->{    _id,    title,    slug  }}
-export type FOOTER_MENU_QUERY_RESULT =
+// Variable: SITE_CONFIG_QUERY
+// Query: *[_id == "configuration"][0]{  footerMenu[]->{    _id,    title,    slug  },  socialShareImage{    asset,    alt,    hotspot,    crop  }}
+export type SITE_CONFIG_QUERY_RESULT =
   | {
       footerMenu: null;
+      socialShareImage: null;
     }
   | {
       footerMenu: Array<{
@@ -340,6 +349,12 @@ export type FOOTER_MENU_QUERY_RESULT =
         title: string | null;
         slug: Slug | null;
       }> | null;
+      socialShareImage: {
+        asset: SanityImageAssetReference | null;
+        alt: string | null;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+      } | null;
     }
   | null;
 
@@ -361,7 +376,7 @@ declare module "@sanity/client" {
     '*[_type == "notes" && slug.current == $slug][0]{\n    _type,\n    title,\n    slug,\n    publishedAt,\n    mainImage,\n    body\n  }': NOTE_BY_SLUG_QUERY_RESULT;
     '*[_id == "configuration"][0]{\n  homePage->{\n    title,\n    slug,\n    body\n  }\n}': HOME_QUERY_RESULT;
     '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12]{\n    _id,\n    title,\n    slug,\n    publishedAt\n  }': NOTES_QUERY_RESULT;
-    '*[_id == "configuration"][0]{\n  footerMenu[]->{\n    _id,\n    title,\n    slug\n  }\n}': FOOTER_MENU_QUERY_RESULT;
+    '*[_id == "configuration"][0]{\n  footerMenu[]->{\n    _id,\n    title,\n    slug\n  },\n  socialShareImage{\n    asset,\n    alt,\n    hotspot,\n    crop\n  }\n}': SITE_CONFIG_QUERY_RESULT;
     '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {\n    _id,\n    title,\n    slug,\n    publishedAt\n  }': NOTES_FOR_PORTABLE_BLOCK_QUERY_RESULT;
   }
 }

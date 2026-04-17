@@ -29,6 +29,24 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'socialShareImage',
+      title: 'Social share image',
+      description:
+        'Default Open Graph / Twitter image (about 1200×630). Used for all pages until per-document images exist.',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Describe the image for screen readers and social previews.',
+        }),
+      ],
+    }),
   ],
   preview: {
     select: {

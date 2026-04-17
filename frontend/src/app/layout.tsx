@@ -1,19 +1,36 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Inter } from "next/font/google";
 import { defineQuery } from "next-sanity";
+import { cache } from "react";
 import { SiteLayout } from "@/components/layout/site-layout";
 import { client } from "@/sanity/client";
-import type { FOOTER_MENU_QUERY_RESULT } from "../../sanity.types";
+import { urlFor } from "@/sanity/image";
+import type { SITE_CONFIG_QUERY_RESULT } from "../../sanity.types";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const FOOTER_MENU_QUERY = defineQuery(`*[_id == "configuration"][0]{
+const SITE_CONFIG_QUERY = defineQuery(`*[_id == "configuration"][0]{
   footerMenu[]->{
     _id,
     title,
     slug
+  },
+  socialShareImage{
+    asset,
+    alt,
+    hotspot,
+    crop
   }
 }`);
+
+const getSiteConfig = cache(() =>
+  client.fetch<SITE_CONFIG_QUERY_RESULT>(
+    SITE_CONFIG_QUERY,
+    {},
+    { next: { revalidate: 30 } }
+  )
+);
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
@@ -26,21 +43,56 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+const defaultMetadata: Metadata = {
   title: "Sven Finger",
   description: "Full-Stack Design Engineer",
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  const image = config?.socialShareImage;
+  const hasAsset = Boolean(image?.asset);
+
+  const metadataBase =
+    process.env.NEXT_PUBLIC_SITE_URL !== undefined &&
+    process.env.NEXT_PUBLIC_SITE_URL !== ""
+      ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+      : undefined;
+
+  if (!hasAsset || !image) {
+    return { ...defaultMetadata, ...(metadataBase ? { metadataBase } : {}) };
+  }
+
+  const ogWidth = 1200;
+  const ogHeight = 630;
+  const imageUrl = urlFor(image).width(ogWidth).height(ogHeight).fit("crop").auto("format").url();
+
+  return {
+    ...defaultMetadata,
+    ...(metadataBase ? { metadataBase } : {}),
+    openGraph: {
+      images: [
+        {
+          url: imageUrl,
+          width: ogWidth,
+          height: ogHeight,
+          ...(image.alt ? { alt: image.alt } : {}),
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [imageUrl],
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const config = await client.fetch<FOOTER_MENU_QUERY_RESULT>(
-    FOOTER_MENU_QUERY,
-    {},
-    { next: { revalidate: 30 } }
-  );
+  const config = await getSiteConfig();
 
   const footerMenu = config?.footerMenu?.filter(Boolean) ?? [];
 
@@ -52,6 +104,7 @@ export default async function RootLayout({
       <body className="bg-background text-foreground-primary text-lg">
         <SiteLayout footerMenu={footerMenu}>{children}</SiteLayout>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
