@@ -1,9 +1,9 @@
 import { PortableBody } from "@/sanity/portable-body";
-import type { BlockContent, Slug } from "../../sanity.types";
+import type { PageBody, Slug } from "../../sanity.types";
 
 export type PageProps = {
   title: string | null;
-  body?: BlockContent | null;
+  body?: PageBody | null;
   /** When set (e.g. configured home), links to the canonical `/{slug}` URL. */
   slug?: Slug | null;
   /** When true (site root), the visible page title is omitted. */

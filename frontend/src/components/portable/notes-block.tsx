@@ -1,10 +1,7 @@
 import Link from "next/link";
-import type { NOTES_FOR_PORTABLE_BLOCK_QUERY_RESULT } from "../../../sanity.types";
+import type { NOTES_LIST_QUERY_RESULT } from "../../../sanity.types";
 
-/** Fixed heading for the Notes list block (no CMS field on the block). */
-export const NOTES_BLOCK_TITLE = "Notes";
-
-type NoteRow = NOTES_FOR_PORTABLE_BLOCK_QUERY_RESULT[number];
+type NoteRow = NOTES_LIST_QUERY_RESULT[number];
 
 export function NotesBlock({ notes }: { notes: NoteRow[] | null }) {
   const list = notes ?? [];
@@ -15,7 +12,7 @@ export function NotesBlock({ notes }: { notes: NoteRow[] | null }) {
         id="notes-block-heading"
         className="text-5xl font-serif font-regular pb-6 border-b border-border-subtle mb-12"
       >
-        {NOTES_BLOCK_TITLE}
+        Notes
       </h2>
       {list.length === 0 ? (
         <p className="text-gray-500 dark:text-gray-400">No notes yet.</p>

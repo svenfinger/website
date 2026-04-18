@@ -1,9 +1,9 @@
 import {defineArrayMember, defineType} from 'sanity'
 
-/** Plain rich-text body (block + image). Used inside notes and nested rich-text fields. */
+/** Rich-text body for pages: plain content plus page-level composition blocks. */
 export default defineType({
-  title: 'Block Content',
-  name: 'blockContent',
+  title: 'Page Body',
+  name: 'pageBody',
   type: 'array',
   of: [
     defineArrayMember({
@@ -46,6 +46,12 @@ export default defineType({
     defineArrayMember({
       type: 'image',
       options: {hotspot: true},
+    }),
+    defineArrayMember({
+      type: 'introBlock',
+    }),
+    defineArrayMember({
+      type: 'notesBlock',
     }),
   ],
 })

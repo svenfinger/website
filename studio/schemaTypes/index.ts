@@ -4,12 +4,14 @@ import introBlock from './introBlock'
 import notes from './notes'
 import notesBlock from './notesBlock'
 import page from './page'
+import pageBody from './pageBody'
 
 export const schemaTypes = [
-  configuration,
-  notes,
-  page,
-  introBlock,
-  notesBlock,
   blockContent,
+  configuration,
+  introBlock,
+  notes,
+  notesBlock,
+  page,
+  pageBody,
 ]

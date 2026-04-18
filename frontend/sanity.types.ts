@@ -27,7 +27,7 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
-export type BlockContent = Array<
+export type PageBody = Array<
   | {
       children?: Array<{
         marks?: Array<string>;
@@ -67,21 +67,6 @@ export type NotesBlock = {
   behavior?: string;
 };
 
-export type IntroBlock = {
-  _type: "introBlock";
-  image?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  eyebrow?: string;
-  heading?: string;
-  content?: BlockContent;
-  link?: Link;
-};
-
 export type Notes = {
   _id: string;
   _type: "notes";
@@ -100,6 +85,35 @@ export type Notes = {
   publishedAt?: string;
   body?: BlockContent;
 };
+
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+      listItem?: "bullet";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }
+>;
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
@@ -121,6 +135,21 @@ export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
+};
+
+export type IntroBlock = {
+  _type: "introBlock";
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  eyebrow?: string;
+  heading?: string;
+  content?: BlockContent;
+  link?: Link;
 };
 
 export type PageReference = {
@@ -160,7 +189,7 @@ export type Page = {
   _rev: string;
   title?: string;
   slug?: Slug;
-  body?: BlockContent;
+  body?: PageBody;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -263,13 +292,14 @@ export type Geopoint = {
 export type AllSanitySchemaTypes =
   | Link
   | SanityImageAssetReference
-  | BlockContent
+  | PageBody
   | NotesBlock
-  | IntroBlock
   | Notes
+  | BlockContent
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
+  | IntroBlock
   | PageReference
   | Configuration
   | Page
@@ -288,7 +318,7 @@ export type AllSanitySchemaTypes =
 export type PAGE_BY_SLUG_QUERY_RESULT = {
   title: string | null;
   slug: Slug | null;
-  body: BlockContent | null;
+  body: PageBody | null;
 } | null;
 
 // Source: ../frontend/src/app/(site)/note/[slug]/page.tsx
@@ -320,20 +350,10 @@ export type HOME_QUERY_RESULT =
       homePage: {
         title: string | null;
         slug: Slug | null;
-        body: BlockContent | null;
+        body: PageBody | null;
       } | null;
     }
   | null;
-
-// Source: ../frontend/src/app/(site)/page.tsx
-// Variable: NOTES_QUERY
-// Query: *[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12]{    _id,    title,    slug,    publishedAt  }
-export type NOTES_QUERY_RESULT = Array<{
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-  publishedAt: string | null;
-}>;
 
 // Source: ../frontend/src/app/layout.tsx
 // Variable: SITE_CONFIG_QUERY
@@ -358,10 +378,20 @@ export type SITE_CONFIG_QUERY_RESULT =
     }
   | null;
 
-// Source: ../frontend/src/sanity/portable-body.tsx
-// Variable: NOTES_FOR_PORTABLE_BLOCK_QUERY
-// Query: *[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {    _id,    title,    slug,    publishedAt  }
-export type NOTES_FOR_PORTABLE_BLOCK_QUERY_RESULT = Array<{
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: NOTES_LIST_QUERY
+// Query: *[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {  _id,  title,  slug,  publishedAt}
+export type NOTES_LIST_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+  publishedAt: string | null;
+}>;
+
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: NOTES_LIST_RECENT_QUERY
+// Query: *[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12] {  _id,  title,  slug,  publishedAt}
+export type NOTES_LIST_RECENT_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
   slug: Slug | null;
@@ -375,8 +405,8 @@ declare module "@sanity/client" {
     '*[_type == "page" && slug.current == $slug][0]{\n    title,\n    slug,\n    body\n  }': PAGE_BY_SLUG_QUERY_RESULT;
     '*[_type == "notes" && slug.current == $slug][0]{\n    _type,\n    title,\n    slug,\n    publishedAt,\n    mainImage,\n    body\n  }': NOTE_BY_SLUG_QUERY_RESULT;
     '*[_id == "configuration"][0]{\n  homePage->{\n    title,\n    slug,\n    body\n  }\n}': HOME_QUERY_RESULT;
-    '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12]{\n    _id,\n    title,\n    slug,\n    publishedAt\n  }': NOTES_QUERY_RESULT;
     '*[_id == "configuration"][0]{\n  footerMenu[]->{\n    _id,\n    title,\n    slug\n  },\n  socialShareImage{\n    asset,\n    alt,\n    hotspot,\n    crop\n  }\n}': SITE_CONFIG_QUERY_RESULT;
-    '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {\n    _id,\n    title,\n    slug,\n    publishedAt\n  }': NOTES_FOR_PORTABLE_BLOCK_QUERY_RESULT;
+    '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_QUERY_RESULT;
+    '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12] {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_RECENT_QUERY_RESULT;
   }
 }

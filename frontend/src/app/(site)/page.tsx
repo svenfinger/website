@@ -2,7 +2,11 @@ import Link from "next/link";
 import { defineQuery } from "next-sanity";
 import { Page } from "@/components/page";
 import { client } from "@/sanity/client";
-import type { HOME_QUERY_RESULT, NOTES_QUERY_RESULT } from "../../../sanity.types";
+import { NOTES_LIST_RECENT_QUERY } from "@/sanity/queries";
+import type {
+  HOME_QUERY_RESULT,
+  NOTES_LIST_RECENT_QUERY_RESULT,
+} from "../../../sanity.types";
 
 const HOME_QUERY = defineQuery(`*[_id == "configuration"][0]{
   homePage->{
@@ -11,15 +15,6 @@ const HOME_QUERY = defineQuery(`*[_id == "configuration"][0]{
     body
   }
 }`);
-
-const NOTES_QUERY = defineQuery(
-  `*[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12]{
-    _id,
-    title,
-    slug,
-    publishedAt
-  }`
-);
 
 export default async function Home() {
   const home = await client.fetch<HOME_QUERY_RESULT>(
@@ -40,8 +35,8 @@ export default async function Home() {
     );
   }
 
-  const notes = await client.fetch<NOTES_QUERY_RESULT>(
-    NOTES_QUERY,
+  const notes = await client.fetch<NOTES_LIST_RECENT_QUERY_RESULT>(
+    NOTES_LIST_RECENT_QUERY,
     {},
     { next: { revalidate: 30 } }
   );

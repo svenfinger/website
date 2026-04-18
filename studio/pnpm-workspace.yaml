@@ -1,2 +1,4 @@
+# Not a real pnpm workspace; this file only exists to allow esbuild's postinstall
+# script to run, since pnpm blocks build scripts by default.
 allowBuilds:
   esbuild: true

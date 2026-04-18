@@ -3,7 +3,7 @@ import type { PortableTextComponents } from "next-sanity";
 import { IntroBlock } from "@/components/portable/intro-block";
 import { NotesBlock } from "@/components/portable/notes-block";
 import { urlFor } from "@/sanity/image";
-import type { NOTES_FOR_PORTABLE_BLOCK_QUERY_RESULT } from "../../sanity.types";
+import type { NOTES_LIST_QUERY_RESULT } from "../../sanity.types";
 
 function imageBlock({ value }: { value: { asset?: { _ref?: string }; alt?: string } }) {
   if (!value?.asset?._ref) return null;
@@ -19,7 +19,7 @@ function imageBlock({ value }: { value: { asset?: { _ref?: string }; alt?: strin
 }
 
 export function createBodyComponents(options?: {
-  notes?: NOTES_FOR_PORTABLE_BLOCK_QUERY_RESULT | null;
+  notes?: NOTES_LIST_QUERY_RESULT | null;
 }): PortableTextComponents {
   const notes = options?.notes ?? null;
 
@@ -35,5 +35,3 @@ export function createBodyComponents(options?: {
 
   return components;
 }
-
-export const bodyComponents = createBodyComponents();

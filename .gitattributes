@@ -1,0 +1,4 @@
+# Don't count tooling config files in the language stats
+*.config.mjs linguist-detectable=false
+*.config.js  linguist-detectable=false
+*.config.cjs linguist-detectable=false
