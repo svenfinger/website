@@ -9,7 +9,7 @@ export function Header() {
   const isHome = pathname === "/";
 
   return (
-    <header className={isHome ? undefined : "my-24"}>
+    <header className={isHome ? undefined : "my-12 md:my-24"}>
       {!isHome && (
         <nav aria-label="Site">
           <Link

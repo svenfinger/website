@@ -46,7 +46,7 @@ export default async function Home() {
       isHome
       title="Notes"
       lead={
-        <p className="text-gray-600 mb-8">
+        <p className="text-foreground-secondary mb-8">
           No home page is set yet. Choose one under{" "}
           <strong>Configuration</strong> in Sanity Studio, or browse notes
           below.
@@ -64,7 +64,7 @@ export default async function Home() {
                 {note.title}
               </h2>
               {note.publishedAt && (
-                <time className="text-gray-500">
+                <time className="text-foreground-secondary">
                   {new Date(note.publishedAt).toLocaleDateString()}
                 </time>
               )}

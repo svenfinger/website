@@ -16,7 +16,7 @@ export function IntroBlock({
   components: PortableTextComponents;
 }) {
   return (
-    <section className="py-24">
+    <section className="py-12 md:py-24">
       <div className="flex items-center gap-4 mb-12 pb-6 border-b border-border-subtle">
         {value.image && value.image.asset?._ref ? (
           <Image

@@ -7,15 +7,15 @@ export function NotesBlock({ notes }: { notes: NoteRow[] | null }) {
   const list = notes ?? [];
 
   return (
-    <section className="py-24 not-editor" aria-labelledby="notes-block-heading">
+    <section className="py-12 md:py-24 not-editor" aria-labelledby="notes-block-heading">
       <h2
         id="notes-block-heading"
-        className="text-5xl font-serif font-regular pb-6 border-b border-border-subtle mb-12"
+        className="text-5xl font-serif pb-6 border-b border-border-subtle mb-12"
       >
         Notes
       </h2>
       {list.length === 0 ? (
-        <p className="text-gray-500 dark:text-gray-400">No notes yet.</p>
+        <p className="text-foreground-secondary">No notes yet.</p>
       ) : (
         <ul className="space-y-8">
           {list.map((note) => (
