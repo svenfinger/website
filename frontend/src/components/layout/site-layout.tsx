@@ -9,9 +9,9 @@ export function SiteLayout({
   footerMenu: FooterMenuItem[];
 }) {
   return (
-    <div className="w-full mx-auto max-w-2xl px-6 py-12 md:py-24 stagger-enter">
+    <div className="w-full mx-auto max-w-2xl px-6 py-12 md:py-24">
       <Header />
-      <div className="flex flex-col stagger-enter">{children}</div>
+      <div className="flex flex-col">{children}</div>
       <Footer menuItems={footerMenu} />
     </div>
   );

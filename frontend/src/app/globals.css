@@ -73,20 +73,6 @@
   --color-interactive-tertiary-hover: var(--interactive-tertiary-hover);
   --color-border-default: var(--border-default);
   --color-border-subtle: var(--border-subtle);
-
-  /* ---------- Animations ---------- */
-  --animate-enter: enter 160ms ease-in both;
-}
-
-@keyframes enter {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* ---------- Runtime semantic values: light ---------- */
@@ -124,21 +110,6 @@
 }
 
 @layer components {
-  .stagger-enter > * {
-    animation: var(--animate-enter);
-  }
-  .stagger-enter > *:nth-child(1) { animation-delay: 0ms; }
-  .stagger-enter > *:nth-child(2) { animation-delay: 80ms; }
-  .stagger-enter > *:nth-child(3) { animation-delay: 160ms; }
-  .stagger-enter > *:nth-child(4) { animation-delay: 240ms; }
-  .stagger-enter > *:nth-child(n+5) { animation-delay: 320ms; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .stagger-enter > * {
-      animation: none;
-    }
-  }
-
   .headline-xl {
     font-family: var(--font-serif);
     font-size: var(--font-size-headline-xl);

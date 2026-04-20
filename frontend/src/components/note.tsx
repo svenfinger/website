@@ -17,6 +17,7 @@ export function Note({ doc }: { doc: NoteDoc }) {
           width={624}
           height={351}
           className="rounded-lg mb-12 w-full"
+          loading="eager"
         />
       )}
       <div className="editor mb-12">

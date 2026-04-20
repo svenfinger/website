@@ -1,9 +1,13 @@
 import Image from "next/image";
 import type { PortableTextComponents } from "next-sanity";
+import { ExperienceBlock } from "@/components/portable/experience-block";
 import { IntroBlock } from "@/components/portable/intro-block";
 import { NotesBlock } from "@/components/portable/notes-block";
 import { urlFor } from "@/sanity/image";
-import type { NOTES_LIST_QUERY_RESULT } from "../../sanity.types";
+import type {
+  EXPERIENCE_LIST_QUERY_RESULT,
+  NOTES_LIST_QUERY_RESULT,
+} from "../../sanity.types";
 
 function imageBlock({ value }: { value: { asset?: { _ref?: string }; alt?: string } }) {
   if (!value?.asset?._ref) return null;
@@ -20,8 +24,10 @@ function imageBlock({ value }: { value: { asset?: { _ref?: string }; alt?: strin
 
 export function createBodyComponents(options?: {
   notes?: NOTES_LIST_QUERY_RESULT | null;
+  experiences?: EXPERIENCE_LIST_QUERY_RESULT | null;
 }): PortableTextComponents {
   const notes = options?.notes ?? null;
+  const experiences = options?.experiences ?? null;
 
   const components: PortableTextComponents = {
     types: {
@@ -30,6 +36,13 @@ export function createBodyComponents(options?: {
         <IntroBlock value={value} components={components} />
       ),
       notesBlock: () => <NotesBlock notes={notes} />,
+      experienceBlock: ({ value }) => (
+        <ExperienceBlock
+          value={value}
+          experiences={experiences}
+          components={components}
+        />
+      ),
     },
   };
 

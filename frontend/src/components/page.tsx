@@ -25,7 +25,7 @@ export function Page({ title, body, lead, children, isHome = false }: PageProps)
         <h1 className="text-5xl mb-12 font-serif pb-6 border-b border-border-subtle">{title}</h1>
       ) : null}
       {body ? (
-        <div className={`editor${isHome ? " stagger-enter [animation:none]" : ""}`}>
+        <div className={`editor${isHome ? " " : ""}`}>
           <PortableBody body={body} />
         </div>
       ) : null}

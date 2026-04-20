@@ -53,5 +53,8 @@ export default defineType({
     defineArrayMember({
       type: 'notesBlock',
     }),
+    defineArrayMember({
+      type: 'experienceBlock',
+    }),
   ],
 })

@@ -20,6 +20,11 @@ export type Link = {
   url?: string;
 };
 
+export type ExperienceBlockLink = {
+  label?: string;
+  url?: string;
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -60,6 +65,9 @@ export type PageBody = Array<
   | ({
       _key: string;
     } & NotesBlock)
+  | ({
+      _key: string;
+    } & ExperienceBlock)
 >;
 
 export type NotesBlock = {
@@ -150,6 +158,33 @@ export type IntroBlock = {
   heading?: string;
   content?: BlockContent;
   link?: Link;
+};
+
+export type ExperienceBlock = {
+  _type: "experienceBlock";
+  heading?: string;
+  content?: BlockContent;
+  link?: ExperienceBlockLink;
+};
+
+export type Experience = {
+  _id: string;
+  _type: "experience";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  icon?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  company?: string;
+  role?: string;
+  description?: string;
+  timeframe?: string;
+  orderRank?: string;
 };
 
 export type PageReference = {
@@ -291,6 +326,7 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | Link
+  | ExperienceBlockLink
   | SanityImageAssetReference
   | PageBody
   | NotesBlock
@@ -300,6 +336,8 @@ export type AllSanitySchemaTypes =
   | SanityImageHotspot
   | Slug
   | IntroBlock
+  | ExperienceBlock
+  | Experience
   | PageReference
   | Configuration
   | Page
@@ -398,6 +436,48 @@ export type NOTES_LIST_RECENT_QUERY_RESULT = Array<{
   publishedAt: string | null;
 }>;
 
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: EXPERIENCE_LIST_QUERY
+// Query: *[_type == "experience"] | order(orderRank) {  _id,  icon,  company,  role,  description,  timeframe}
+export type EXPERIENCE_LIST_QUERY_RESULT = Array<{
+  _id: string;
+  icon: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  company: string | null;
+  role: string | null;
+  description: string | null;
+  timeframe: string | null;
+}>;
+
+// Source: ../frontend/src/sanity/queries.ts
+// Variable: SITEMAP_QUERY
+// Query: {    "home": *[_id == "configuration"][0]{      "slug": homePage->slug.current,      "updatedAt": homePage->_updatedAt    },    "pages": *[_type == "page" && defined(slug.current)]{      "slug": slug.current,      _updatedAt    },    "notes": *[_type == "notes" && defined(slug.current)]{      "slug": slug.current,      _updatedAt    }  }
+export type SITEMAP_QUERY_RESULT = {
+  home:
+    | {
+        slug: null;
+        updatedAt: null;
+      }
+    | {
+        slug: string | null;
+        updatedAt: string | null;
+      }
+    | null;
+  pages: Array<{
+    slug: string | null;
+    _updatedAt: string;
+  }>;
+  notes: Array<{
+    slug: string | null;
+    _updatedAt: string;
+  }>;
+};
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -408,5 +488,7 @@ declare module "@sanity/client" {
     '*[_id == "configuration"][0]{\n  footerMenu[]->{\n    _id,\n    title,\n    slug\n  },\n  socialShareImage{\n    asset,\n    alt,\n    hotspot,\n    crop\n  }\n}': SITE_CONFIG_QUERY_RESULT;
     '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_QUERY_RESULT;
     '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12] {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_RECENT_QUERY_RESULT;
+    '*[_type == "experience"] | order(orderRank) {\n  _id,\n  icon,\n  company,\n  role,\n  description,\n  timeframe\n}': EXPERIENCE_LIST_QUERY_RESULT;
+    '{\n    "home": *[_id == "configuration"][0]{\n      "slug": homePage->slug.current,\n      "updatedAt": homePage->_updatedAt\n    },\n    "pages": *[_type == "page" && defined(slug.current)]{\n      "slug": slug.current,\n      _updatedAt\n    },\n    "notes": *[_type == "notes" && defined(slug.current)]{\n      "slug": slug.current,\n      _updatedAt\n    }\n  }': SITEMAP_QUERY_RESULT;
   }
 }
