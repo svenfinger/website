@@ -19,7 +19,7 @@ export function Footer({ menuItems }: { menuItems: FooterMenuItem[] }) {
             <li key={item._id}>
               <Link
                 href={`/${item.slug!.current}`}
-                className="text-foreground-secondary hover:text-interactive-primary-hover"
+                className="text-foreground-secondary hover:text-interactive-primary-hover underline decoration-border-default decoration-[1.5px] underline-offset-[2.5px] hover:decoration-foreground-secondary"
               >
                 {item.title ?? item.slug!.current}
               </Link>

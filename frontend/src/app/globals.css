@@ -77,6 +77,7 @@
 
 /* ---------- Runtime semantic values: light ---------- */
 :root {
+  color-scheme: light dark;
   --background: var(--color-gray-100);
   --foreground-primary: var(--color-gray-950);
   --foreground-secondary: var(--color-gray-600);
@@ -106,6 +107,27 @@
     --interactive-tertiary-hover: var(--color-gray-800);
     --border-default: var(--color-gray-600);
     --border-subtle: var(--color-gray-700);
+  }
+}
+
+/* ---------- Accessibility: focus + motion ---------- */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid var(--color-interactive-primary-default);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

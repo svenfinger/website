@@ -94,7 +94,12 @@ export function ExperienceBlock({
           className="inline-flex items-center gap-1 font-medium text-interactive-primary-default hover:text-interactive-primary-hover"
         >
           {value.link.label}
-          <PhosphorIcon name="CaretRight" weight="bold" className="w-3.5 h-3.5 relative top-[1.5px]" />
+          <PhosphorIcon
+            name="CaretRight"
+            weight="bold"
+            className="w-3.5 h-3.5 relative top-[1.5px]"
+            aria-hidden
+          />
         </Link>
       ) : null}
     </section>

@@ -44,7 +44,10 @@ const inter = Inter({
 });
 
 const defaultMetadata: Metadata = {
-  title: "Sven Finger",
+  title: {
+    default: "Sven Finger",
+    template: "%s — Sven Finger",
+  },
   description: "Full-Stack Design Engineer",
 };
 

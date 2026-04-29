@@ -23,6 +23,8 @@ export function Page({ title, body, lead, children, isHome = false }: PageProps)
       {lead}
       {showTitle ? (
         <h1 className="text-5xl mb-12 font-serif pb-6 border-b border-border-subtle">{title}</h1>
+      ) : isHome && title ? (
+        <h1 className="sr-only">{title}</h1>
       ) : null}
       {body ? (
         <div className={`editor${isHome ? " " : ""}`}>
