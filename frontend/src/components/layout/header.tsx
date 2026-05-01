@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { PhosphorIcon } from "../icons/phosphor-icon";
+import Link from 'next/link'
+import {usePathname} from 'next/navigation'
+import {PhosphorIcon} from '../icons/phosphor-icon'
 
 export function Header() {
-  const pathname = usePathname();
-  const isHome = pathname === "/";
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
-  if (isHome) return null;
+  if (isHome) return null
 
   return (
     <header className="my-12 md:my-24">
@@ -27,5 +27,5 @@ export function Header() {
         </Link>
       </nav>
     </header>
-  );
+  )
 }

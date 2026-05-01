@@ -12,325 +12,325 @@
  * ---------------------------------------------------------------------------------
  */
 
-export declare const internalGroqTypeReferenceTo: unique symbol;
+export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: schema.json
 export type Link = {
-  label?: string;
-  url?: string;
-};
+  label?: string
+  url?: string
+}
 
 export type ExperienceBlockLink = {
-  label?: string;
-  url?: string;
-};
+  label?: string
+  url?: string
+}
 
 export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+}
 
 export type PageBody = Array<
   | {
       children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-      listItem?: "bullet";
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote'
+      listItem?: 'bullet'
       markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
+        href?: string
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
     }
   | {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-      _key: string;
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+      _key: string
     }
   | ({
-      _key: string;
+      _key: string
     } & IntroBlock)
   | ({
-      _key: string;
+      _key: string
     } & NotesBlock)
   | ({
-      _key: string;
+      _key: string
     } & ExperienceBlock)
->;
+>
 
 export type NotesBlock = {
-  _type: "notesBlock";
-  behavior?: string;
-};
+  _type: 'notesBlock'
+  behavior?: string
+}
 
 export type Notes = {
-  _id: string;
-  _type: "notes";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
+  _id: string
+  _type: 'notes'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  slug?: Slug
   mainImage?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  publishedAt?: string;
-  body?: BlockContent;
-};
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  publishedAt?: string
+  body?: BlockContent
+}
 
 export type BlockContent = Array<
   | {
       children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-      listItem?: "bullet";
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote'
+      listItem?: 'bullet'
       markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
+        href?: string
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
     }
   | {
-      asset?: SanityImageAssetReference;
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-      _key: string;
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+      _key: string
     }
->;
+>
 
 export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
+  _type: 'sanity.imageCrop'
+  top?: number
+  bottom?: number
+  left?: number
+  right?: number
+}
 
 export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
+  _type: 'sanity.imageHotspot'
+  x?: number
+  y?: number
+  height?: number
+  width?: number
+}
 
 export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
+  _type: 'slug'
+  current?: string
+  source?: string
+}
 
 export type IntroBlock = {
-  _type: "introBlock";
+  _type: 'introBlock'
   image?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  eyebrow?: string;
-  heading?: string;
-  content?: BlockContent;
-  link?: Link;
-};
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  eyebrow?: string
+  heading?: string
+  content?: BlockContent
+  link?: Link
+}
 
 export type ExperienceBlock = {
-  _type: "experienceBlock";
-  heading?: string;
-  content?: BlockContent;
-  link?: ExperienceBlockLink;
-};
+  _type: 'experienceBlock'
+  heading?: string
+  content?: BlockContent
+  link?: ExperienceBlockLink
+}
 
 export type Experience = {
-  _id: string;
-  _type: "experience";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+  _id: string
+  _type: 'experience'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
   icon?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  company?: string;
-  role?: string;
-  description?: string;
-  timeframe?: string;
-  orderRank?: string;
-};
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  company?: string
+  role?: string
+  description?: string
+  timeframe?: string
+  orderRank?: string
+}
 
 export type PageReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "page";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'page'
+}
 
 export type Configuration = {
-  _id: string;
-  _type: "configuration";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  siteTitle?: string;
-  siteDescription?: string;
+  _id: string
+  _type: 'configuration'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  siteTitle?: string
+  siteDescription?: string
   socialProfiles?: Array<{
-    platform?: "github" | "x" | "linkedin" | "dribbble";
-    url?: string;
-    _type: "socialProfile";
-    _key: string;
-  }>;
-  homePage?: PageReference;
+    platform?: 'github' | 'x' | 'linkedin' | 'dribbble'
+    url?: string
+    _type: 'socialProfile'
+    _key: string
+  }>
+  homePage?: PageReference
   footerMenu?: Array<
     {
-      _key: string;
+      _key: string
     } & PageReference
-  >;
+  >
   socialShareImage?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-};
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+}
 
 export type Page = {
-  _id: string;
-  _type: "page";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  body?: PageBody;
-};
+  _id: string
+  _type: 'page'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  slug?: Slug
+  body?: PageBody
+}
 
 export type SanityImagePaletteSwatch = {
-  _type: "sanity.imagePaletteSwatch";
-  background?: string;
-  foreground?: string;
-  population?: number;
-  title?: string;
-};
+  _type: 'sanity.imagePaletteSwatch'
+  background?: string
+  foreground?: string
+  population?: number
+  title?: string
+}
 
 export type SanityImagePalette = {
-  _type: "sanity.imagePalette";
-  darkMuted?: SanityImagePaletteSwatch;
-  lightVibrant?: SanityImagePaletteSwatch;
-  darkVibrant?: SanityImagePaletteSwatch;
-  vibrant?: SanityImagePaletteSwatch;
-  dominant?: SanityImagePaletteSwatch;
-  lightMuted?: SanityImagePaletteSwatch;
-  muted?: SanityImagePaletteSwatch;
-};
+  _type: 'sanity.imagePalette'
+  darkMuted?: SanityImagePaletteSwatch
+  lightVibrant?: SanityImagePaletteSwatch
+  darkVibrant?: SanityImagePaletteSwatch
+  vibrant?: SanityImagePaletteSwatch
+  dominant?: SanityImagePaletteSwatch
+  lightMuted?: SanityImagePaletteSwatch
+  muted?: SanityImagePaletteSwatch
+}
 
 export type SanityImageDimensions = {
-  _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
-};
+  _type: 'sanity.imageDimensions'
+  height?: number
+  width?: number
+  aspectRatio?: number
+}
 
 export type SanityImageMetadata = {
-  _type: "sanity.imageMetadata";
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  thumbHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
-};
+  _type: 'sanity.imageMetadata'
+  location?: Geopoint
+  dimensions?: SanityImageDimensions
+  palette?: SanityImagePalette
+  lqip?: string
+  blurHash?: string
+  thumbHash?: string
+  hasAlpha?: boolean
+  isOpaque?: boolean
+}
 
 export type SanityFileAsset = {
-  _id: string;
-  _type: "sanity.fileAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
-};
+  _id: string
+  _type: 'sanity.fileAsset'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  originalFilename?: string
+  label?: string
+  title?: string
+  description?: string
+  altText?: string
+  sha1hash?: string
+  extension?: string
+  mimeType?: string
+  size?: number
+  assetId?: string
+  uploadId?: string
+  path?: string
+  url?: string
+  source?: SanityAssetSourceData
+}
 
 export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
-};
+  _type: 'sanity.assetSourceData'
+  name?: string
+  id?: string
+  url?: string
+}
 
 export type SanityImageAsset = {
-  _id: string;
-  _type: "sanity.imageAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  metadata?: SanityImageMetadata;
-  source?: SanityAssetSourceData;
-};
+  _id: string
+  _type: 'sanity.imageAsset'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  originalFilename?: string
+  label?: string
+  title?: string
+  description?: string
+  altText?: string
+  sha1hash?: string
+  extension?: string
+  mimeType?: string
+  size?: number
+  assetId?: string
+  uploadId?: string
+  path?: string
+  url?: string
+  metadata?: SanityImageMetadata
+  source?: SanityAssetSourceData
+}
 
 export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
-};
+  _type: 'geopoint'
+  lat?: number
+  lng?: number
+  alt?: number
+}
 
 export type AllSanitySchemaTypes =
   | Link
@@ -356,88 +356,89 @@ export type AllSanitySchemaTypes =
   | SanityFileAsset
   | SanityAssetSourceData
   | SanityImageAsset
-  | Geopoint;
+  | Geopoint
 
 // Source: ../frontend/src/app/(site)/[slug]/page.tsx
 // Variable: PAGE_BY_SLUG_QUERY
 // Query: *[_type == "page" && slug.current == $slug][0]{    title,    slug,    body  }
 export type PAGE_BY_SLUG_QUERY_RESULT = {
-  title: string | null;
-  slug: Slug | null;
-  body: PageBody | null;
-} | null;
+  title: string | null
+  slug: Slug | null
+  body: PageBody | null
+} | null
 
 // Source: ../frontend/src/app/(site)/note/[slug]/page.tsx
 // Variable: NOTE_BY_SLUG_QUERY
 // Query: *[_type == "notes" && slug.current == $slug][0]{    _type,    title,    slug,    publishedAt,    mainImage,    body  }
 export type NOTE_BY_SLUG_QUERY_RESULT = {
-  _type: "notes";
-  title: string | null;
-  slug: Slug | null;
-  publishedAt: string | null;
+  _type: 'notes'
+  title: string | null
+  slug: Slug | null
+  publishedAt: string | null
   mainImage: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-  body: BlockContent | null;
-} | null;
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  } | null
+  body: BlockContent | null
+} | null
 
 // Source: ../frontend/src/app/(site)/page.tsx
 // Variable: HOME_QUERY
 // Query: *[_id == "configuration"][0]{  homePage->{    title,    slug,    body  }}
 export type HOME_QUERY_RESULT =
   | {
-      homePage: null;
+      homePage: null
     }
   | {
       homePage: {
-        title: string | null;
-        slug: Slug | null;
-        body: PageBody | null;
-      } | null;
+        title: string | null
+        slug: Slug | null
+        body: PageBody | null
+      } | null
     }
-  | null;
+  | null
 
 // Source: ../frontend/src/sanity/queries.ts
 // Variable: NOTES_LIST_QUERY
 // Query: *[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {  _id,  title,  slug,  publishedAt}
 export type NOTES_LIST_QUERY_RESULT = Array<{
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-  publishedAt: string | null;
-}>;
+  _id: string
+  title: string | null
+  slug: Slug | null
+  publishedAt: string | null
+}>
 
 // Source: ../frontend/src/sanity/queries.ts
 // Variable: NOTES_LIST_RECENT_QUERY
 // Query: *[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12] {  _id,  title,  slug,  publishedAt}
 export type NOTES_LIST_RECENT_QUERY_RESULT = Array<{
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-  publishedAt: string | null;
-}>;
+  _id: string
+  title: string | null
+  slug: Slug | null
+  publishedAt: string | null
+}>
 
 // Source: ../frontend/src/sanity/queries.ts
 // Variable: EXPERIENCE_LIST_QUERY
-// Query: *[_type == "experience"] | order(orderRank) {  _id,  icon,  company,  role,  description,  timeframe}
+// Query: *[_type == "experience"] | order(orderRank) {  _id,  icon{ asset, media, hotspot, crop, _type, "mimeType": asset->mimeType },  company,  role,  description,  timeframe}
 export type EXPERIENCE_LIST_QUERY_RESULT = Array<{
-  _id: string;
+  _id: string
   icon: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-  company: string | null;
-  role: string | null;
-  description: string | null;
-  timeframe: string | null;
-}>;
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+    mimeType?: string | null
+  } | null
+  company: string | null
+  role: string | null
+  description: string | null
+  timeframe: string | null
+}>
 
 // Source: ../frontend/src/sanity/queries.ts
 // Variable: SITEMAP_QUERY
@@ -445,68 +446,68 @@ export type EXPERIENCE_LIST_QUERY_RESULT = Array<{
 export type SITEMAP_QUERY_RESULT = {
   home:
     | {
-        slug: null;
-        updatedAt: null;
+        slug: null
+        updatedAt: null
       }
     | {
-        slug: string | null;
-        updatedAt: string | null;
+        slug: string | null
+        updatedAt: string | null
       }
-    | null;
+    | null
   pages: Array<{
-    slug: string | null;
-    _updatedAt: string;
-  }>;
+    slug: string | null
+    _updatedAt: string
+  }>
   notes: Array<{
-    slug: string | null;
-    _updatedAt: string;
-  }>;
-};
+    slug: string | null
+    _updatedAt: string
+  }>
+}
 
 // Source: ../frontend/src/sanity/site-config.ts
 // Variable: SITE_CONFIG_QUERY
 // Query: *[_id == "configuration"][0]{  siteTitle,  siteDescription,  footerMenu[]->{    _id,    title,    slug  },  socialShareImage{    asset,    alt,    hotspot,    crop  },  socialProfiles[]{    _key,    platform,    url  }}
 export type SITE_CONFIG_QUERY_RESULT =
   | {
-      siteTitle: null;
-      siteDescription: null;
-      footerMenu: null;
-      socialShareImage: null;
-      socialProfiles: null;
+      siteTitle: null
+      siteDescription: null
+      footerMenu: null
+      socialShareImage: null
+      socialProfiles: null
     }
   | {
-      siteTitle: string | null;
-      siteDescription: string | null;
+      siteTitle: string | null
+      siteDescription: string | null
       footerMenu: Array<{
-        _id: string;
-        title: string | null;
-        slug: Slug | null;
-      }> | null;
+        _id: string
+        title: string | null
+        slug: Slug | null
+      }> | null
       socialShareImage: {
-        asset: SanityImageAssetReference | null;
-        alt: string | null;
-        hotspot: SanityImageHotspot | null;
-        crop: SanityImageCrop | null;
-      } | null;
+        asset: SanityImageAssetReference | null
+        alt: string | null
+        hotspot: SanityImageHotspot | null
+        crop: SanityImageCrop | null
+      } | null
       socialProfiles: Array<{
-        _key: string;
-        platform: "dribbble" | "github" | "linkedin" | "x" | null;
-        url: string | null;
-      }> | null;
+        _key: string
+        platform: 'dribbble' | 'github' | 'linkedin' | 'x' | null
+        url: string | null
+      }> | null
     }
-  | null;
+  | null
 
 // Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
+import '@sanity/client'
+declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "page" && slug.current == $slug][0]{\n    title,\n    slug,\n    body\n  }': PAGE_BY_SLUG_QUERY_RESULT;
-    '*[_type == "notes" && slug.current == $slug][0]{\n    _type,\n    title,\n    slug,\n    publishedAt,\n    mainImage,\n    body\n  }': NOTE_BY_SLUG_QUERY_RESULT;
-    '*[_id == "configuration"][0]{\n  homePage->{\n    title,\n    slug,\n    body\n  }\n}': HOME_QUERY_RESULT;
-    '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_QUERY_RESULT;
-    '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12] {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_RECENT_QUERY_RESULT;
-    '*[_type == "experience"] | order(orderRank) {\n  _id,\n  icon,\n  company,\n  role,\n  description,\n  timeframe\n}': EXPERIENCE_LIST_QUERY_RESULT;
-    '{\n    "home": *[_id == "configuration"][0]{\n      "slug": homePage->slug.current,\n      "updatedAt": homePage->_updatedAt\n    },\n    "pages": *[_type == "page" && defined(slug.current)]{\n      "slug": slug.current,\n      _updatedAt\n    },\n    "notes": *[_type == "notes" && defined(slug.current)]{\n      "slug": slug.current,\n      _updatedAt\n    }\n  }': SITEMAP_QUERY_RESULT;
-    '*[_id == "configuration"][0]{\n  siteTitle,\n  siteDescription,\n  footerMenu[]->{\n    _id,\n    title,\n    slug\n  },\n  socialShareImage{\n    asset,\n    alt,\n    hotspot,\n    crop\n  },\n  socialProfiles[]{\n    _key,\n    platform,\n    url\n  }\n}': SITE_CONFIG_QUERY_RESULT;
+    '*[_type == "page" && slug.current == $slug][0]{\n    title,\n    slug,\n    body\n  }': PAGE_BY_SLUG_QUERY_RESULT
+    '*[_type == "notes" && slug.current == $slug][0]{\n    _type,\n    title,\n    slug,\n    publishedAt,\n    mainImage,\n    body\n  }': NOTE_BY_SLUG_QUERY_RESULT
+    '*[_id == "configuration"][0]{\n  homePage->{\n    title,\n    slug,\n    body\n  }\n}': HOME_QUERY_RESULT
+    '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_QUERY_RESULT
+    '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12] {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_RECENT_QUERY_RESULT
+    '*[_type == "experience"] | order(orderRank) {\n  _id,\n  icon{\n    asset,\n    media,\n    hotspot,\n    crop,\n    _type,\n    "mimeType": asset->mimeType\n  },\n  company,\n  role,\n  description,\n  timeframe\n}': EXPERIENCE_LIST_QUERY_RESULT
+    '{\n    "home": *[_id == "configuration"][0]{\n      "slug": homePage->slug.current,\n      "updatedAt": homePage->_updatedAt\n    },\n    "pages": *[_type == "page" && defined(slug.current)]{\n      "slug": slug.current,\n      _updatedAt\n    },\n    "notes": *[_type == "notes" && defined(slug.current)]{\n      "slug": slug.current,\n      _updatedAt\n    }\n  }': SITEMAP_QUERY_RESULT
+    '*[_id == "configuration"][0]{\n  siteTitle,\n  siteDescription,\n  footerMenu[]->{\n    _id,\n    title,\n    slug\n  },\n  socialShareImage{\n    asset,\n    alt,\n    hotspot,\n    crop\n  },\n  socialProfiles[]{\n    _key,\n    platform,\n    url\n  }\n}': SITE_CONFIG_QUERY_RESULT
   }
 }

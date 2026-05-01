@@ -1,6 +1,6 @@
-import { defineQuery } from "next-sanity";
-import { cache } from "react";
-import { client } from "@/sanity/client";
+import {defineQuery} from 'next-sanity'
+import {cache} from 'react'
+import {client} from '@/sanity/client'
 
 export const SITE_CONFIG_QUERY = defineQuery(`*[_id == "configuration"][0]{
   siteTitle,
@@ -21,8 +21,8 @@ export const SITE_CONFIG_QUERY = defineQuery(`*[_id == "configuration"][0]{
     platform,
     url
   }
-}`);
+}`)
 
 export const getSiteConfig = cache(() =>
-  client.fetch(SITE_CONFIG_QUERY, {}, { next: { revalidate: 30 } }),
-);
+  client.fetch(SITE_CONFIG_QUERY, {}, {next: {revalidate: 30}}),
+)

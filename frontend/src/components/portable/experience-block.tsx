@@ -1,32 +1,76 @@
-import Image from "next/image";
-import Link from "next/link";
-import type { PortableTextComponents } from "next-sanity";
-import { PortableText } from "next-sanity";
-import { PhosphorIcon } from "@/components/icons/phosphor-icon";
-import { urlFor } from "@/sanity/image";
-import type {
-  EXPERIENCE_LIST_QUERY_RESULT,
-  ExperienceBlock as ExperienceBlockFields,
-} from "../../../sanity.types";
+import Image from 'next/image'
+import Link from 'next/link'
+import type {PortableTextComponents} from 'next-sanity'
+import {PortableText} from 'next-sanity'
+import {PhosphorIcon} from '@/components/icons/phosphor-icon'
+import type {ExperienceRowWithSvg} from '@/sanity/experience-svg-markup'
+import {urlFor} from '@/sanity/image'
+import type {ExperienceBlock as ExperienceBlockFields} from '../../../sanity.types'
 
-export type ExperienceBlockValue = ExperienceBlockFields & { _key: string };
-type ExperienceRow = EXPERIENCE_LIST_QUERY_RESULT[number];
+export type ExperienceBlockValue = ExperienceBlockFields & {_key: string}
+type ExperienceRow = ExperienceRowWithSvg
+
+function ExperienceIcon({
+  icon,
+  label,
+  svgInlineMarkup,
+}: {
+  icon: NonNullable<ExperienceRow['icon']>
+  label: string
+  svgInlineMarkup?: string | null
+}) {
+  const rasterUrl = urlFor(icon).width(96).auto('format').url()
+  const isSvgIcon = icon.mimeType === 'image/svg+xml'
+
+  if (svgInlineMarkup) {
+    return (
+      <span
+        className="text-foreground-primary block h-full w-full [&>svg]:block [&>svg]:h-full [&>svg]:w-full [&>svg]:max-h-full [&>svg]:max-w-full [&>svg]:shrink-0"
+        dangerouslySetInnerHTML={{__html: svgInlineMarkup}}
+      />
+    )
+  }
+
+  if (isSvgIcon) {
+    const svgUrl = urlFor(icon).width(96).url()
+    const maskCss = `url(${JSON.stringify(svgUrl)})`
+    return (
+      <div
+        className="bg-current text-foreground-primary mask-center mask-contain mask-no-repeat block h-full w-full rounded-full"
+        style={{
+          WebkitMaskImage: maskCss,
+          maskImage: maskCss,
+        }}
+      />
+    )
+  }
+
+  return (
+    <Image
+      src={rasterUrl}
+      alt={label}
+      width={96}
+      height={96}
+      className="h-full w-full rounded-full"
+    />
+  )
+}
 
 export function ExperienceBlock({
   value,
   experiences,
   components,
 }: {
-  value: ExperienceBlockValue;
-  experiences: ExperienceRow[] | null;
-  components: PortableTextComponents;
+  value: ExperienceBlockValue
+  experiences: ExperienceRowWithSvg[] | null
+  components: PortableTextComponents
 }) {
-  const list = experiences ?? [];
+  const list = experiences ?? []
 
   return (
     <section
       className="py-12 md:py-24"
-      aria-labelledby={value.heading ? "experience-block-heading" : undefined}
+      aria-labelledby={value.heading ? 'experience-block-heading' : undefined}
     >
       {value.heading ? (
         <h2
@@ -46,15 +90,13 @@ export function ExperienceBlock({
               <li key={experience._id} className="flex flex-col gap-6 md:flex-row">
                 {experience.icon?.asset?._ref ? (
                   <div
-                    className="border-border-subtle h-12 w-12 shrink-0 rounded-xl border"
+                    className="border-border-subtle h-12 w-12 shrink-0 rounded-xl border mt-0.5"
                     aria-hidden
                   >
-                    <Image
-                      src={urlFor(experience.icon).width(96).auto("format").url()}
-                      alt={experience.company || ""}
-                      width={96}
-                      height={96}
-                      className="h-full w-full rounded-full"
+                    <ExperienceIcon
+                      icon={experience.icon}
+                      label={experience.company || ''}
+                      svgInlineMarkup={experience.svgInlineMarkup}
                     />
                   </div>
                 ) : (
@@ -105,5 +147,5 @@ export function ExperienceBlock({
         </Link>
       ) : null}
     </section>
-  );
+  )
 }

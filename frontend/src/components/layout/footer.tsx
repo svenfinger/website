@@ -1,14 +1,14 @@
-import Link from "next/link";
-import type { Slug } from "../../../sanity.types";
+import Link from 'next/link'
+import type {Slug} from '../../../sanity.types'
 
 export type FooterMenuItem = {
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-};
+  _id: string
+  title: string | null
+  slug: Slug | null
+}
 
-export function Footer({ menuItems }: { menuItems: FooterMenuItem[] }) {
-  const links = menuItems.filter((item) => item.slug?.current);
+export function Footer({menuItems}: {menuItems: FooterMenuItem[]}) {
+  const links = menuItems.filter((item) => item.slug?.current)
 
   return (
     <footer className="text-foreground-secondary my-12 pt-6 md:my-24">
@@ -28,5 +28,5 @@ export function Footer({ menuItems }: { menuItems: FooterMenuItem[] }) {
         </ul>
       </nav>
     </footer>
-  );
+  )
 }

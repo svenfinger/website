@@ -1,10 +1,10 @@
-import Link from "next/link";
-import type { NOTES_LIST_QUERY_RESULT } from "../../../sanity.types";
+import Link from 'next/link'
+import type {NOTES_LIST_QUERY_RESULT} from '../../../sanity.types'
 
-type NoteRow = NOTES_LIST_QUERY_RESULT[number];
+type NoteRow = NOTES_LIST_QUERY_RESULT[number]
 
-export function NotesBlock({ notes }: { notes: NoteRow[] | null }) {
-  const list = notes ?? [];
+export function NotesBlock({notes}: {notes: NoteRow[] | null}) {
+  const list = notes ?? []
 
   return (
     <section className="not-editor py-12 md:py-24" aria-labelledby="notes-block-heading">
@@ -27,10 +27,10 @@ export function NotesBlock({ notes }: { notes: NoteRow[] | null }) {
                 <h3 className="grow">{note.title}</h3>
                 {note.publishedAt ? (
                   <time dateTime={note.publishedAt}>
-                    {new Date(note.publishedAt).toLocaleDateString("en-GB", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
+                    {new Date(note.publishedAt).toLocaleDateString('en-GB', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
                     })}
                   </time>
                 ) : null}
@@ -40,5 +40,5 @@ export function NotesBlock({ notes }: { notes: NoteRow[] | null }) {
         </ul>
       )}
     </section>
-  );
+  )
 }

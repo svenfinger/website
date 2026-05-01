@@ -1,12 +1,12 @@
-import { Footer, type FooterMenuItem } from "./footer";
-import { Header } from "./header";
+import {Footer, type FooterMenuItem} from './footer'
+import {Header} from './header'
 
 export function SiteLayout({
   children,
   footerMenu,
 }: {
-  children: React.ReactNode;
-  footerMenu: FooterMenuItem[];
+  children: React.ReactNode
+  footerMenu: FooterMenuItem[]
 }) {
   return (
     <div className="mx-auto w-full max-w-2xl px-6 py-12 md:py-24">
@@ -22,5 +22,5 @@ export function SiteLayout({
       </main>
       <Footer menuItems={footerMenu} />
     </div>
-  );
+  )
 }

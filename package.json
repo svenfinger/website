@@ -1,0 +1,14 @@
+{
+  "name": "website",
+  "private": true,
+  "scripts": {
+    "lint": "pnpm lint:frontend && pnpm lint:studio",
+    "lint:frontend": "pnpm -C frontend lint",
+    "lint:studio": "pnpm -C studio lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3"
+  }
+}

@@ -1,11 +1,9 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  /* ---------- Fonts ---------- */
   --font-sans: var(--font-inter);
   --font-serif: var(--font-instrument-serif);
 
-  /* ---------- Gray palette (neutral) ---------- */
   --color-gray-50: oklch(98.7% 0.002 197.1);
   --color-gray-100: oklch(96.3% 0.002 197.1);
   --color-gray-200: oklch(92.5% 0.005 214.3);
@@ -18,7 +16,6 @@
   --color-gray-900: oklch(21.8% 0.008 223.9);
   --color-gray-950: oklch(14.8% 0.004 228.8);
 
-  /* ---------- Blue palette (sky) ---------- */
   --color-blue-50: oklch(97.7% 0.013 236.62);
   --color-blue-100: oklch(95.1% 0.026 236.824);
   --color-blue-200: oklch(90.1% 0.058 230.902);
@@ -31,7 +28,6 @@
   --color-blue-900: oklch(39.1% 0.09 240.876);
   --color-blue-950: oklch(29.3% 0.066 243.157);
 
-  /* ---------- Typography scale ---------- */
   --font-size-headline-xl: var(--text-5xl);
   --line-height-headline-xl: var(--text-5xl--line-height);
   --letter-spacing-headline-xl: var(--tracking-tighter);
@@ -60,7 +56,6 @@
   --line-height-body-sm: var(--text-sm--line-height);
   --letter-spacing-body-sm: var(--tracking-normal);
 
-  /* ---------- Semantic color tokens (mapped to runtime vars below) ---------- */
   --color-background: var(--background);
   --color-foreground-primary: var(--foreground-primary);
   --color-foreground-secondary: var(--foreground-secondary);
@@ -75,7 +70,6 @@
   --color-border-subtle: var(--border-subtle);
 }
 
-/* ---------- Runtime semantic values: light ---------- */
 :root {
   color-scheme: light dark;
   --background: var(--color-gray-100);
@@ -92,7 +86,6 @@
   --border-subtle: var(--color-gray-300);
 }
 
-/* ---------- Runtime semantic values: dark ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--color-gray-900);
@@ -110,11 +103,10 @@
   }
 }
 
-/* ---------- Accessibility: focus + motion ---------- */
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible,
-[tabindex]:not([tabindex="-1"]):focus-visible {
+[tabindex]:not([tabindex='-1']):focus-visible {
   outline: 2px solid var(--color-interactive-primary-default);
   outline-offset: 2px;
   border-radius: 2px;

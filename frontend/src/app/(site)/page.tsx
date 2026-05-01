@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { defineQuery } from "next-sanity";
-import { Page } from "@/components/page";
-import { client } from "@/sanity/client";
-import { NOTES_LIST_RECENT_QUERY } from "@/sanity/queries";
-import type { HOME_QUERY_RESULT, NOTES_LIST_RECENT_QUERY_RESULT } from "../../../sanity.types";
+import Link from 'next/link'
+import {defineQuery} from 'next-sanity'
+import {Page} from '@/components/page'
+import {client} from '@/sanity/client'
+import {NOTES_LIST_RECENT_QUERY} from '@/sanity/queries'
+import type {HOME_QUERY_RESULT, NOTES_LIST_RECENT_QUERY_RESULT} from '../../../sanity.types'
 
 const HOME_QUERY = defineQuery(`*[_id == "configuration"][0]{
   homePage->{
@@ -11,21 +11,21 @@ const HOME_QUERY = defineQuery(`*[_id == "configuration"][0]{
     slug,
     body
   }
-}`);
+}`)
 
 export default async function Home() {
-  const home = await client.fetch<HOME_QUERY_RESULT>(HOME_QUERY, {}, { next: { revalidate: 30 } });
+  const home = await client.fetch<HOME_QUERY_RESULT>(HOME_QUERY, {}, {next: {revalidate: 30}})
 
-  const configured = home?.homePage;
+  const configured = home?.homePage
   if (configured?.title) {
-    return <Page isHome title={configured.title} body={configured.body} slug={configured.slug} />;
+    return <Page isHome title={configured.title} body={configured.body} slug={configured.slug} />
   }
 
   const notes = await client.fetch<NOTES_LIST_RECENT_QUERY_RESULT>(
     NOTES_LIST_RECENT_QUERY,
     {},
-    { next: { revalidate: 30 } },
-  );
+    {next: {revalidate: 30}},
+  )
 
   return (
     <Page
@@ -53,5 +53,5 @@ export default async function Home() {
         ))}
       </ul>
     </Page>
-  );
+  )
 }

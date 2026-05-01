@@ -1,22 +1,22 @@
-import Image from "next/image";
-import { PortableBody } from "@/sanity/portable-body";
-import { urlFor } from "@/sanity/image";
-import type { NOTE_BY_SLUG_QUERY_RESULT } from "../../sanity.types";
+import Image from 'next/image'
+import {PortableBody} from '@/sanity/portable-body'
+import {urlFor} from '@/sanity/image'
+import type {NOTE_BY_SLUG_QUERY_RESULT} from '../../sanity.types'
 
-type NoteDoc = NonNullable<NOTE_BY_SLUG_QUERY_RESULT>;
+type NoteDoc = NonNullable<NOTE_BY_SLUG_QUERY_RESULT>
 
 /** Renders a Sanity `notes` document at `/note/[slug]`. */
-export function Note({ doc }: { doc: NoteDoc }) {
+export function Note({doc}: {doc: NoteDoc}) {
   return (
     <>
       <h1 className="mb-8 font-serif text-5xl">{doc.title}</h1>
       {doc.mainImage && (
         <Image
           src={urlFor(doc.mainImage).width(1248).url()}
-          alt={doc.title || ""}
+          alt={doc.title || ''}
           width={624}
           height={351}
-          className="mb-12 w-full rounded-lg"
+          className="mb-12 w-full rounded-xl"
           loading="eager"
         />
       )}
@@ -24,14 +24,14 @@ export function Note({ doc }: { doc: NoteDoc }) {
       {doc.publishedAt && (
         <div className="mb-24">
           <time className="text-foreground-secondary" dateTime={doc.publishedAt}>
-            {new Date(doc.publishedAt).toLocaleDateString("en-GB", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
+            {new Date(doc.publishedAt).toLocaleDateString('en-GB', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
             })}
           </time>
         </div>
       )}
     </>
-  );
+  )
 }
