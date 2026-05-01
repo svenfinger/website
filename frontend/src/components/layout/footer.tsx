@@ -11,7 +11,7 @@ export function Footer({ menuItems }: { menuItems: FooterMenuItem[] }) {
   const links = menuItems.filter((item) => item.slug?.current);
 
   return (
-    <footer className="border-t border-border-subtle text-foreground-secondary pt-6 my-12 md:my-24">
+    <footer className="text-foreground-secondary my-12 pt-6 md:my-24">
       <nav aria-label="Footer">
         <ul className="flex flex-wrap gap-x-6">
           <li>© {new Date().getFullYear()}</li>
@@ -19,7 +19,7 @@ export function Footer({ menuItems }: { menuItems: FooterMenuItem[] }) {
             <li key={item._id}>
               <Link
                 href={`/${item.slug!.current}`}
-                className="text-foreground-secondary hover:text-interactive-primary-hover underline decoration-border-default decoration-[1.5px] underline-offset-[2.5px] hover:decoration-foreground-secondary"
+                className="text-foreground-secondary hover:text-interactive-primary-hover decoration-border-default hover:decoration-foreground-secondary underline decoration-[1.5px] underline-offset-[2.5px]"
               >
                 {item.title ?? item.slug!.current}
               </Link>

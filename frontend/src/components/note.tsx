@@ -9,24 +9,26 @@ type NoteDoc = NonNullable<NOTE_BY_SLUG_QUERY_RESULT>;
 export function Note({ doc }: { doc: NoteDoc }) {
   return (
     <>
-      <h1 className="text-5xl font-serif mb-8">{doc.title}</h1>
+      <h1 className="mb-8 font-serif text-5xl">{doc.title}</h1>
       {doc.mainImage && (
         <Image
           src={urlFor(doc.mainImage).width(1248).url()}
           alt={doc.title || ""}
           width={624}
           height={351}
-          className="rounded-lg mb-12 w-full"
+          className="mb-12 w-full rounded-lg"
           loading="eager"
         />
       )}
-      <div className="editor mb-12">
-        {doc.body ? <PortableBody body={doc.body} /> : null}
-      </div>
+      <div className="editor mb-12">{doc.body ? <PortableBody body={doc.body} /> : null}</div>
       {doc.publishedAt && (
         <div className="mb-24">
           <time className="text-foreground-secondary" dateTime={doc.publishedAt}>
-            {new Date(doc.publishedAt).toLocaleDateString("en-GB", { year: "numeric", month: "short", day: "numeric" })}
+            {new Date(doc.publishedAt).toLocaleDateString("en-GB", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
           </time>
         </div>
       )}

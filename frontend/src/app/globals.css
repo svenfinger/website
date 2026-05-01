@@ -191,7 +191,7 @@ summary:focus-visible,
   .editor {
     & p:not(.not-editor p) {
       line-height: var(--leading-relaxed);
-      margin-bottom: --spacing(7);
+      margin-bottom: --spacing(6);
 
       & a {
         text-decoration: underline solid var(--color-border-default);

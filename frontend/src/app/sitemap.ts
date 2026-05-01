@@ -20,9 +20,7 @@ type SitemapQueryResult = {
 function getSiteUrl(): string {
   const raw = process.env.NEXT_PUBLIC_SITE_URL;
   if (!raw) {
-    throw new Error(
-      "NEXT_PUBLIC_SITE_URL must be set to generate the sitemap."
-    );
+    throw new Error("NEXT_PUBLIC_SITE_URL must be set to generate the sitemap.");
   }
   return raw.replace(/\/$/, "");
 }
@@ -33,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const data = await client.fetch<SitemapQueryResult>(
     SITEMAP_QUERY,
     {},
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 3600 } },
   );
 
   const homeSlug = data?.home?.slug ?? null;

@@ -7,10 +7,10 @@ export function NotesBlock({ notes }: { notes: NoteRow[] | null }) {
   const list = notes ?? [];
 
   return (
-    <section className="py-12 md:py-24 not-editor" aria-labelledby="notes-block-heading">
+    <section className="not-editor py-12 md:py-24" aria-labelledby="notes-block-heading">
       <h2
         id="notes-block-heading"
-        className="text-5xl font-serif pb-6 border-b border-border-subtle mb-12"
+        className="border-border-subtle mb-12 border-b pb-6 font-serif text-5xl"
       >
         Notes
       </h2>
@@ -24,12 +24,14 @@ export function NotesBlock({ notes }: { notes: NoteRow[] | null }) {
                 href={`/note/${note.slug?.current}`}
                 className="text-foreground-secondary hover:text-interactive-primary-hover flex gap-2"
               >
-                <h3 className="grow">
-                  {note.title}
-                </h3>
+                <h3 className="grow">{note.title}</h3>
                 {note.publishedAt ? (
                   <time dateTime={note.publishedAt}>
-                    {new Date(note.publishedAt).toLocaleDateString("en-GB", { year: "numeric", month: "short", day: "numeric" })}
+                    {new Date(note.publishedAt).toLocaleDateString("en-GB", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
                   </time>
                 ) : null}
               </Link>

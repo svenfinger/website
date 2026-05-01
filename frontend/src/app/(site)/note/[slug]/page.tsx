@@ -14,15 +14,15 @@ const NOTE_BY_SLUG_QUERY = defineQuery(
     publishedAt,
     mainImage,
     body
-  }`
+  }`,
 );
 
 const getNote = cache((slug: string) =>
   client.fetch<NOTE_BY_SLUG_QUERY_RESULT>(
     NOTE_BY_SLUG_QUERY,
     { slug },
-    { next: { revalidate: 30 } }
-  )
+    { next: { revalidate: 30 } },
+  ),
 );
 
 export async function generateMetadata({
@@ -35,11 +35,7 @@ export async function generateMetadata({
   return doc?.title ? { title: doc.title } : {};
 }
 
-export default async function NoteRoute({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function NoteRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const doc = await getNote(slug);
 

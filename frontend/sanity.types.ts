@@ -200,6 +200,14 @@ export type Configuration = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  siteTitle?: string;
+  siteDescription?: string;
+  socialProfiles?: Array<{
+    platform?: "github" | "x" | "linkedin" | "dribbble";
+    url?: string;
+    _type: "socialProfile";
+    _key: string;
+  }>;
   homePage?: PageReference;
   footerMenu?: Array<
     {
@@ -393,29 +401,6 @@ export type HOME_QUERY_RESULT =
     }
   | null;
 
-// Source: ../frontend/src/app/layout.tsx
-// Variable: SITE_CONFIG_QUERY
-// Query: *[_id == "configuration"][0]{  footerMenu[]->{    _id,    title,    slug  },  socialShareImage{    asset,    alt,    hotspot,    crop  }}
-export type SITE_CONFIG_QUERY_RESULT =
-  | {
-      footerMenu: null;
-      socialShareImage: null;
-    }
-  | {
-      footerMenu: Array<{
-        _id: string;
-        title: string | null;
-        slug: Slug | null;
-      }> | null;
-      socialShareImage: {
-        asset: SanityImageAssetReference | null;
-        alt: string | null;
-        hotspot: SanityImageHotspot | null;
-        crop: SanityImageCrop | null;
-      } | null;
-    }
-  | null;
-
 // Source: ../frontend/src/sanity/queries.ts
 // Variable: NOTES_LIST_QUERY
 // Query: *[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {  _id,  title,  slug,  publishedAt}
@@ -478,6 +463,39 @@ export type SITEMAP_QUERY_RESULT = {
   }>;
 };
 
+// Source: ../frontend/src/sanity/site-config.ts
+// Variable: SITE_CONFIG_QUERY
+// Query: *[_id == "configuration"][0]{  siteTitle,  siteDescription,  footerMenu[]->{    _id,    title,    slug  },  socialShareImage{    asset,    alt,    hotspot,    crop  },  socialProfiles[]{    _key,    platform,    url  }}
+export type SITE_CONFIG_QUERY_RESULT =
+  | {
+      siteTitle: null;
+      siteDescription: null;
+      footerMenu: null;
+      socialShareImage: null;
+      socialProfiles: null;
+    }
+  | {
+      siteTitle: string | null;
+      siteDescription: string | null;
+      footerMenu: Array<{
+        _id: string;
+        title: string | null;
+        slug: Slug | null;
+      }> | null;
+      socialShareImage: {
+        asset: SanityImageAssetReference | null;
+        alt: string | null;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+      } | null;
+      socialProfiles: Array<{
+        _key: string;
+        platform: "dribbble" | "github" | "linkedin" | "x" | null;
+        url: string | null;
+      }> | null;
+    }
+  | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -485,10 +503,10 @@ declare module "@sanity/client" {
     '*[_type == "page" && slug.current == $slug][0]{\n    title,\n    slug,\n    body\n  }': PAGE_BY_SLUG_QUERY_RESULT;
     '*[_type == "notes" && slug.current == $slug][0]{\n    _type,\n    title,\n    slug,\n    publishedAt,\n    mainImage,\n    body\n  }': NOTE_BY_SLUG_QUERY_RESULT;
     '*[_id == "configuration"][0]{\n  homePage->{\n    title,\n    slug,\n    body\n  }\n}': HOME_QUERY_RESULT;
-    '*[_id == "configuration"][0]{\n  footerMenu[]->{\n    _id,\n    title,\n    slug\n  },\n  socialShareImage{\n    asset,\n    alt,\n    hotspot,\n    crop\n  }\n}': SITE_CONFIG_QUERY_RESULT;
     '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc) {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_QUERY_RESULT;
     '*[_type == "notes" && defined(slug.current)] | order(publishedAt desc)[0...12] {\n  _id,\n  title,\n  slug,\n  publishedAt\n}': NOTES_LIST_RECENT_QUERY_RESULT;
     '*[_type == "experience"] | order(orderRank) {\n  _id,\n  icon,\n  company,\n  role,\n  description,\n  timeframe\n}': EXPERIENCE_LIST_QUERY_RESULT;
     '{\n    "home": *[_id == "configuration"][0]{\n      "slug": homePage->slug.current,\n      "updatedAt": homePage->_updatedAt\n    },\n    "pages": *[_type == "page" && defined(slug.current)]{\n      "slug": slug.current,\n      _updatedAt\n    },\n    "notes": *[_type == "notes" && defined(slug.current)]{\n      "slug": slug.current,\n      _updatedAt\n    }\n  }': SITEMAP_QUERY_RESULT;
+    '*[_id == "configuration"][0]{\n  siteTitle,\n  siteDescription,\n  footerMenu[]->{\n    _id,\n    title,\n    slug\n  },\n  socialShareImage{\n    asset,\n    alt,\n    hotspot,\n    crop\n  },\n  socialProfiles[]{\n    _key,\n    platform,\n    url\n  }\n}': SITE_CONFIG_QUERY_RESULT;
   }
 }

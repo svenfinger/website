@@ -22,7 +22,7 @@ export function Page({ title, body, lead, children, isHome = false }: PageProps)
     <>
       {lead}
       {showTitle ? (
-        <h1 className="text-5xl mb-12 font-serif pb-6 border-b border-border-subtle">{title}</h1>
+        <h1 className="border-border-subtle mb-12 border-b pb-6 font-serif text-5xl">{title}</h1>
       ) : isHome && title ? (
         <h1 className="sr-only">{title}</h1>
       ) : null}

@@ -11,15 +11,15 @@ const PAGE_BY_SLUG_QUERY = defineQuery(
     title,
     slug,
     body
-  }`
+  }`,
 );
 
 const getPage = cache((slug: string) =>
   client.fetch<PAGE_BY_SLUG_QUERY_RESULT>(
     PAGE_BY_SLUG_QUERY,
     { slug },
-    { next: { revalidate: 30 } }
-  )
+    { next: { revalidate: 30 } },
+  ),
 );
 
 export async function generateMetadata({
@@ -32,11 +32,7 @@ export async function generateMetadata({
   return doc?.title ? { title: doc.title } : {};
 }
 
-export default async function PageRoute({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function PageRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const doc = await getPage(slug);
 

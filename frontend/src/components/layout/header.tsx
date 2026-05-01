@@ -15,12 +15,12 @@ export function Header() {
       <nav aria-label="Site">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-interactive-primary-default hover:text-interactive-primary-hover"
+          className="text-interactive-primary-default hover:text-interactive-primary-hover inline-flex items-center gap-1.5"
         >
           <PhosphorIcon
             name="CaretLeft"
             weight="bold"
-            className="w-3.5 h-3.5 relative top-px"
+            className="relative top-px h-3.5 w-3.5"
             aria-hidden
           />
           Home
