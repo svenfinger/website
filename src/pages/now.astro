@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lastUpdated = 'June 2026';
+---
+
+<BaseLayout title="Now" description="What I'm focused on right now.">
+	<h1 class="text-3xl font-bold">Now</h1>
+	<p class="mt-4 text-foreground-secondary">
+		This is a <a
+			href="https://nownownow.com/about"
+			class="text-foreground-primary underline decoration-border-subtle underline-offset-2 transition-colors hover:decoration-foreground-primary"
+		>now page</a>. If my own site had one, it would look something like this.
+	</p>
+
+	<div class="mt-10 space-y-10">
+		<section>
+			<h2 class="text-xl font-semibold">Working on</h2>
+			<ul class="mt-3 list-disc space-y-2 pl-5 text-foreground-secondary">
+				<li>Building and refining this website</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 class="text-xl font-semibold">Learning</h2>
+			<ul class="mt-3 list-disc space-y-2 pl-5 text-foreground-secondary">
+				<li>Placeholder — add what you're learning</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 class="text-xl font-semibold">Reading</h2>
+			<ul class="mt-3 list-disc space-y-2 pl-5 text-foreground-secondary">
+				<li>Placeholder — add what you're reading</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 class="text-xl font-semibold">Living</h2>
+			<ul class="mt-3 list-disc space-y-2 pl-5 text-foreground-secondary">
+				<li>Placeholder — add where you are and what's going on</li>
+			</ul>
+		</section>
+	</div>
+
+	<p class="mt-12 text-sm text-foreground-secondary">
+		Last updated {lastUpdated}.
+	</p>
+</BaseLayout>
