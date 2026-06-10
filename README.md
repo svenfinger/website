@@ -1,6 +1,6 @@
 # Website
 
-Personal site built with [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com), and [MDX](https://mdxjs.com). Deployed to [Cloudflare Workers](https://workers.cloudflare.com).
+Personal portfolio built with [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com), and [MDX](https://mdxjs.com). Deployed to [Cloudflare Pages](https://pages.cloudflare.com).
 
 ## Requirements
 
@@ -39,8 +39,15 @@ src/
 
 ## Deployment
 
-The site uses the Cloudflare adapter. Build with `pnpm build`, then deploy with Wrangler:
+The site is a static build deployed via Cloudflare Pages. Connect the GitHub repo and use:
 
-```sh
-pnpm wrangler deploy
-```
+| Setting | Value |
+| --- | --- |
+| Framework preset | Astro |
+| Build command | `pnpm build` |
+| Build output directory | `dist` |
+| Production branch | `main` |
+
+Preview deploys run on pushes to `staging`. Production deploys run on merges to `main`.
+
+`wrangler` is kept as a dev dependency for future R2 media uploads (Phase 4).
