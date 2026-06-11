@@ -92,21 +92,15 @@ const themeEntries = lightTokens.map(({ cssVar }) => [
 const css = `/* Generated from Figma semantic tokens — run \`pnpm generate-tokens\` after updating src/tokens/semantics/ */
 /* Primitives live in Tailwind defaults; see src/tokens/primitives.json for the Figma reference export. */
 
-@custom-variant dark (
-	&:where([data-theme="dark"], [data-theme="dark"] *)
-);
-
 @theme inline {
 ${themeEntries.map(([name, value]) => `\t--color-${name}: ${value};`).join('\n')}
 }
 
-${formatBlock(':root, :root[data-theme="light"]', lightSemanticVars)}
+${formatBlock(':root', lightSemanticVars)}
 
 @media (prefers-color-scheme: dark) {
-${formatBlock('\t:root:not([data-theme="light"])', darkSemanticVars)}
+${formatBlock('\t:root', darkSemanticVars)}
 }
-
-${formatBlock(':root[data-theme="dark"]', darkSemanticVars)}
 `;
 
 writeFileSync(outputPath, css);

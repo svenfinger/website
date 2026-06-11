@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="About"
+	description="Design and engineering, end to end. Full-stack design engineer working across strategy, design, implementation, and maintenance."
+	mainClass="flex-1"
+>
+	<section class="border-b border-border-subtle px-6">
+		<div
+			class="mx-auto flex max-w-screen-2xl flex-col items-center justify-center gap-16 py-64 text-center"
+		>
+			<div class="relative size-80">
+				<img
+					src="/images/about-portrait.jpg"
+					alt="Sven Finger"
+					width="320"
+					height="320"
+					class="size-full rounded-tr-md rounded-bl-md object-cover"
+				/>
+				<div class="absolute top-0 left-0 size-4" aria-hidden="true">
+					<div class="grid grid-cols-2 size-4">
+						<div class="size-2"></div>
+						<div class="size-2 bg-background-primary"></div>
+						<div class="size-2 bg-background-primary"></div>
+						<div class="size-2"></div>
+					</div>
+				</div>
+				<div class="absolute right-0 bottom-0 size-4" aria-hidden="true">
+					<div class="grid grid-cols-2 size-4">
+						<div class="size-2"></div>
+						<div class="size-2 bg-background-primary"></div>
+						<div class="size-2 bg-background-primary"></div>
+						<div class="size-2"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex max-w-3xl flex-col gap-16">
+				<h1
+					class="font-display text-7xl leading-[72px] tracking-[-0.5px] text-foreground-primary"
+				>
+					Design and engineering, end to end.
+				</h1>
+				<p class="text-2xl leading-8 text-foreground-secondary">
+					Product work runs across a lot of stages — strategy, design, the implementation,
+					keeping it maintained. I run across the whole range instead of stopping at the edge
+					of a job title. Full-Stack Design Engineer is the short name for it: full stack in
+					both directions.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

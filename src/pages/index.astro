@@ -2,9 +2,24 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Home" description="Welcome to my website.">
-	<h1 class="text-3xl font-bold">Welcome</h1>
-	<p class="mt-4 text-foreground-secondary">
-		This is the home page. Explore selected work and projects from the navigation above.
-	</p>
+<BaseLayout
+	title="Home"
+	description="Full-stack design engineer building scalable, user-centered software."
+	mainClass="flex-1"
+>
+	<section class="border-b border-border-subtle px-6">
+		<div
+			class="mx-auto flex max-w-screen-2xl flex-col items-center justify-center gap-16 py-64 text-center"
+		>
+			<h1
+				class="max-w-5xl font-display text-9xl leading-[128px] tracking-[-0.5px] text-foreground-primary"
+			>
+				<span class="block">Full-Stack</span>
+				<span class="block">Design Engineer</span>
+			</h1>
+			<p class="max-w-2xl text-2xl leading-8 text-foreground-secondary">
+				Building scalable, user-centered software
+			</p>
+		</div>
+	</section>
 </BaseLayout>

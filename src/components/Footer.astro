@@ -1,9 +1,52 @@
 ---
 const year = new Date().getFullYear();
+
+const leftLinks = [{ href: '/colophon', label: 'Colophon' }];
+
+const rightLinks = [
+	{ href: '/privacy', label: 'Privacy' },
+	{ href: '/imprint', label: 'Imprint' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function isActive(href: string) {
+	const path = href.replace(/\/$/, '') || '/';
+	return currentPath === path;
+}
 ---
 
-<footer class="border-t border-border-subtle">
-	<div class="mx-auto max-w-3xl px-6 py-8">
-		<p class="text-sm text-foreground-secondary">&copy; {year} Website. All rights reserved.</p>
+<footer class="border-t border-border-subtle bg-background-primary px-6">
+	<div class="mx-auto flex max-w-screen-2xl items-center gap-6 py-6">
+		<div class="flex min-w-0 flex-1 items-center gap-12 text-base leading-6 text-foreground-secondary">
+			<p>&copy; {year} Sven Finger</p>
+			{leftLinks.map(({ href, label }) => (
+				<a
+					href={href}
+					class:list={[
+						'transition-colors hover:text-foreground-primary',
+						isActive(href) && 'text-foreground-primary',
+					]}
+					aria-current={isActive(href) ? 'page' : undefined}
+				>
+					{label}
+				</a>
+			))}
+		</div>
+
+		<div class="flex min-w-0 flex-1 items-center justify-end gap-12 text-base leading-6">
+			{rightLinks.map(({ href, label }) => (
+				<a
+					href={href}
+					class:list={[
+						'text-foreground-secondary transition-colors hover:text-foreground-primary',
+						isActive(href) && 'text-foreground-primary',
+					]}
+					aria-current={isActive(href) ? 'page' : undefined}
+				>
+					{label}
+				</a>
+			))}
+		</div>
 	</div>
 </footer>

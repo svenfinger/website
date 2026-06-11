@@ -29,7 +29,7 @@ Open [localhost:4321](http://localhost:4321).
 
 ```text
 src/
-├── components/   # Header, Footer, ThemeToggle
+├── components/   # Header, Footer
 ├── content/      # MDX content (work portfolio)
 ├── layouts/      # Page layouts
 ├── pages/        # Routes (/, /work, /now)

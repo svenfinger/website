@@ -6,9 +6,14 @@ import Header from '../components/Header.astro';
 interface Props {
 	title: string;
 	description?: string;
+	mainClass?: string;
 }
 
-const { title, description } = Astro.props;
+const {
+	title,
+	description,
+	mainClass = 'mx-auto w-full max-w-3xl flex-1 px-6 py-12',
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -22,23 +27,15 @@ const { title, description } = Astro.props;
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:opsz,wght@14..32,100..900&display=swap"
 			rel="stylesheet"
 		/>
 		{description && <meta name="description" content={description} />}
 		<title>{title}</title>
-		<script is:inline>
-			(() => {
-				const stored = localStorage.getItem('theme');
-				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-				document.documentElement.dataset.theme =
-					stored === 'light' || stored === 'dark' ? stored : prefersDark ? 'dark' : 'light';
-			})();
-		</script>
 	</head>
 	<body class="flex min-h-screen flex-col">
 		<Header />
-		<main class="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
+		<main class={mainClass}>
 			<slot />
 		</main>
 		<Footer />
