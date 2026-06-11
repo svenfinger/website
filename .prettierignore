@@ -1,0 +1,7 @@
+dist
+.astro
+node_modules
+pnpm-lock.yaml
+src/styles/tokens.css
+src/tokens/*.json
+src/tokens/semantics/*.json
