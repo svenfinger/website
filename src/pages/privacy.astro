@@ -1,7 +1,35 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import TextPageLayout from "../layouts/TextPageLayout.astro";
 ---
 
-<BaseLayout title="Privacy" description="Privacy policy.">
-  <h1 class="text-3xl font-bold">Privacy</h1>
-</BaseLayout>
+<TextPageLayout
+  title="Privacy Policy"
+  heading="Privacy Policy"
+  description="Privacy policy for svenfinger.co."
+>
+  <div class="flex flex-col gap-7">
+    <p>
+      I take the protection of your personal data very seriously. This privacy
+      policy explains what data is collected when you visit this website, how it
+      is used, and your rights regarding your data.
+    </p>
+    <p>
+      This website is operated by me, Sven Finger (contact via <a
+        href="mailto:hi@svenfinger.co">hi@svenfinger.co</a
+      >). It is hosted at Cloudflare and uses their DNS for security. Fonts are
+      served by Adobe Fonts. Media is hosted by Sanity. I also use CloudFlare Web
+      Analytics to improve the performance of my website.
+    </p>
+    <p>
+      These services may log your IP address and browser data to ensure
+      performance and protect against attacks. Besides that no tracking,
+      analytics, or cookies are used. All data that I can access is fully
+      anonymized. Please read the privacy policies of the services named above,
+      to understand how they use your data.
+    </p>
+    <p>
+      If you contact me, your email and message will only be used to reply to
+      you.
+    </p>
+  </div>
+</TextPageLayout>

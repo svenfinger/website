@@ -1,0 +1,28 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  heading?: string;
+}
+
+const { title, description, heading = title } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} mainClass="flex-1">
+  <section class="flex items-center justify-center px-6 py-64">
+    <div class="flex w-full max-w-[640px] flex-col gap-32">
+      <h1
+        class="font-display text-foreground-primary text-center text-7xl leading-[72px] tracking-[-0.5px]"
+      >
+        {heading}
+      </h1>
+      <div
+        class="text-foreground-primary text-lg leading-7 [&_a]:text-foreground-secondary [&_a]:decoration-border-subtle [&_a]:hover:decoration-foreground-primary [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors"
+      >
+        <slot />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

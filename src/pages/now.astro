@@ -2,49 +2,173 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const lastUpdated = "June 2026";
+const location = "Hamburg, Germany";
+
+const linkClass =
+  "text-foreground-secondary decoration-border-subtle hover:decoration-foreground-primary underline underline-offset-2 transition-colors";
+
+const externalLinkAttrs = {
+  target: "_blank",
+  rel: "noopener noreferrer",
+};
+
+const projectCardClass =
+  "border-border-subtle hover:bg-background-secondary flex items-start rounded-md border p-5 transition-colors";
+
+const projects = [
+  {
+    title: "OpenSkies",
+    description: "Free sky photos to download and use.",
+    href: "https://openskies.photos",
+    icon: "/images/now/openskies.svg",
+    iconClass: "size-10",
+  },
+  {
+    title: "Safari Favicon",
+    description:
+      "Researching Safari favicon behavior and building testing tools.",
+    href: "https://github.com/svenfinger/safari-favicon",
+    icon: "/images/now/safari-favicon.svg",
+    iconClass: "size-10",
+  },
+  {
+    title: "Personal Portfolio",
+    description: "Redesigning and rebuilding from scratch.",
+    href: "https://svenfinger.co",
+    icon: "/logo.svg",
+    iconClass: "size-8",
+  },
+  {
+    title: "Ambient",
+    description: "My first Figma plugin, allows to toggle page backgrounds.",
+    href: "https://www.figma.com/community/plugin/1641224666051612052/ambient",
+    icon: "/images/now/ambient.svg",
+    iconClass: "size-8",
+  },
+];
 ---
 
-<BaseLayout title="Now" description="What I'm focused on right now.">
-  <h1 class="text-3xl font-bold">Now</h1>
-  <p class="text-foreground-secondary mt-4">
-    This is a <a
-      href="https://nownownow.com/about"
-      class="text-foreground-primary decoration-border-subtle hover:decoration-foreground-primary underline underline-offset-2 transition-colors"
-      >now page</a
-    >. If my own site had one, it would look something like this.
-  </p>
+<BaseLayout
+  title="Now"
+  description="What I'm focused on right now."
+  mainClass="flex-1"
+>
+  <section class="px-6">
+    <div
+      class="mx-auto flex max-w-screen-2xl flex-col items-center gap-32 py-64"
+    >
+      <div class="flex w-full max-w-3xl flex-col items-center gap-32">
+        <h1
+          class="font-display text-foreground-primary text-center text-9xl leading-[128px] tracking-[-0.5px]"
+        >
+          Now
+        </h1>
 
-  <div class="mt-10 space-y-10">
-    <section>
-      <h2 class="text-xl font-semibold">Working on</h2>
-      <ul class="text-foreground-secondary mt-3 list-disc space-y-2 pl-5">
-        <li>Building and refining this website</li>
-      </ul>
-    </section>
+        <p class="text-foreground-secondary text-center text-2xl leading-8">
+          Updated {lastUpdated} · {location}
+        </p>
 
-    <section>
-      <h2 class="text-xl font-semibold">Learning</h2>
-      <ul class="text-foreground-secondary mt-3 list-disc space-y-2 pl-5">
-        <li>Placeholder — add what you're learning</li>
-      </ul>
-    </section>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="text-foreground-primary size-6"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M16 6.87867C16 7.14389 16.1054 7.39824 16.2929 7.58578L16.4142 7.70711C16.6018 7.89464 16.8561 8 17.1213 8H23C23.5523 8 24 8.44772 24 9V15C24 15.5523 23.5523 16 23 16H17.1201C16.8548 16 16.6005 16.1054 16.413 16.2929L16.2929 16.413C16.1054 16.6005 16 16.8548 16 17.1201V23C16 23.5523 15.5523 24 15 24H9C8.44772 24 8 23.5523 8 23V17.1213C8 16.8561 7.89464 16.6018 7.70711 16.4142L7.58578 16.2929C7.39824 16.1054 7.14389 16 6.87867 16H1C0.447715 16 0 15.5523 0 15V9C0 8.44772 0.447715 8 1 8H6.87623C7.14145 8 7.3958 7.89464 7.58334 7.70711L7.70711 7.58334C7.89464 7.3958 8 7.14145 8 6.87623V1C8 0.447715 8.44772 0 9 0H15C15.5523 0 16 0.447715 16 1V6.87867ZM8.29289 8.41178C8.10536 8.59931 8 8.85367 8 9.11889V14.8787C8 15.1439 8.10536 15.3982 8.29289 15.5858L8.41422 15.7071C8.60176 15.8946 8.85611 16 9.12133 16H14.8775C15.1427 16 15.397 15.8946 15.5846 15.7071L15.7071 15.5846C15.8946 15.397 16 15.1427 16 14.8775V9.12133C16 8.85611 15.8946 8.60176 15.7071 8.41422L15.5858 8.29289C15.3982 8.10536 15.1439 8 14.8787 8H9.11889C8.85367 8 8.59931 8.10536 8.41178 8.29289L8.29289 8.41178Z"
+            fill="currentColor"></path>
+        </svg>
 
-    <section>
-      <h2 class="text-xl font-semibold">Reading</h2>
-      <ul class="text-foreground-secondary mt-3 list-disc space-y-2 pl-5">
-        <li>Placeholder — add what you're reading</li>
-      </ul>
-    </section>
+        <section class="flex w-full flex-col gap-8">
+          <h2
+            class="font-display text-foreground-primary text-4xl leading-10 font-semibold"
+          >
+            Life
+          </h2>
+          <ul
+            class="text-foreground-secondary list-disc space-y-0 pl-[27px] text-lg leading-7"
+          >
+            <li>
+              Designing at <a
+                href="https://www.lucanet.com"
+                class={linkClass}
+                {...externalLinkAttrs}>Lucanet</a
+              > and pushing AI initiatives
+            </li>
+            <li>Experimenting a lot with AI personally</li>
+            <li>Trying out different food options and investing in health</li>
+            <li>Stopped smoking tobacco</li>
+          </ul>
+        </section>
 
-    <section>
-      <h2 class="text-xl font-semibold">Living</h2>
-      <ul class="text-foreground-secondary mt-3 list-disc space-y-2 pl-5">
-        <li>Placeholder — add where you are and what's going on</li>
-      </ul>
-    </section>
-  </div>
+        <section class="flex w-full flex-col gap-8">
+          <h2
+            class="font-display text-foreground-primary text-4xl leading-10 font-semibold"
+          >
+            Projects
+          </h2>
+          <ul class="flex w-full flex-col gap-3">
+            {
+              projects.map((project) => (
+                <li>
+                  <a
+                    href={project.href}
+                    class={projectCardClass}
+                    {...externalLinkAttrs}
+                  >
+                    <div class="flex w-10 shrink-0 items-center justify-center py-px">
+                      <img
+                        src={project.icon}
+                        alt=""
+                        width="40"
+                        height="40"
+                        class:list={[project.iconClass, "shrink-0"]}
+                      />
+                    </div>
+                    <div class="flex flex-1 flex-col justify-center px-6 text-lg leading-7">
+                      <p class="text-foreground-primary">{project.title}</p>
+                      <p class="text-foreground-secondary">
+                        {project.description}
+                      </p>
+                    </div>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+      </div>
 
-  <p class="text-foreground-secondary mt-12 text-sm">
-    Last updated {lastUpdated}.
-  </p>
+      <div class="relative aspect-video w-full max-w-5xl">
+        <img
+          src="/images/now/now.jpg"
+          alt="Concrete building with vertical windows against a cloudy sky"
+          width="1024"
+          height="576"
+          class="size-full object-cover object-[center_35%]"
+        />
+        <div class="absolute top-2 left-2 size-4" aria-hidden="true">
+          <div class="grid size-4 grid-cols-2">
+            <div class="size-2"></div>
+            <div class="bg-background-primary size-2"></div>
+            <div class="bg-background-primary size-2"></div>
+            <div class="size-2"></div>
+          </div>
+        </div>
+        <div class="absolute right-2 bottom-2 size-4" aria-hidden="true">
+          <div class="grid size-4 grid-cols-2">
+            <div class="size-2"></div>
+            <div class="bg-background-primary size-2"></div>
+            <div class="bg-background-primary size-2"></div>
+            <div class="size-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

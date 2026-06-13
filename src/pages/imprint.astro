@@ -1,7 +1,19 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import TextPageLayout from "../layouts/TextPageLayout.astro";
 ---
 
-<BaseLayout title="Imprint" description="Legal notice.">
-  <h1 class="text-3xl font-bold">Imprint</h1>
-</BaseLayout>
+<TextPageLayout title="Imprint" description="Legal notice.">
+  <div>
+    <p>Information according to § 5 TMG:</p>
+    <p>Sven Finger</p>
+    <p>Spitzbergenweg 20b</p>
+    <p>22145 Hamburg</p>
+    <p>Germany</p>
+    <p>
+      <a href="mailto:hi@svenfinger.de">hi@svenfinger.de</a>
+    </p>
+    <p class="mt-7">
+      Responsible for content according to § 55 Abs. 2 RStV: See above
+    </p>
+  </div>
+</TextPageLayout>
