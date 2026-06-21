@@ -19,7 +19,7 @@ const { title, description, heading = title } = Astro.props;
         {heading}
       </h1>
       <div
-        class="text-foreground-primary text-lg leading-7 [&_a]:text-foreground-secondary [&_a]:decoration-border-subtle [&_a]:hover:decoration-foreground-primary [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors"
+        class="text-foreground-primary [&_a]:text-foreground-secondary [&_a]:decoration-border-subtle [&_a]:hover:decoration-foreground-primary text-lg leading-7 [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors"
       >
         <slot />
       </div>
