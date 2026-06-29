@@ -18,6 +18,15 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
   {
+    files: ["**/*.astro"],
+    languageOptions: {
+      parserOptions: {
+        parser: tseslint.parser,
+        extraFileExtensions: [".astro"],
+      },
+    },
+  },
+  {
     languageOptions: {
       globals: {
         ...globals.browser,

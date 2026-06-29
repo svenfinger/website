@@ -1,5 +1,6 @@
-/* Generated from Figma semantic tokens — run `pnpm generate-tokens` after updating src/tokens/semantics/ */
-/* Primitives live in Tailwind defaults; see src/tokens/primitives.json for the Figma reference export. */
+/* Semantic color tokens synced from Figma (Design System → Semantics collection). */
+/* Hand-synced via the Figma MCP — see AGENTS.md "Syncing design tokens". Don't edit values by hand. */
+/* Primitive colors come from Tailwind defaults; semantics alias them through --color-* variables. */
 
 @theme inline {
 	--color-foreground-primary: var(--semantic-foreground-primary);

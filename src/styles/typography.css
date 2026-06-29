@@ -1,0 +1,75 @@
+/* Semantic text styles synced from Figma (Design System → Semantics/* text styles). */
+/* Hand-synced via the Figma MCP — see AGENTS.md "Syncing text styles". Don't edit values by hand. */
+/* Each utility bundles family, weight, size, line-height and tracking so it maps 1:1 to a Figma text style. */
+
+@utility text-headline-large {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.25rem; /* 36px */
+  line-height: 2.5rem; /* 40px */
+  letter-spacing: -0.25px;
+}
+
+@utility text-headline-medium {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.875rem; /* 30px */
+  line-height: 2.25rem; /* 36px */
+  letter-spacing: -0.25px;
+}
+
+@utility text-headline-small {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem; /* 24px */
+  line-height: 2.5rem; /* 40px */
+  letter-spacing: -0.25px;
+}
+
+@utility text-body-large {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1.5rem; /* 24px */
+  line-height: 2rem; /* 32px */
+  letter-spacing: 0;
+}
+
+@utility text-body-large-bold {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1.5rem; /* 24px */
+  line-height: 2rem; /* 32px */
+  letter-spacing: 0;
+}
+
+@utility text-body-medium {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+  letter-spacing: 0;
+}
+
+@utility text-body-medium-bold {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+  letter-spacing: 0;
+}
+
+@utility text-body-small {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+  letter-spacing: 0;
+}
+
+@utility text-body-small-bold {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+  letter-spacing: 0;
+}
