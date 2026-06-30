@@ -1,25 +1,157 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Divider from "../components/Divider.astro";
+
+const linkClass =
+  "text-interactive-default decoration-border-default hover:decoration-interactive-default underline underline-offset-2 transition-colors";
+
+const externalLinkAttrs = {
+  target: "_blank",
+  rel: "noopener noreferrer",
+};
+
+// Cover images will be served from Cloudflare R2 (added in a follow-up step).
+const work: { title: string; summary: string; href: string; cover?: string }[] =
+  [
+    {
+      title: "Flip Absences",
+      summary:
+        "Leave requests and balance checks for deskless teams, without the complexity of HR systems",
+      href: "/work",
+    },
+    {
+      title: "Flip Livestreaming",
+      summary:
+        "Perform live video broadcasting and real-time audience interaction.",
+      href: "/work",
+    },
+    {
+      title: "Flip Mobile App",
+      summary: "Stay connected with your coworkers through chat, news, and more.",
+      href: "/work",
+    },
+    {
+      title: "Zaikio Shopfloor App",
+      summary: "Track jobs, report issues, and be informed of printery operations.",
+      href: "/work",
+    },
+  ];
 ---
 
 <BaseLayout
   title="Home"
   description="Full-stack design engineer building scalable, user-centered software."
-  mainClass="flex-1"
 >
-  <section class="border-border-subtle border-b px-6">
-    <div
-      class="mx-auto flex max-w-screen-2xl flex-col items-center justify-center gap-16 py-64 text-center"
-    >
-      <h1
-        class="font-display text-foreground-primary max-w-5xl text-9xl leading-[128px] tracking-[-0.5px]"
+  <section class="flex flex-col gap-12">
+    <div class="flex flex-col gap-3">
+      <h1 class="text-headline-medium text-foreground-primary">Sven Finger</h1>
+      <p
+        class="text-body-small text-foreground-secondary flex flex-wrap items-center gap-2"
       >
-        <span class="block">Full-Stack</span>
-        <span class="block">Design Engineer</span>
-      </h1>
-      <p class="text-foreground-secondary max-w-2xl text-2xl leading-8">
-        Building scalable, user-centered software
+        Full-Stack Design Engineer working at
+        <img
+          src="/images/lucanet.svg"
+          alt=""
+          width="16"
+          height="16"
+          class="h-[15.333px] w-4 shrink-0 dark:brightness-0 dark:invert"
+        />
+        <a href="https://www.lucanet.com" class={linkClass} {...externalLinkAttrs}>
+          Lucanet
+        </a>
       </p>
+    </div>
+    <div class="text-body-small text-foreground-secondary flex flex-col gap-6">
+      <p>
+        Building scalable, user-centered software across design and engineering.
+      </p>
+      <p>
+        I started in web development, moved into design along the way, and
+        eventually found myself doing both. Today I help ideas move from early
+        direction to production.
+      </p>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="flex flex-col gap-12">
+    <div class="flex items-center justify-between">
+      <h2 class="text-headline-small text-foreground-primary">Work</h2>
+      <a href="/work" class={linkClass}>See all</a>
+    </div>
+
+    {
+      work.map((entry) => (
+        <article class="flex flex-col gap-3">
+          <div class="bg-background-secondary aspect-2784/1566 w-full overflow-hidden rounded-lg">
+            {entry.cover && (
+              <img
+                src={entry.cover}
+                alt={entry.title}
+                class="size-full object-cover"
+              />
+            )}
+          </div>
+          <div class="flex flex-col">
+            <p class="text-body-small-bold text-foreground-primary">
+              {entry.title}
+            </p>
+            <p class="text-body-small text-foreground-secondary">
+              {entry.summary}
+            </p>
+          </div>
+        </article>
+      ))
+    }
+
+    <a href="/work" class:list={[linkClass, "self-start"]}>See all work</a>
+  </section>
+
+  <Divider />
+
+  <section class="flex flex-col gap-12">
+    <h2 class="text-headline-small text-foreground-primary">About</h2>
+    <div class="flex flex-col gap-6">
+      <div class="text-body-small text-foreground-secondary flex flex-col gap-6">
+        <p>Based in Hamburg, Germany.</p>
+        <p>
+          I&rsquo;m a Full-Stack Design Engineer working across strategy, product
+          design, design systems, and implementation. I started in web
+          development, moved deeper into design, and now enjoy working in the
+          space where product thinking and production code meet.
+        </p>
+        <p>
+          I&rsquo;m especially interested in reusable systems, thoughtful
+          interaction details, developer experience, and software that feels
+          clear, fast, and useful.
+        </p>
+        <p>
+          Outside work I photograph skies, play World of Warcraft, and spend time
+          with my dog.
+        </p>
+      </div>
+      <a href="/about" class:list={[linkClass, "self-start"]}>More about me</a>
+    </div>
+  </section>
+
+  <Divider />
+
+  <section class="flex flex-col gap-12">
+    <h2 class="text-headline-small text-foreground-primary">Contact</h2>
+    <div class="flex flex-col gap-6">
+      <p class="text-body-small text-foreground-secondary">
+        Always happy to hear from people building thoughtful things &mdash;
+        whether it&rsquo;s a collaboration, a side project, or just a good
+        conversation.
+      </p>
+      <div class="flex flex-wrap gap-6">
+        <a href="https://x.com/svenfinger" class={linkClass} {...externalLinkAttrs}>
+          Message on X
+        </a>
+        <a href="mailto:hi@svenfinger.com" class={linkClass}>Send email</a>
+        <a href="/socials" class={linkClass}>Socials and more</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

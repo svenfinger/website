@@ -1,9 +1,8 @@
 ---
 const year = new Date().getFullYear();
 
-const leftLinks = [{ href: "/colophon", label: "Colophon" }];
-
-const rightLinks = [
+const links = [
+  { href: "/colophon", label: "Colophon" },
   { href: "/privacy", label: "Privacy" },
   { href: "/imprint", label: "Imprint" },
 ];
@@ -16,45 +15,31 @@ function isActive(href: string) {
 }
 ---
 
-<footer class="border-border-subtle bg-background-primary border-t px-6">
-  <div class="mx-auto flex max-w-screen-2xl items-center gap-6 py-6">
-    <div
-      class="text-foreground-secondary flex min-w-0 flex-1 items-center gap-12 text-base leading-6"
-    >
-      <p>&copy; {year} Sven Finger</p>
-      {
-        leftLinks.map(({ href, label }) => (
-          <a
-            href={href}
-            class:list={[
-              "hover:text-foreground-primary transition-colors",
-              isActive(href) && "text-foreground-primary",
-            ]}
-            aria-current={isActive(href) ? "page" : undefined}
-          >
-            {label}
-          </a>
-        ))
-      }
-    </div>
+<footer class="flex w-full items-center justify-between py-6">
+  <p class="text-body-small text-foreground-secondary">
+    &copy; {year} Sven Finger
+  </p>
 
-    <div
-      class="flex min-w-0 flex-1 items-center justify-end gap-12 text-base leading-6"
-    >
+  <nav aria-label="Legal">
+    <ul class="flex items-center gap-6">
       {
-        rightLinks.map(({ href, label }) => (
-          <a
-            href={href}
-            class:list={[
-              "text-foreground-secondary hover:text-foreground-primary transition-colors",
-              isActive(href) && "text-foreground-primary",
-            ]}
-            aria-current={isActive(href) ? "page" : undefined}
-          >
-            {label}
-          </a>
+        links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class:list={[
+                "text-body-small hover:text-foreground-primary transition-colors",
+                isActive(href)
+                  ? "text-foreground-primary"
+                  : "text-foreground-secondary",
+              ]}
+              aria-current={isActive(href) ? "page" : undefined}
+            >
+              {label}
+            </a>
+          </li>
         ))
       }
-    </div>
-  </div>
+    </ul>
+  </nav>
 </footer>

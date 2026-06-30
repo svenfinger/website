@@ -1,19 +1,24 @@
 ---
-import TextPageLayout from "../layouts/TextPageLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const linkClass =
+  "text-interactive-default decoration-border-default hover:decoration-foreground-primary underline underline-offset-2 transition-colors";
 ---
 
-<TextPageLayout title="Imprint" description="Legal notice.">
-  <div>
+<BaseLayout title="Imprint" description="Legal notice.">
+  <h1 class="text-headline-medium text-foreground-primary">Imprint</h1>
+
+  <div class="text-body-small text-foreground-secondary">
     <p>Information according to § 5 TMG:</p>
     <p>Sven Finger</p>
     <p>Spitzbergenweg 20b</p>
     <p>22145 Hamburg</p>
     <p>Germany</p>
     <p>
-      <a href="mailto:hi@svenfinger.de">hi@svenfinger.de</a>
+      <a href="mailto:hi@svenfinger.com" class={linkClass}>hi@svenfinger.com</a>
     </p>
-    <p class="mt-7">
+    <p class="mt-6">
       Responsible for content according to § 55 Abs. 2 RStV: See above
     </p>
   </div>
-</TextPageLayout>
+</BaseLayout>

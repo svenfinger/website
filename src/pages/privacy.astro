@@ -1,13 +1,14 @@
 ---
-import TextPageLayout from "../layouts/TextPageLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const linkClass =
+  "text-interactive-default decoration-border-default hover:decoration-foreground-primary underline underline-offset-2 transition-colors";
 ---
 
-<TextPageLayout
-  title="Privacy Policy"
-  heading="Privacy Policy"
-  description="Privacy policy for svenfinger.co."
->
-  <div class="flex flex-col gap-7">
+<BaseLayout title="Privacy" description="Privacy policy for svenfinger.co.">
+  <h1 class="text-headline-medium text-foreground-primary">Privacy</h1>
+
+  <div class="text-body-small text-foreground-secondary flex flex-col gap-6">
     <p>
       I take the protection of your personal data very seriously. This privacy
       policy explains what data is collected when you visit this website, how it
@@ -15,7 +16,8 @@ import TextPageLayout from "../layouts/TextPageLayout.astro";
     </p>
     <p>
       This website is operated by me, Sven Finger (contact via <a
-        href="mailto:hi@svenfinger.co">hi@svenfinger.co</a
+        href="mailto:hi@svenfinger.com"
+        class={linkClass}>hi@svenfinger.com</a
       >). It is hosted at Cloudflare and uses their DNS for security. Fonts are
       served by Adobe Fonts. Media is hosted by Sanity. I also use CloudFlare
       Web Analytics to improve the performance of my website.
@@ -32,4 +34,4 @@ import TextPageLayout from "../layouts/TextPageLayout.astro";
       you.
     </p>
   </div>
-</TextPageLayout>
+</BaseLayout>

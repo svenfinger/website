@@ -1,5 +1,71 @@
 ---
-import TextPageLayout from "../layouts/TextPageLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const friends = [
+  { name: "Jennifer Piperek", href: "https://piperek.com/" },
+  { name: "Oleh Bespalov", href: "https://loveisinthe.tech/" },
+  { name: "Steffen Kotschi", href: "https://www.skotschi.com/" },
+];
+
+const stack = [
+  ["Astro", "TypeScript", "Tailwind CSS", "MDX", "Cloudflare Pages", "Cloudflare R2"],
+  ["Figma", "Cursor", "Codex", "ChatGPT", "GitHub"],
+];
+
+const friendLinkClass =
+  "text-foreground-secondary decoration-border-default hover:decoration-foreground-primary underline underline-offset-2 transition-colors";
 ---
 
-<TextPageLayout title="Colophon" description="About this website." />
+<BaseLayout title="Colophon" description="About this website.">
+  <h1 class="text-headline-medium text-foreground-primary">Colophon</h1>
+
+  <div class="text-body-small text-foreground-secondary flex flex-col gap-6">
+    <p>
+      Designed and built by myself in Hamburg, Germany. This website primarily
+      acts as a portfolio, while also serving as a playground for ideas,
+      experiments and writing. It is intentionally fast, lightweight and
+      accessible.
+    </p>
+    <p>
+      I work on this website in an AI-assisted workflow with Cursor and ChatGPT.
+      That means I first thoroughly plan every task and then work together with
+      AI to implement. I closely review every action and manually polish
+      details.
+    </p>
+  </div>
+
+  <section class="flex flex-col gap-3">
+    <h2 class="text-body-small-bold text-foreground-primary">Friends</h2>
+    <ul class="flex flex-col">
+      {
+        friends.map(({ name, href }) => (
+          <li>
+            <a
+              href={href}
+              class={friendLinkClass}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="flex flex-col gap-3">
+    <h2 class="text-body-small-bold text-foreground-primary">Stack</h2>
+    <div class="text-body-small text-foreground-secondary flex gap-6">
+      {
+        stack.map((column) => (
+          <ul class="flex-1">
+            {column.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

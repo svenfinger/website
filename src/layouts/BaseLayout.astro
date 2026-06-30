@@ -6,14 +6,19 @@ import Header from "../components/Header.astro";
 interface Props {
   title: string;
   description?: string;
-  mainClass?: string;
+  /**
+   * Widen the main column to 1024px so images can "break out" of the 640px
+   * reading width. Header, footer and text stay at 640px; the page is
+   * responsible for constraining its own prose (see now.astro / work detail).
+   */
+  wide?: boolean;
 }
 
-const {
-  title,
-  description,
-  mainClass = "mx-auto w-full max-w-3xl flex-1 px-6 py-12",
-} = Astro.props;
+const { title, description, wide = false } = Astro.props;
+
+const mainClass = wide
+  ? "flex w-full max-w-[1024px] flex-1 flex-col items-center gap-12"
+  : "flex w-full max-w-[640px] flex-1 flex-col gap-12";
 ---
 
 <!doctype html>
@@ -33,11 +38,15 @@ const {
     {description && <meta name="description" content={description} />}
     <title>{title}</title>
   </head>
-  <body class="flex min-h-screen flex-col">
-    <Header />
+  <body class="flex min-h-screen flex-col items-center gap-12 px-6 py-12">
+    <div class="w-full max-w-[640px]">
+      <Header />
+    </div>
     <main class={mainClass}>
       <slot />
     </main>
-    <Footer />
+    <div class="w-full max-w-[640px]">
+      <Footer />
+    </div>
   </body>
 </html>
