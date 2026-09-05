@@ -63,4 +63,3 @@ This repository contains a personal portfolio designed as a product-like web int
   - `Update work page`
   - `Fix mobile navigation`
 - Avoid long commit bodies unless explicitly requested.
-
