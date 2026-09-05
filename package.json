@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "website",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "eslint": "^10.10.0",
     "eslint-plugin-astro": "^3.1.0",
     "prettier": "^3.9.6",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "wrangler": "^4.129.0"
   }
 }
