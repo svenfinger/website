@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "website",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,12 @@
   },
   "type": "module",
   "dependencies": {
-    "astro": "^7.3.1"
+    "@astrojs/react": "^6.0.5",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "astro": "^7.3.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "eslint": "^10.10.0",
