@@ -23,7 +23,7 @@ import {
 const items = [
   { title: "Work", url: "/", icon: BriefcaseBusinessIcon },
   { title: "About", url: "/about", icon: CircleUserRoundIcon },
-  { title: "Contact", url: "/contact", icon: AtSignIcon },
+  { title: "Socials", url: "/socials", icon: AtSignIcon },
 ];
 
 const footerItems = [
