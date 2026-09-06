@@ -1,0 +1,23 @@
+---
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+const { href, title, description, image } = Astro.props;
+---
+
+<a
+  href={href}
+  class="block rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+>
+  <Card size="sm" className="h-full pt-0 transition-colors hover:bg-muted">
+    <img src={image} alt="" class="aspect-video w-full object-cover" />
+    <CardHeader>
+      <CardTitle>{title}</CardTitle>
+      <CardDescription>{description}</CardDescription>
+    </CardHeader>
+  </Card>
+</a>

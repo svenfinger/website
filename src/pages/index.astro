@@ -1,5 +1,25 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import WorkCard from "@/components/work-card.astro";
+
+const work = (await getCollection("work")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
-<Layout title="Work" />
+<Layout title="Work">
+  <h1 class="sr-only">Work</h1>
+  <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    {
+      work.map((entry) => (
+        <WorkCard
+          href={`/work/${entry.id}`}
+          title={entry.data.title}
+          description={entry.data.description}
+          image={entry.data.image}
+        />
+      ))
+    }
+  </div>
+</Layout>
