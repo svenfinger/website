@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+import {
+  Card,
+  CardAction,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowUpRightIcon } from "lucide-react";
+
+const socials = [
+  {
+    title: "LinkedIn",
+    href: "https://www.linkedin.com/in/svenfinger/",
+    description: "linkedin.com/in/svenfinger",
+  },
+  {
+    title: "GitHub",
+    href: "https://github.com/svenfinger",
+    description: "github.com/svenfinger",
+  },
+  {
+    title: "X",
+    href: "https://x.com/svenfinger",
+    description: "x.com/svenfinger",
+  },
+  {
+    title: "Figma",
+    href: "https://www.figma.com/@sven",
+    description: "figma.com/@sven",
+  },
+  {
+    title: "Cursor",
+    href: "https://cursor.com/@sven",
+    description: "cursor.com/@sven",
+  },
+];
+---
+
+<Layout title="Socials">
+  <div class="mx-auto flex w-full max-w-[37em] flex-col gap-6">
+    <h1 class="text-2xl font-medium tracking-tight">Socials</h1>
+    <div class="flex flex-col gap-4">
+      {
+        socials.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noreferrer"
+            class="block rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+          >
+            <Card size="sm" className="transition-colors hover:bg-muted">
+              <CardHeader>
+                <CardTitle>{social.title}</CardTitle>
+                <CardDescription>{social.description}</CardDescription>
+                <CardAction>
+                  <ArrowUpRightIcon className="size-4 text-muted-foreground" />
+                </CardAction>
+              </CardHeader>
+            </Card>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</Layout>
