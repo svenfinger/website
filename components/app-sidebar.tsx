@@ -1,9 +1,9 @@
 import {
-  FileTextIcon,
-  FolderIcon,
-  MailIcon,
-  ShieldIcon,
-  UserIcon,
+  InfoIcon,
+  BriefcaseBusinessIcon,
+  AtSignIcon,
+  ShieldLockIcon,
+  CircleUserRoundIcon,
 } from "lucide-react";
 
 import {
@@ -21,15 +21,23 @@ import {
 } from "@/components/ui/sidebar";
 
 const items = [
-  { title: "Work", url: "/", icon: FolderIcon },
-  { title: "About", url: "/about", icon: UserIcon },
-  { title: "Contact", url: "/contact", icon: MailIcon },
+  { title: "Work", url: "/", icon: BriefcaseBusinessIcon },
+  { title: "About", url: "/about", icon: CircleUserRoundIcon },
+  { title: "Contact", url: "/contact", icon: AtSignIcon },
 ];
 
 const footerItems = [
-  { title: "Privacy", url: "/privacy", icon: ShieldIcon },
-  { title: "Imprint", url: "/imprint", icon: FileTextIcon },
+  { title: "Privacy", url: "/privacy", icon: ShieldLockIcon },
+  { title: "Imprint", url: "/imprint", icon: InfoIcon },
 ];
+
+function isActive(url: string, path: string) {
+  if (url === "/") {
+    return path === "/" || path.startsWith("/work/");
+  }
+
+  return url === path;
+}
 
 export function AppSidebar({ currentPath }: { currentPath: string }) {
   const path = currentPath.replace(/\/$/, "") || "/";
@@ -44,11 +52,23 @@ export function AppSidebar({ currentPath }: { currentPath: string }) {
               size="lg"
               tooltip="Portfolio"
             >
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <span className="text-xs font-medium">SF</span>
+              <div className="flex aspect-square size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-sidebar-primary text-sidebar-primary-foreground">
+                <svg
+                  viewBox="0 0 7 3"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  className="size-4.5!"
+                >
+                  <rect x="1" y="0" width="2" height="1" />
+                  <rect x="4" y="0" width="1" height="3" />
+                  <rect x="5" y="0" width="2" height="1" />
+                  <rect x="0" y="1" width="1" height="1" />
+                  <rect x="1" y="2" width="2" height="1" />
+                  <rect x="5" y="2" width="2" height="1" />
+                </svg>
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">Portfolio</span>
+                <span className="truncate font-medium">Sven Finger</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -64,7 +84,7 @@ export function AppSidebar({ currentPath }: { currentPath: string }) {
                   <SidebarMenuButton
                     render={<a href={item.url} />}
                     tooltip={item.title}
-                    isActive={item.url === path}
+                    isActive={isActive(item.url, path)}
                   >
                     <item.icon />
                     <span>{item.title}</span>
