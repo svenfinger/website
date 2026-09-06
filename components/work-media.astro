@@ -1,0 +1,33 @@
+---
+const { src, type, loading = "lazy" } = Astro.props;
+const className = "w-full rounded-xl ring-1 ring-foreground/10";
+---
+
+{
+  type === "video" ? (
+    <video
+      class={className}
+      data-work-video
+      loop
+      muted
+      playsinline
+      preload={loading === "eager" ? "auto" : "metadata"}
+      src={src}
+    />
+  ) : (
+    <img src={src} alt="" class={className} loading={loading} />
+  )
+}
+
+<script>
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (!reduceMotion) {
+    for (const video of document.querySelectorAll("video[data-work-video]")) {
+      video.autoplay = true;
+      void video.play();
+    }
+  }
+</script>
