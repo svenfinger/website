@@ -1,5 +1,50 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { ArrowUpRightIcon } from "lucide-react";
 ---
 
-<Layout title="About" />
+<Layout title="About">
+  <article class="typeset typeset-docs mx-auto max-w-[37em]">
+    <img
+      src="/images/avatar.jpg"
+      alt="Sven Finger"
+      width="128"
+      height="128"
+      class="not-typeset size-32 rounded-xl object-cover ring-1 ring-foreground/10"
+    />
+    <h1>About</h1>
+    <p>
+      Building scalable, user-centered software across design and engineering.
+    </p>
+    <p>
+      I started in web development, moved into design along the way, and
+      eventually found myself doing both. Today I help ideas move from early
+      direction to production.
+    </p>
+    <h2>Experience</h2>
+    <p>15+ years designing and developing · SaaS and agencies</p>
+    <p>
+      I’m a Full-Stack Design Engineer working across strategy, product design,
+      design systems, and implementation. I started in web development, moved
+      deeper into design, and now enjoy working in the space where product
+      thinking and production code meet.
+    </p>
+    <p>
+      I’m especially interested in reusable systems, thoughtful interaction
+      details, developer experience, and software that feels clear, fast, and
+      useful.
+    </p>
+    <a
+      class={buttonVariants({
+        className: "not-typeset mt-[var(--typeset-flow)]",
+      })}
+      href="https://www.linkedin.com/in/svenfinger/"
+      target="_blank"
+      rel="noreferrer"
+    >
+      LinkedIn
+      <ArrowUpRightIcon data-icon="inline-end" />
+    </a>
+  </article>
+</Layout>
