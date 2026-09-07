@@ -1,15 +1,42 @@
 ---
 import "../styles/global.css";
 import { AppShell } from "@/components/app-shell";
+import { SITE_DESCRIPTION, SITE_NAME } from "../lib/site";
 
-const { title, breadcrumbs = [{ label: title }] } = Astro.props;
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  breadcrumbs = [{ label: title }],
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : undefined;
+const ogImage = Astro.site ? new URL("/og.png", Astro.site) : undefined;
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
     <AppShell
@@ -21,5 +48,11 @@ const { title, breadcrumbs = [{ label: title }] } = Astro.props;
         <h1 class="text-2xl font-medium tracking-tight">{title}</h1>
       </slot>
     </AppShell>
+    <script>
+      import { init } from "@plausible-analytics/tracker";
+      import { SITE_HOST } from "../lib/site";
+
+      init({ domain: SITE_HOST });
+    </script>
   </body>
 </html>

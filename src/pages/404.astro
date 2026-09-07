@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { buttonVariants } from "@/components/ui/button";
+---
+
+<Layout title="Not found" description="This page does not exist." noindex>
+  <div class="mx-auto flex w-full max-w-[37em] flex-col gap-4">
+    <h1 class="text-2xl font-medium tracking-tight">Page not found</h1>
+    <p class="text-muted-foreground">
+      That URL doesn’t exist. Use the sidebar to keep browsing, or go back to
+      Work.
+    </p>
+    <a class={buttonVariants({ className: "self-start" })} href="/">
+      Back to Work
+    </a>
+  </div>
+</Layout>
