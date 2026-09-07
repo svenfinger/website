@@ -2,8 +2,9 @@ import {
   InfoIcon,
   BriefcaseBusinessIcon,
   AtSignIcon,
-  ShieldLockIcon,
+  HatGlassesIcon,
   CircleUserRoundIcon,
+  ChartSplineIcon,
 } from "lucide-react";
 
 import {
@@ -27,7 +28,13 @@ const items = [
 ];
 
 const footerItems = [
-  { title: "Privacy", url: "/privacy", icon: ShieldLockIcon },
+  {
+    title: "Stats",
+    url: "https://plausible.io/svenfinger.com",
+    icon: ChartSplineIcon,
+    external: true,
+  },
+  { title: "Privacy", url: "/privacy", icon: HatGlassesIcon },
   { title: "Imprint", url: "/imprint", icon: InfoIcon },
 ];
 
@@ -100,7 +107,13 @@ export function AppSidebar({ currentPath }: { currentPath: string }) {
           {footerItems.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
-                render={<a href={item.url} />}
+                render={
+                  <a
+                    href={item.url}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noreferrer" : undefined}
+                  />
+                }
                 tooltip={item.title}
                 isActive={item.url === path}
                 size="sm"
