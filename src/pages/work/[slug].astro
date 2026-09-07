@@ -2,7 +2,11 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import WorkMedia from "@/components/work-media.astro";
-import { getWorkCover, getWorkGallery } from "../../lib/work-media";
+import {
+  getWorkCover,
+  getWorkGallery,
+  workMediaAlt,
+} from "../../lib/work-media";
 
 export async function getStaticPaths() {
   const work = await getCollection("work");
@@ -21,6 +25,7 @@ const gallery = getWorkGallery(entry.id);
 
 <Layout
   title={title}
+  description={description}
   breadcrumbs={[{ label: "Work", href: "/" }, { label: title }]}
 >
   <div class="flex flex-col gap-6">
@@ -28,12 +33,25 @@ const gallery = getWorkGallery(entry.id);
       <h1 class="text-2xl font-medium tracking-tight">{title}</h1>
       <p class="text-muted-foreground">{description}</p>
     </div>
-    <WorkMedia src={cover.src} type={cover.type} loading="eager" />
+    <WorkMedia
+      src={cover.src}
+      type={cover.type}
+      alt={workMediaAlt(title, cover.src, "cover")}
+      width={cover.width}
+      height={cover.height}
+      loading="eager"
+    />
     {
       gallery.length > 0 && (
         <div class="grid gap-4 sm:grid-cols-2">
           {gallery.map((item) => (
-            <WorkMedia src={item.src} type={item.type} />
+            <WorkMedia
+              src={item.src}
+              type={item.type}
+              alt={workMediaAlt(title, item.src, "gallery")}
+              width={item.width}
+              height={item.height}
+            />
           ))}
         </div>
       )

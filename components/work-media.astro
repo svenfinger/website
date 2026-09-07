@@ -1,6 +1,7 @@
 ---
-const { src, type, loading = "lazy" } = Astro.props;
-const className = "w-full rounded-xl ring-1 ring-foreground/10";
+const { src, type, alt, width, height, loading = "lazy" } = Astro.props;
+const className = "h-auto w-full rounded-xl ring-1 ring-foreground/10";
+const isGif = src.endsWith(".gif");
 ---
 
 {
@@ -13,9 +14,21 @@ const className = "w-full rounded-xl ring-1 ring-foreground/10";
       playsinline
       preload={loading === "eager" ? "auto" : "metadata"}
       src={src}
+      width={width}
+      height={height}
+      aria-label={alt}
     />
   ) : (
-    <img src={src} alt="" class={className} loading={loading} />
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      class={className}
+      loading={loading}
+      decoding="async"
+      data-work-gif={isGif ? "" : undefined}
+    />
   )
 }
 
@@ -24,10 +37,37 @@ const className = "w-full rounded-xl ring-1 ring-foreground/10";
     "(prefers-reduced-motion: reduce)",
   ).matches;
 
-  if (!reduceMotion) {
+  if (reduceMotion) {
+    for (const img of document.querySelectorAll("img[data-work-gif]")) {
+      const freeze = () => {
+        if (!(img instanceof HTMLImageElement) || !img.naturalWidth) {
+          return;
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        canvas.className = img.className;
+        canvas.setAttribute("role", "img");
+        if (img.alt) {
+          canvas.setAttribute("aria-label", img.alt);
+        }
+        canvas.getContext("2d")?.drawImage(img, 0, 0);
+        img.replaceWith(canvas);
+      };
+
+      if (img.complete) {
+        freeze();
+      } else {
+        img.addEventListener("load", freeze, { once: true });
+      }
+    }
+  } else {
     for (const video of document.querySelectorAll("video[data-work-video]")) {
-      video.autoplay = true;
-      void video.play();
+      if (video instanceof HTMLVideoElement) {
+        video.autoplay = true;
+        void video.play();
+      }
     }
   }
 </script>

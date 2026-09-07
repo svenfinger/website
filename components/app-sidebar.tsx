@@ -50,14 +50,14 @@ export function AppSidebar({ currentPath }: { currentPath: string }) {
             <SidebarMenuButton
               render={<a href="/" />}
               size="lg"
-              tooltip="Portfolio"
+              tooltip="Sven Finger"
             >
-              <div className="flex aspect-square size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-sidebar-primary text-sidebar-primary-foreground">
+              <div className="flex aspect-square size-8 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-sidebar-primary text-sidebar-primary-foreground">
                 <svg
                   viewBox="0 0 7 3"
                   fill="currentColor"
                   aria-hidden="true"
-                  className="size-4.5!"
+                  className="size-5.5!"
                 >
                   <rect x="1" y="0" width="2" height="1" />
                   <rect x="4" y="0" width="1" height="3" />
