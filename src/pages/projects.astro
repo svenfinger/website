@@ -1,0 +1,54 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import Layout from "../layouts/Layout.astro";
+import WorkCard from "@/components/work-card.astro";
+
+function projectCover(slug) {
+  const src = `/images/projects/${slug}-cover.jpg`;
+  const file = path.join(process.cwd(), "public", src);
+
+  return fs.existsSync(file) ? src : undefined;
+}
+
+const projects = [
+  {
+    title: "OpenSkies",
+    description: "Free sky photos to download and use.",
+    href: "https://openskies.photos/",
+    image: projectCover("openskies"),
+  },
+  {
+    title: "Ambient",
+    description: "Toggle Figma page backgrounds between light and dark.",
+    href: "https://www.figma.com/community/plugin/1641224666051612052/ambient",
+    image: projectCover("ambient"),
+  },
+  {
+    title: "Safari Favicon",
+    description: "Check PNG favicons for Safari tab rendering issues.",
+    href: "https://www.npmjs.com/package/safari-favicon",
+    image: projectCover("safari-favicon"),
+  },
+];
+---
+
+<Layout
+  title="Projects"
+  description="Selected personal projects by Sven Finger."
+>
+  <h1 class="sr-only">Projects</h1>
+  <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    {
+      projects.map((project) => (
+        <WorkCard
+          href={project.href}
+          title={project.title}
+          description={project.description}
+          image={project.image}
+          external
+        />
+      ))
+    }
+  </div>
+</Layout>

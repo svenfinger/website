@@ -1,10 +1,12 @@
 import {
   InfoIcon,
   BriefcaseBusinessIcon,
+  FoldersIcon,
   AtSignIcon,
   HatGlassesIcon,
   CircleUserRoundIcon,
   ChartSplineIcon,
+  ArrowUpRightIcon,
 } from "lucide-react";
 
 import {
@@ -23,6 +25,7 @@ import {
 
 const items = [
   { title: "Work", url: "/", icon: BriefcaseBusinessIcon },
+  { title: "Projects", url: "/projects", icon: FoldersIcon },
   { title: "About", url: "/about", icon: CircleUserRoundIcon },
   { title: "Socials", url: "/socials", icon: AtSignIcon },
 ];
@@ -30,7 +33,7 @@ const items = [
 const footerItems = [
   {
     title: "Stats",
-    url: "https://plausible.io/svenfinger.com",
+    url: "https://plausible.io/svenfinger.com?period=28d&keybindHint=F",
     icon: ChartSplineIcon,
     external: true,
   },
@@ -119,7 +122,19 @@ export function AppSidebar({ currentPath }: { currentPath: string }) {
                 size="sm"
               >
                 <item.icon />
-                <span>{item.title}</span>
+                <span
+                  className={
+                    item.external ? "min-w-0 flex-1 truncate" : undefined
+                  }
+                >
+                  {item.title}
+                </span>
+                {item.external ? (
+                  <ArrowUpRightIcon
+                    aria-hidden="true"
+                    className="ml-auto size-3.5 shrink-0 text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden"
+                  />
+                ) : null}
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

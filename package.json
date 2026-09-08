@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "website",
-  "version": "0.14.2",
+  "version": "0.15.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "^11.1.0",
+      "version": "^12.3.4",
       "onFail": "download"
     }
   },

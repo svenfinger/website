@@ -1,23 +1,40 @@
 ---
 import {
   Card,
+  CardAction,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ArrowUpRightIcon } from "lucide-react";
 
-const { href, title, description, image } = Astro.props;
+const { href, title, description, image, external = false } = Astro.props;
 ---
 
 <a
   href={href}
   class="block rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+  target={external ? "_blank" : undefined}
+  rel={external ? "noreferrer" : undefined}
 >
   <Card size="sm" className="h-full pt-0 transition-colors hover:bg-muted">
-    <img src={image} alt="" class="aspect-video w-full object-cover" />
+    {
+      image ? (
+        <img src={image} alt="" class="aspect-video w-full object-cover" />
+      ) : (
+        <div class="aspect-video w-full bg-muted" aria-hidden="true" />
+      )
+    }
     <CardHeader>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{description}</CardDescription>
+      {
+        external ? (
+          <CardAction>
+            <ArrowUpRightIcon className="size-4 text-muted-foreground" />
+          </CardAction>
+        ) : null
+      }
     </CardHeader>
   </Card>
 </a>
