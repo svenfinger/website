@@ -1,10 +1,10 @@
 import {
   InfoIcon,
-  BriefcaseBusinessIcon,
-  FoldersIcon,
+  FolderIcon,
+  FolderClosedIcon,
   AtSignIcon,
   HatGlassesIcon,
-  CircleUserRoundIcon,
+  SquareUserIcon,
   ChartSplineIcon,
   ArrowUpRightIcon,
 } from "lucide-react";
@@ -18,17 +18,11 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-
-const items = [
-  { title: "Work", url: "/", icon: BriefcaseBusinessIcon },
-  { title: "Projects", url: "/projects", icon: FoldersIcon },
-  { title: "About", url: "/about", icon: CircleUserRoundIcon },
-  { title: "Socials", url: "/socials", icon: AtSignIcon },
-];
 
 const footerItems = [
   {
@@ -49,8 +43,27 @@ function isActive(url: string, path: string) {
   return url === path;
 }
 
-export function AppSidebar({ currentPath }: { currentPath: string }) {
+export function AppSidebar({
+  currentPath,
+  workCount,
+  projectCount,
+}: {
+  currentPath: string;
+  workCount: number;
+  projectCount: number;
+}) {
   const path = currentPath.replace(/\/$/, "") || "/";
+  const items = [
+    { title: "Work", url: "/", icon: FolderIcon, badge: workCount },
+    {
+      title: "Projects",
+      url: "/projects",
+      icon: FolderClosedIcon,
+      badge: projectCount,
+    },
+    { title: "About", url: "/about", icon: SquareUserIcon },
+    { title: "Socials", url: "/socials", icon: AtSignIcon },
+  ];
 
   return (
     <Sidebar collapsible="icon">
@@ -99,6 +112,9 @@ export function AppSidebar({ currentPath }: { currentPath: string }) {
                     <item.icon />
                     <span>{item.title}</span>
                   </SidebarMenuButton>
+                  {typeof item.badge === "number" ? (
+                    <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>
+                  ) : null}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>

@@ -1,6 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 import "../styles/global.css";
 import { AppShell } from "@/components/app-shell";
+import { projects } from "../lib/projects";
 import { SITE_DESCRIPTION, SITE_NAME } from "../lib/site";
 
 const {
@@ -9,6 +11,9 @@ const {
   breadcrumbs = [{ label: title }],
   noindex = false,
 } = Astro.props;
+
+const workCount = (await getCollection("work")).length;
+const projectCount = projects.length;
 
 const pageTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
 const canonical = Astro.site
@@ -43,6 +48,8 @@ const ogImage = Astro.site ? new URL("/og.png", Astro.site) : undefined;
       client:load
       currentPath={Astro.url.pathname}
       breadcrumbs={breadcrumbs}
+      workCount={workCount}
+      projectCount={projectCount}
     >
       <slot>
         <h1 class="text-2xl font-medium tracking-tight">{title}</h1>
