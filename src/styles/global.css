@@ -136,7 +136,8 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    --scrollbar-size: 11px;
+    @apply overflow-x-clip font-sans scrollbar-thin scrollbar-gutter-stable scrollbar-thumb-muted-foreground/40 scrollbar-track-transparent;
   }
 }
 

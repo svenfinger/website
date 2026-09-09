@@ -25,18 +25,26 @@ export type AppBreadcrumb = {
 export function AppShell({
   currentPath,
   breadcrumbs,
+  workCount,
+  projectCount,
   children,
 }: {
   currentPath: string;
   breadcrumbs: AppBreadcrumb[];
+  workCount: number;
+  projectCount: number;
   children?: ReactNode;
 }) {
   return (
     <TooltipProvider>
-      <SidebarProvider>
-        <AppSidebar currentPath={currentPath} />
+      <SidebarProvider className="md:w-[calc(100%+var(--scrollbar-size))]">
+        <AppSidebar
+          currentPath={currentPath}
+          workCount={workCount}
+          projectCount={projectCount}
+        />
         <SidebarInset>
-          <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4">
+          <header className="flex h-12 shrink-0 items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator
               orientation="vertical"
