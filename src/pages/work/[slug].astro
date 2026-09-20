@@ -9,15 +9,26 @@ import {
 } from "../../lib/work-media";
 
 export async function getStaticPaths() {
-  const work = await getCollection("work");
+  const work = (await getCollection("work")).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
 
-  return work.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  return work.map((entry, index) => {
+    const prev = work[(index - 1 + work.length) % work.length];
+    const next = work[(index + 1) % work.length];
+
+    return {
+      params: { slug: entry.id },
+      props: {
+        entry,
+        prevHref: `/work/${prev.id}`,
+        nextHref: `/work/${next.id}`,
+      },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, prevHref, nextHref } = Astro.props;
 const { title, description } = entry.data;
 const cover = getWorkCover(entry.id);
 const gallery = getWorkGallery(entry.id);
@@ -26,7 +37,7 @@ const gallery = getWorkGallery(entry.id);
 <Layout
   title={title}
   description={description}
-  breadcrumbs={[{ label: "Work", href: "/" }, { label: title }]}
+  workNav={{ title, prevHref, nextHref }}
 >
   <div class="flex flex-col gap-6">
     <div class="flex max-w-2xl flex-col gap-2">
