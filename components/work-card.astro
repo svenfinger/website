@@ -2,6 +2,7 @@
 import {
   Card,
   CardAction,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -17,14 +18,18 @@ const { href, title, description, image, external = false } = Astro.props;
   target={external ? "_blank" : undefined}
   rel={external ? "noreferrer" : undefined}
 >
-  <Card size="sm" className="h-full pt-0 transition-colors hover:bg-muted">
-    {
-      image ? (
-        <img src={image} alt="" class="aspect-video w-full object-cover" />
-      ) : (
-        <div class="aspect-video w-full bg-muted" aria-hidden="true" />
-      )
-    }
+  <Card size="sm" className="h-full transition-colors hover:bg-muted">
+    <CardContent>
+      <div class="overflow-hidden rounded-lg">
+        {
+          image ? (
+            <img src={image} alt="" class="aspect-video w-full object-cover" />
+          ) : (
+            <div class="aspect-video w-full bg-muted" aria-hidden="true" />
+          )
+        }
+      </div>
+    </CardContent>
     <CardHeader>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{description}</CardDescription>

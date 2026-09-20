@@ -1,0 +1,32 @@
+---
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+
+import { buttonVariants } from "@/components/ui/button";
+
+const { title, prevHref, nextHref } = Astro.props;
+---
+
+<nav
+  class="sticky top-0 z-50 bg-background"
+  aria-label="Work navigation"
+>
+  <div class="flex h-12 items-center justify-between gap-4 px-6">
+    <p class="min-w-0 truncate text-sm font-medium">{title}</p>
+    <div class="flex shrink-0 items-center gap-1">
+      <a
+        class={buttonVariants({ variant: "outline", size: "icon" })}
+        href={prevHref}
+        aria-label="Previous work"
+      >
+        <ChevronLeftIcon />
+      </a>
+      <a
+        class={buttonVariants({ variant: "outline", size: "icon" })}
+        href={nextHref}
+        aria-label="Next work"
+      >
+        <ChevronRightIcon />
+      </a>
+    </div>
+  </div>
+</nav>
