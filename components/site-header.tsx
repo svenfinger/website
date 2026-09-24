@@ -1,22 +1,7 @@
-import { EllipsisIcon } from "lucide-react";
+import { Menu as MenuPrimitive } from "@base-ui/react/menu";
+import { MenuIcon, XIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/button";
 import { GET_IN_TOUCH_HREF, NAV_ITEMS, SITE_NAME } from "@/src/lib/site";
 
 function isActive(href: string, path: string) {
@@ -29,98 +14,115 @@ function isActive(href: string, path: string) {
 
 function LogoMark() {
   return (
-    <svg
-      viewBox="0 0 7 3"
-      fill="currentColor"
-      aria-hidden="true"
-      className="aspect-[7/3] h-3 w-auto"
-    >
-      <rect x="1" y="0" width="2" height="1" />
-      <rect x="4" y="0" width="1" height="3" />
-      <rect x="5" y="0" width="2" height="1" />
-      <rect x="0" y="1" width="1" height="1" />
-      <rect x="1" y="2" width="2" height="1" />
-      <rect x="5" y="2" width="2" height="1" />
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-6">
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0ZM6.00701 19.5C7.64945 20.8141 9.73294 21.6 12 21.6C14.2671 21.6 16.3506 20.8141 17.993 19.5H6.00701ZM4.5 6.00698C3.18586 7.64943 2.4 9.73293 2.4 12C2.4 14.2671 3.18587 16.3506 4.5 17.993V6.00698ZM19.5 17.993C20.8141 16.3506 21.6 14.2671 21.6 12C21.6 9.73293 20.8141 7.64943 19.5 6.00698V17.993ZM8.3833 17.1H15.6167L12 9.86658L8.3833 17.1ZM6.9 14.7L10.8 6.9H6.9V14.7ZM17.1 14.7V6.9H13.2L17.1 14.7ZM12 2.4C9.73294 2.4 7.64945 3.18587 6.00701 4.5H17.993C16.3506 3.18587 14.2671 2.4 12 2.4Z"
+      />
     </svg>
   );
 }
 
-export function SiteHeader({ currentPath }: { currentPath: string }) {
+export function SiteHeader({
+  currentPath,
+  sticky = true,
+}: {
+  currentPath: string;
+  sticky?: boolean;
+}) {
   const path = currentPath.replace(/\/$/, "") || "/";
 
   return (
-    <div className="grid h-12 grid-cols-[1fr_auto] items-center px-6 md:grid-cols-3">
-      <a
-        href="/"
-        aria-label={SITE_NAME}
-        className="flex items-center gap-2 justify-self-start"
-      >
-        <LogoMark />
-        <Separator
-          orientation="vertical"
-          className="hidden data-vertical:h-4 data-vertical:self-auto md:block"
-        />
-        <span className="hidden text-sm font-medium md:inline">
-          {SITE_NAME}
-        </span>
-      </a>
-      <NavigationMenu className="hidden justify-self-center md:flex">
-        <NavigationMenuList className="gap-1">
-          {NAV_ITEMS.map((item) => (
-            <NavigationMenuItem key={item.href}>
-              <NavigationMenuLink
+    <header
+      className={`z-50 border-b border-(--color-border-subtle) bg-background ${sticky ? "sticky top-0" : ""}`}
+    >
+      <div className="page-shell">
+        <div className="relative flex h-(--space-16) items-center justify-between">
+          <a
+            href="/"
+            aria-label={SITE_NAME}
+            className="flex items-center gap-(--space-4) rounded-sm text-sm leading-(--leading-label) font-(--font-weight-label) outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+          >
+            <LogoMark />
+            <span aria-hidden="true" className="h-3.75 w-px bg-border" />
+            <span>{SITE_NAME}</span>
+          </a>
+          <nav
+            aria-label="Primary"
+            className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-(--space-1) md:flex"
+          >
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.href}
                 href={item.href}
-                active={isActive(item.href, path)}
-                className={navigationMenuTriggerStyle()}
+                className="nav-pill"
+                aria-current={isActive(item.href, path) ? "page" : undefined}
               >
                 {item.title}
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
-      <div className="justify-self-end">
-        <Button
-          variant="outline"
-          className="hidden md:inline-flex"
-          render={<a href={GET_IN_TOUCH_HREF} />}
-          nativeButton={false}
-        >
-          Get in touch
-        </Button>
-        <div className="md:hidden">
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              render={<Button variant="ghost" size="icon" />}
-              aria-label="Open menu"
-            >
-              <EllipsisIcon />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-auto min-w-48">
-              <DropdownMenuGroup>
-                {NAV_ITEMS.map((item) => (
-                  <DropdownMenuItem
-                    key={item.href}
-                    render={<a href={item.href} />}
-                    nativeButton={false}
-                  >
-                    {item.title}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem
-                  render={<a href={GET_IN_TOUCH_HREF} />}
-                  nativeButton={false}
+              </a>
+            ))}
+          </nav>
+          <Button
+            nativeButton={false}
+            render={<a href={GET_IN_TOUCH_HREF} />}
+            className="hidden md:inline-flex"
+          >
+            Get in touch
+          </Button>
+          <MenuPrimitive.Root>
+            <MenuPrimitive.Trigger
+              className="p-(--space-2) data-popup-open:bg-(--color-surface) md:hidden"
+              render={(props, state) => (
+                <Button
+                  size="icon"
+                  {...props}
+                  aria-label={state.open ? "Close menu" : "Open menu"}
                 >
-                  Get in touch
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  {state.open ? (
+                    <XIcon className="size-4" />
+                  ) : (
+                    <MenuIcon className="size-4" />
+                  )}
+                </Button>
+              )}
+            />
+            <MenuPrimitive.Portal>
+              <MenuPrimitive.Positioner
+                align="end"
+                sideOffset={8}
+                className="z-50 outline-none md:hidden"
+              >
+                <MenuPrimitive.Popup className="flex w-40 flex-col gap-(--space-2) rounded-md border border-border bg-background p-(--space-2) outline-none">
+                  {NAV_ITEMS.map((item) => (
+                    <MenuPrimitive.LinkItem
+                      key={item.href}
+                      href={item.href}
+                      closeOnClick
+                      className="nav-pill nav-menu-item outline-none"
+                      aria-current={
+                        isActive(item.href, path) ? "page" : undefined
+                      }
+                    >
+                      {item.title}
+                    </MenuPrimitive.LinkItem>
+                  ))}
+                  <MenuPrimitive.LinkItem
+                    href={GET_IN_TOUCH_HREF}
+                    closeOnClick
+                    className="nav-pill nav-menu-item nav-menu-action outline-none"
+                    aria-current={
+                      isActive(GET_IN_TOUCH_HREF, path) ? "page" : undefined
+                    }
+                  >
+                    Get in touch
+                  </MenuPrimitive.LinkItem>
+                </MenuPrimitive.Popup>
+              </MenuPrimitive.Positioner>
+            </MenuPrimitive.Portal>
+          </MenuPrimitive.Root>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

@@ -1,5 +1,5 @@
 ---
-import { ArrowUpRightIcon } from "lucide-react";
+import { ArrowUpRightIcon, CopyrightIcon } from "lucide-react";
 
 import { SITE_NAME } from "@/src/lib/site";
 
@@ -8,27 +8,25 @@ const statsHref =
   "https://plausible.io/svenfinger.com?period=28d&keybindHint=F";
 ---
 
-<footer class="mt-auto">
-  <div
-    class="flex flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between"
-  >
-    <p class="text-sm text-muted-foreground">© {year} {SITE_NAME}</p>
-    <nav aria-label="Footer" class="flex items-center gap-4 text-sm">
-      <a href="/privacy" class="text-muted-foreground hover:text-foreground">
-        Privacy
-      </a>
-      <a href="/imprint" class="text-muted-foreground hover:text-foreground">
-        Imprint
-      </a>
-      <a
-        href={statsHref}
-        target="_blank"
-        rel="noreferrer"
-        class="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"
+<footer class="mt-auto border-t border-(--color-border-subtle)">
+  <div class="page-shell">
+    <div
+      class="flex flex-col items-center gap-(--space-4) py-(--space-8) md:h-(--space-16) md:flex-row md:justify-between md:py-0"
+    >
+      <p
+        class="flex items-center gap-(--space-2) text-sm leading-(--leading-label) font-(--font-weight-label)"
       >
-        Stats
-        <ArrowUpRightIcon className="size-3.5" />
-      </a>
-    </nav>
+        <CopyrightIcon className="size-3" aria-hidden="true" />
+        {`${year} ${SITE_NAME}`}
+      </p>
+      <nav aria-label="Footer" class="flex items-center gap-(--space-1)">
+        <a href={statsHref} target="_blank" rel="noreferrer" class="nav-pill">
+          Stats
+          <ArrowUpRightIcon className="size-4" aria-hidden="true" />
+        </a>
+        <a href="/privacy" class="nav-pill">Privacy</a>
+        <a href="/imprint" class="nav-pill">Imprint</a>
+      </nav>
+    </div>
   </div>
 </footer>

@@ -16,9 +16,9 @@ This repository contains a personal portfolio designed as a product-like web int
 - Astro with static output
 - React for interactive UI only
 - Tailwind CSS 4
-- shadcn/ui using Base UI
+- Base UI for interactive primitives
 - Lucide icons
-- Geist typography
+- Google Sans Flex typography
 - Astro Content Collections and MDX
 - pnpm
 - Cloudflare Workers Static Assets
@@ -26,15 +26,15 @@ This repository contains a personal portfolio designed as a product-like web int
 ## Architecture
 
 - Prefer Astro for pages, layouts, content, and non-interactive components.
-- Use React only where client-side interaction or a shadcn component requires it.
+- Use React only where client-side interaction requires it.
 - Keep React islands as small as practical; do not convert static content to React without a reason.
 - Keep the site statically generated unless a feature explicitly requires server-side behavior.
 - Do not add global state management unless a concrete requirement needs it.
 
 ## UI
 
-- Use existing shadcn components before creating equivalent primitives.
-- Do not hand-roll accessible primitives already provided by Base UI/shadcn.
+- Use Base UI for interactive primitives such as buttons and menus.
+- Do not hand-roll accessible primitives already provided by Base UI.
 - Use semantic theme tokens instead of arbitrary interface colors.
 - Keep the interface restrained, precise, and product-like.
 - Prefer borders and surfaces over decorative shadows.

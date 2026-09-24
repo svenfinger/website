@@ -1,70 +1,92 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { ArrowUpRightIcon } from "lucide-react";
 
-const socials = [
+const links = [
+  {
+    title: "Email",
+    href: "mailto:hi@svenfinger.com",
+    description: "hi@svenfinger.com",
+    external: false,
+  },
   {
     title: "LinkedIn",
     href: "https://www.linkedin.com/in/svenfinger/",
     description: "linkedin.com/in/svenfinger",
+    external: true,
   },
   {
     title: "GitHub",
     href: "https://github.com/svenfinger",
     description: "github.com/svenfinger",
+    external: true,
   },
   {
     title: "X",
     href: "https://x.com/svenfinger",
     description: "x.com/svenfinger",
+    external: true,
   },
   {
     title: "Figma",
     href: "https://www.figma.com/@sven",
     description: "figma.com/@sven",
+    external: true,
   },
   {
     title: "Cursor",
     href: "https://cursor.com/@sven",
     description: "cursor.com/@sven",
+    external: true,
   },
 ];
 ---
 
 <Layout
-  title="Socials"
-  description="Find Sven Finger on LinkedIn, GitHub, X, Figma, and Cursor."
+  title="Get in touch"
+  description="Email Sven Finger, or find him on LinkedIn, GitHub, X, Figma, and Cursor."
 >
-  <div class="mx-auto flex w-full max-w-[37em] flex-col gap-6">
-    <h1 class="text-2xl font-medium tracking-tight">Socials</h1>
-    <div class="flex flex-col gap-4">
-      {
-        socials.map((social) => (
-          <a
-            href={social.href}
-            target="_blank"
-            rel="noreferrer"
-            class="block rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-          >
-            <Card size="sm" className="transition-colors hover:bg-muted">
-              <CardHeader>
-                <CardTitle>{social.title}</CardTitle>
-                <CardDescription>{social.description}</CardDescription>
-                <CardAction>
-                  <ArrowUpRightIcon className="size-4 text-muted-foreground" />
-                </CardAction>
-              </CardHeader>
-            </Card>
-          </a>
-        ))
-      }
+  <article
+    class="grid grid-cols-1 gap-(--space-4) py-(--space-8) md:grid-cols-3 md:gap-(--space-8) md:py-(--space-16)"
+  >
+    <h1
+      class="text-3xl leading-(--leading-title) font-(--font-weight-title) tracking-(--tracking-title)"
+    >
+      Get in touch
+    </h1>
+    <div class="flex flex-col gap-(--space-6) pt-(--space-3) md:col-span-2">
+      <p
+        class="max-w-(--layout-prose) text-base leading-normal font-(--font-weight-text)"
+      >
+        Email is the best way to reach me.
+      </p>
+      <ul class="flex max-w-(--layout-prose) flex-col">
+        {
+          links.map((link) => (
+            <li class="border-b border-(--color-border-subtle) first:border-t">
+              <a
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
+                class="-mx-(--space-2) flex items-center justify-between gap-(--space-4) rounded-md px-(--space-2) py-(--space-4) outline-none transition-colors duration-(--duration-default) ease-(--ease-standard) hover:bg-(--color-surface) focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-foreground"
+              >
+                <span class="flex min-w-0 flex-col gap-(--space-1)">
+                  <span class="text-base leading-normal font-(--font-weight-label)">
+                    {link.title}
+                  </span>
+                  <span class="truncate text-base leading-normal font-(--font-weight-text) text-muted-foreground">
+                    {link.description}
+                  </span>
+                </span>
+                <ArrowUpRightIcon
+                  className="size-4 shrink-0 text-muted-foreground"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
-  </div>
+  </article>
 </Layout>

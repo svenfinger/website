@@ -1,12 +1,4 @@
 ---
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { ArrowUpRightIcon } from "lucide-react";
 
 const { href, title, description, image, external = false } = Astro.props;
@@ -14,32 +6,31 @@ const { href, title, description, image, external = false } = Astro.props;
 
 <a
   href={href}
-  class="block rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+  class="flex origin-center flex-col gap-(--space-4) overflow-hidden rounded-lg bg-(--color-surface) brightness-100 outline-none transition-[scale,filter] duration-(--duration-default) ease-(--ease-standard) hover:scale-[1.01] hover:brightness-[1.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.99] active:brightness-[0.94] active:duration-(--duration-fast) motion-reduce:transform-none motion-reduce:brightness-100 motion-reduce:hover:brightness-100 motion-reduce:active:brightness-100"
   target={external ? "_blank" : undefined}
   rel={external ? "noreferrer" : undefined}
 >
-  <Card size="sm" className="h-full transition-colors hover:bg-muted">
-    <CardContent>
-      <div class="overflow-hidden rounded-lg">
-        {
-          image ? (
-            <img src={image} alt="" class="aspect-video w-full object-cover" />
-          ) : (
-            <div class="aspect-video w-full bg-muted" aria-hidden="true" />
-          )
-        }
-      </div>
-    </CardContent>
-    <CardHeader>
-      <CardTitle>{title}</CardTitle>
-      <CardDescription>{description}</CardDescription>
+  {
+    image ? (
+      <img src={image} alt="" class="aspect-530/298 w-full object-cover" />
+    ) : (
+      <div class="aspect-530/298 w-full bg-background" aria-hidden="true" />
+    )
+  }
+  <div
+    class="flex flex-col gap-(--space-1) px-(--space-4) pb-(--space-4) text-base leading-normal font-(--font-weight-text)"
+  >
+    <p class="flex items-start justify-between gap-(--space-2) text-foreground">
+      <span>{title}</span>
       {
-        external ? (
-          <CardAction>
-            <ArrowUpRightIcon className="size-4 text-muted-foreground" />
-          </CardAction>
-        ) : null
+        external && (
+          <ArrowUpRightIcon
+            className="mt-(--space-1) size-4 shrink-0 text-muted-foreground"
+            aria-hidden="true"
+          />
+        )
       }
-    </CardHeader>
-  </Card>
+    </p>
+    <p class="text-muted-foreground">{description}</p>
+  </div>
 </a>
