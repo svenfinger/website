@@ -1,6 +1,6 @@
 ---
 const { src, type, alt, width, height, loading = "lazy" } = Astro.props;
-const className = "h-auto w-full rounded-xl ring-1 ring-foreground/10";
+const className = "h-auto w-full rounded-lg ring-1 ring-(--color-border)";
 const isGif = src.endsWith(".gif");
 ---
 

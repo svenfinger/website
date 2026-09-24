@@ -39,10 +39,18 @@ const gallery = getWorkGallery(entry.id);
   description={description}
   workNav={{ title, prevHref, nextHref }}
 >
-  <div class="flex flex-col gap-6">
-    <div class="flex max-w-2xl flex-col gap-2">
-      <h1 class="text-2xl font-medium tracking-tight">{title}</h1>
-      <p class="text-muted-foreground">{description}</p>
+  <div class="flex flex-col gap-(--space-6) py-(--space-8) md:py-(--space-16)">
+    <div class="flex max-w-(--layout-prose) flex-col gap-(--space-2)">
+      <h1
+        class="text-3xl leading-(--leading-title) font-(--font-weight-title) tracking-(--tracking-title)"
+      >
+        {title}
+      </h1>
+      <p
+        class="text-base leading-normal font-(--font-weight-text) text-muted-foreground"
+      >
+        {description}
+      </p>
     </div>
     <WorkMedia
       src={cover.src}
@@ -54,7 +62,7 @@ const gallery = getWorkGallery(entry.id);
     />
     {
       gallery.length > 0 && (
-        <div class="grid gap-4 sm:grid-cols-2">
+        <div class="grid gap-(--space-4) sm:grid-cols-2">
           {gallery.map((item) => (
             <WorkMedia
               src={item.src}

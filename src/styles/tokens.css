@@ -1,0 +1,165 @@
+/*
+ * Semantic tokens from Figma (Semantic Tokens, Mode 1).
+ * Each value references a Tailwind theme variable where one exists.
+ * The class is on the document. Colors and radii that back utilities
+ * such as bg-background and rounded-md live in the theme.
+ */
+
+.semantic-tokens {
+  --color-surface: var(--color-zinc-900);
+  --color-surface-hover: var(--color-zinc-800);
+  --color-accent-hover: var(--color-blue-500);
+  --color-link: var(--color-blue-400);
+  --color-border-subtle: color-mix(
+    in oklab,
+    var(--color-white) 7%,
+    transparent
+  );
+
+  /* No Tailwind duration variables. 200ms matches the duration-200 utility. */
+  --duration-fast: 120ms;
+  --duration-default: 200ms;
+  --duration-slow: 320ms;
+
+  /* None of these match --ease-in, --ease-out, or --ease-in-out. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --gutter-desktop: calc(var(--spacing) * 8);
+  --gutter-mobile: calc(var(--spacing) * 5);
+
+  --layout-media: var(--breakpoint-2xl);
+  --layout-page: var(--container-7xl);
+  --layout-content: var(--container-4xl);
+  --layout-prose: var(--container-2xl);
+
+  --radius-full: calc(infinity * 1px);
+
+  --space-1: calc(var(--spacing) * 1);
+  --space-2: calc(var(--spacing) * 2);
+  --space-3: calc(var(--spacing) * 3);
+  --space-4: calc(var(--spacing) * 4);
+  --space-6: calc(var(--spacing) * 6);
+  --space-8: calc(var(--spacing) * 8);
+  --space-12: calc(var(--spacing) * 12);
+  --space-16: calc(var(--spacing) * 16);
+  --space-24: calc(var(--spacing) * 24);
+  --space-32: calc(var(--spacing) * 32);
+
+  /*
+   * text-xs through text-2xl match Tailwind's --text-* tokens and are not
+   * redeclared. These four sizes do not.
+   */
+  --text-3xl: 2rem;
+  --text-4xl: 2.75rem;
+  --text-5xl: 4rem;
+  --text-6xl: 5.5rem;
+
+  /*
+   * Text styles. --leading-normal (1.5) and --text-2xl already match Tailwind.
+   * Title is the page headline. Subtitle is the section headline.
+   */
+  --font-weight-text: 420;
+  --font-weight-label: 520;
+  --font-weight-subtitle: 560;
+  --font-weight-title: 580;
+  --leading-label: 1.29;
+  --leading-subtitle: 1.25;
+  --leading-title: 1.16;
+  --tracking-subtitle: -0.005em;
+  --tracking-title: -0.01em;
+}
+
+/* Content width stays on the layout token; gutter is outside that width. */
+.page-shell {
+  width: 100%;
+  max-width: calc(var(--layout-page) + (var(--gutter-mobile) * 2));
+  margin-inline: auto;
+  padding-inline: var(--gutter-mobile);
+}
+
+.media-shell {
+  width: 100%;
+  max-width: calc(var(--layout-media) + (var(--gutter-mobile) * 2));
+  margin-inline: auto;
+  padding-inline: var(--gutter-mobile);
+}
+
+@media (min-width: 48rem) {
+  .page-shell {
+    max-width: calc(var(--layout-page) + (var(--gutter-desktop) * 2));
+    padding-inline: var(--gutter-desktop);
+  }
+
+  .media-shell {
+    max-width: calc(var(--layout-media) + (var(--gutter-desktop) * 2));
+    padding-inline: var(--gutter-desktop);
+  }
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-label);
+  line-height: var(--leading-label);
+  color: var(--color-foreground);
+  filter: brightness(1);
+  transition-property: background-color, filter;
+  transition-duration: var(--duration-default);
+  transition-timing-function: var(--ease-standard);
+}
+
+.nav-pill[aria-current="page"] {
+  background-color: var(--color-surface);
+}
+
+.nav-pill:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.nav-pill:active {
+  filter: brightness(0.8);
+  transition-duration: var(--duration-fast);
+}
+
+.nav-pill:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+/* Mobile menu items share nav-pill tokens. Radius, text size, and padding differ. */
+.nav-pill.nav-menu-item {
+  width: 100%;
+  justify-content: flex-start;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.nav-pill.nav-menu-action {
+  border: 1px solid var(--color-border);
+}
+
+.nav-pill.nav-menu-item:focus-visible {
+  background-color: var(--color-surface-hover);
+}
+
+.nav-pill.nav-menu-action:hover,
+.nav-pill.nav-menu-action[data-highlighted] {
+  background-color: var(--color-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-pill,
+  .nav-pill:hover,
+  .nav-pill:active {
+    filter: brightness(1);
+  }
+}
