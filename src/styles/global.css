@@ -28,6 +28,8 @@
 @layer base {
   body {
     background-color: var(--color-background);
+    /* Chrome paints oklch backgrounds in bands without a background image. */
+    background-image: linear-gradient(transparent, transparent);
     color: var(--color-foreground);
   }
   html {

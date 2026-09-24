@@ -234,7 +234,11 @@ function readMp4Size(filePath: string) {
   return walkMp4(buffer, 0, buffer.length);
 }
 
-function walkMp4(buffer: Buffer, start: number, end: number) {
+function walkMp4(
+  buffer: Buffer,
+  start: number,
+  end: number,
+): { width: number; height: number } | undefined {
   let offset = start;
 
   while (offset + 8 <= end) {
