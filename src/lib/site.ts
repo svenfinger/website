@@ -9,4 +9,4 @@ export const NAV_ITEMS = [
   { title: "About", href: "/about" },
 ] as const;
 
-export const GET_IN_TOUCH_HREF = "/socials";
+export const GET_IN_TOUCH_HREF = "/contact";

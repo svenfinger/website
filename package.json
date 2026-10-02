@@ -2,10 +2,7 @@
   "private": true,
   "name": "website",
   "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -13,8 +10,6 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check"
   },
-  "keywords": [],
-  "author": "",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",

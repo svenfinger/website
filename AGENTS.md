@@ -14,7 +14,7 @@ This repository contains a personal portfolio designed as a product-like web int
 ## Stack
 
 - Astro with static output
-- React for interactive UI only
+- React for interactive UI and shared React components
 - Tailwind CSS 4
 - Base UI for interactive primitives
 - Lucide icons
@@ -26,7 +26,7 @@ This repository contains a personal portfolio designed as a product-like web int
 ## Architecture
 
 - Prefer Astro for pages, layouts, content, and non-interactive components.
-- Use React only where client-side interaction requires it.
+- Reuse existing React components where appropriate; hydrate only when client-side interaction requires it.
 - Keep React islands as small as practical; do not convert static content to React without a reason.
 - Keep the site statically generated unless a feature explicitly requires server-side behavior.
 - Do not add global state management unless a concrete requirement needs it.
@@ -34,8 +34,10 @@ This repository contains a personal portfolio designed as a product-like web int
 ## UI
 
 - Use Base UI for interactive primitives such as buttons and menus.
+- Reuse existing components, including `components/button.tsx`, before creating alternatives.
 - Do not hand-roll accessible primitives already provided by Base UI.
 - Use semantic theme tokens instead of arbitrary interface colors.
+- Reuse the theme tokens in `src/styles/global.css` and `src/styles/tokens.css` before introducing new values.
 - Keep the interface restrained, precise, and product-like.
 - Prefer borders and surfaces over decorative shadows.
 - Use blue sparingly as the primary interface accent.
@@ -50,7 +52,8 @@ This repository contains a personal portfolio designed as a product-like web int
 - Follow the existing code style and patterns.
 - Avoid premature abstraction.
 - Remove temporary prototype/test code after it has served its purpose.
-- Run the relevant existing checks and `pnpm build` after implementation.
+- Run `pnpm lint`, `pnpm format:check`, and `pnpm build` after code changes.
+- For documentation-only changes, a formatting check of the changed files is sufficient.
 - Never claim a check passed unless it was actually run successfully.
 
 ## Git
