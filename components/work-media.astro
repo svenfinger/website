@@ -33,41 +33,43 @@ const isGif = src.endsWith(".gif");
 }
 
 <script>
-  const reduceMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+  document.addEventListener("astro:page-load", () => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
-  if (reduceMotion) {
-    for (const img of document.querySelectorAll("img[data-work-gif]")) {
-      const freeze = () => {
-        if (!(img instanceof HTMLImageElement) || !img.naturalWidth) {
-          return;
+    if (reduceMotion) {
+      for (const img of document.querySelectorAll("img[data-work-gif]")) {
+        const freeze = () => {
+          if (!(img instanceof HTMLImageElement) || !img.naturalWidth) {
+            return;
+          }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          canvas.className = img.className;
+          canvas.setAttribute("role", "img");
+          if (img.alt) {
+            canvas.setAttribute("aria-label", img.alt);
+          }
+          canvas.getContext("2d")?.drawImage(img, 0, 0);
+          img.replaceWith(canvas);
+        };
+
+        if (img.complete) {
+          freeze();
+        } else {
+          img.addEventListener("load", freeze, { once: true });
         }
-
-        const canvas = document.createElement("canvas");
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        canvas.className = img.className;
-        canvas.setAttribute("role", "img");
-        if (img.alt) {
-          canvas.setAttribute("aria-label", img.alt);
+      }
+    } else {
+      for (const video of document.querySelectorAll("video[data-work-video]")) {
+        if (video instanceof HTMLVideoElement) {
+          video.autoplay = true;
+          void video.play();
         }
-        canvas.getContext("2d")?.drawImage(img, 0, 0);
-        img.replaceWith(canvas);
-      };
-
-      if (img.complete) {
-        freeze();
-      } else {
-        img.addEventListener("load", freeze, { once: true });
       }
     }
-  } else {
-    for (const video of document.querySelectorAll("video[data-work-video]")) {
-      if (video instanceof HTMLVideoElement) {
-        video.autoplay = true;
-        void video.play();
-      }
-    }
-  }
+  });
 </script>

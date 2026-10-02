@@ -18,8 +18,9 @@ const work = (await getCollection("work")).sort(
     class="grid grid-cols-1 gap-(--space-4) py-(--space-8) md:grid-cols-2 md:gap-(--space-8) md:py-(--space-16)"
   >
     {
-      work.map((entry) => (
+      work.map((entry, index) => (
         <WorkCard
+          index={index}
           href={`/work/${entry.id}`}
           title={entry.data.title}
           description={entry.data.description}

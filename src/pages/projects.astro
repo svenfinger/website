@@ -27,8 +27,9 @@ const projects = projectEntries.map((project) => ({
     class="grid grid-cols-1 gap-(--space-4) py-(--space-8) md:grid-cols-2 md:gap-(--space-8) md:py-(--space-16)"
   >
     {
-      projects.map((project) => (
+      projects.map((project, index) => (
         <WorkCard
+          index={index}
           href={project.href}
           title={project.title}
           description={project.description}

@@ -1,5 +1,6 @@
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { MenuIcon, XIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/button";
 import { GET_IN_TOUCH_HREF, NAV_ITEMS, SITE_NAME } from "@/src/lib/site";
@@ -32,10 +33,19 @@ export function SiteHeader({
   sticky?: boolean;
 }) {
   const path = currentPath.replace(/\/$/, "") || "/";
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const closeMenu = () => setMenuOpen(false);
+    document.addEventListener("astro:before-preparation", closeMenu);
+    return () => {
+      document.removeEventListener("astro:before-preparation", closeMenu);
+    };
+  }, []);
 
   return (
     <header
-      className={`z-50 border-b border-(--color-border-subtle) bg-background ${sticky ? "sticky top-0" : ""}`}
+      className={`site-header z-50 border-b border-(--color-border-subtle) bg-background ${sticky ? "sticky top-0" : ""}`}
     >
       <div className="page-shell">
         <div className="relative flex h-(--space-16) items-center justify-between">
@@ -70,7 +80,7 @@ export function SiteHeader({
           >
             Get in touch
           </Button>
-          <MenuPrimitive.Root>
+          <MenuPrimitive.Root open={menuOpen} onOpenChange={setMenuOpen}>
             <MenuPrimitive.Trigger
               className="p-(--space-2) data-popup-open:bg-(--color-surface) md:hidden"
               render={(props, state) => (
@@ -93,7 +103,7 @@ export function SiteHeader({
                 sideOffset={8}
                 className="z-50 outline-none md:hidden"
               >
-                <MenuPrimitive.Popup className="flex w-40 flex-col gap-(--space-2) rounded-md border border-border bg-background p-(--space-2) outline-none">
+                <MenuPrimitive.Popup className="flex w-40 origin-(--transform-origin) flex-col gap-(--space-2) rounded-md border border-border bg-background p-(--space-2) outline-none transition-[scale,opacity] duration-(--duration-default) ease-(--ease-enter) data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 data-ending-style:duration-(--duration-fast) data-ending-style:ease-(--ease-exit) motion-reduce:transition-none motion-reduce:data-starting-style:scale-100 motion-reduce:data-ending-style:scale-100">
                   {NAV_ITEMS.map((item) => (
                     <MenuPrimitive.LinkItem
                       key={item.href}
