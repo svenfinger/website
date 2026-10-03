@@ -1,0 +1,35 @@
+---
+interface Props {
+  year: string;
+  role: string;
+  company: string;
+  platforms: string;
+}
+
+const { year, role, company, platforms } = Astro.props;
+const details = [
+  ["Year", year],
+  ["Role", role],
+  ["Company", company],
+  ["Platforms", platforms],
+];
+---
+
+<section
+  class="work-block work-block--page work-intro"
+  aria-label="Project overview"
+>
+  <div class="work-prose"><slot /></div>
+  <dl>
+    {
+      details.map(([label, value]) => (
+        <div>
+          <>
+            <dt>{label}</dt>
+            <dd>{value}</dd>
+          </>
+        </div>
+      ))
+    }
+  </dl>
+</section>

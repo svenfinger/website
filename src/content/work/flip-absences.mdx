@@ -3,3 +3,153 @@ title: Flip Absences
 description: Request time off and keep track of leave balances.
 order: 1
 ---
+
+import WorkCover from "@/components/work-cover.astro";
+import WorkIntro from "@/components/work-intro.astro";
+import WorkMedia from "@/components/work-media.astro";
+import WorkText from "@/components/work-text.astro";
+import WorkKpi from "@/components/work-kpi.astro";
+import { WorkCarousel } from "@/components/work-carousel";
+import { WorkThemeMedia } from "@/components/work-theme-media";
+
+<WorkCover
+  title="Flip Absences"
+  category="HR Technology"
+  type="video"
+  src="https://media.svenfinger.com/work/flip-absences/cover.mp4"
+  poster="/images/work/flip-absences/flip-absences-cover.png"
+/>
+
+<div class="work-body">
+  <WorkIntro year="2025" role="Lead Product Designer" company="Flip" platforms="Mobile & Web">
+    <p>I designed a new absence-management experience for Flip, giving frontline employees one place to request time off, check balances and follow requests — regardless of the HR system behind the scenes. Working closely with product and engineering, I helped shape the underlying model and designed the end-to-end experience across mobile and web.</p>
+  </WorkIntro>
+
+<div class="work-section">
+  <WorkMedia
+    size="media"
+    src="/images/work/flip-absences/exploration.png"
+    alt="Early absence-management designs showing summary, requests, and balances on mobile"
+    width={3840}
+    height={2160}
+  />
+  <WorkText title="Exploring the experience">
+
+With the foundations in place, I explored different ways to make absence management feel simple, familiar and fast for frontline employees.
+
+I iterated on navigation, information hierarchy and interaction patterns across the core journeys, using prototypes and feedback to converge on a structure that could scale beyond the request flow.
+
+</WorkText>
+</div>
+
+<div class="work-section">
+  <WorkMedia
+    size="media"
+    src="/images/work/flip-absences/overview.png"
+    alt="Summary, requests, and balances views in the Flip mobile app"
+    width={3840}
+    height={2160}
+  />
+  <WorkText title="Everything in one place">
+
+Absences was organized around three focused views: Summary, Requests and Balances.
+
+Together, they gave employees a clear overview of their time off, a place to follow current and past requests, and direct access to their remaining balances — without jumping between different tools.
+
+</WorkText>
+</div>
+
+<div class="work-section">
+  <WorkMedia
+    size="full"
+    type="video"
+    src="https://media.svenfinger.com/work/flip-absences/detail.mp4"
+    poster="/images/work/flip-absences/request-edit.png"
+    alt="Mobile steps for requesting time off"
+    width={3200}
+    height={1800}
+  />
+  <WorkText title="Requesting time off">
+
+The core journey was deliberately short: choose an absence type, select the dates, review the request and send it.
+
+Each step focused on the information needed in that moment, keeping an administrative process lightweight enough to complete on the go.
+
+</WorkText>
+</div>
+
+<div class="work-section">
+  <WorkCarousel
+    client:visible={{ rootMargin: "600px" }}
+    label="Absence request details and supporting states"
+    slides={[
+      {
+        src: "/images/work/flip-absences/request-details.png",
+        alt: "Year selector and quick absence balances on mobile",
+        width: 1600,
+        height: 1600,
+      },
+      {
+        src: "/images/work/flip-absences/balances.png",
+        alt: "Past absences, request button, and summary navigation on mobile",
+        width: 1600,
+        height: 1600,
+      },
+      {
+        src: "/images/work/flip-absences/request-statuses.png",
+        alt: "Absence requests with pending, canceled, and approved statuses",
+        width: 1600,
+        height: 1600,
+      },
+      {
+        src: "/images/work/flip-absences/absence-icons.png",
+        alt: "Icons for vacation, sick leave, and other absence types",
+        width: 1600,
+        height: 1600,
+      },
+      {
+        src: "/images/work/flip-absences/status-icons.png",
+        alt: "Icons for approved, pending, canceled, and rejected requests",
+        width: 1600,
+        height: 1600,
+      },
+    ]}
+  />
+  <WorkText title="More than a request form">
+
+Submitting a request was only one part of the experience. Employees could open request details, follow status changes, understand their balances, and edit or cancel requests when needed.
+
+Those supporting states turned Absences into a self-service product rather than a single transactional flow.
+
+</WorkText>
+</div>
+
+<div class="work-section">
+  <WorkThemeMedia
+    client:visible={{ rootMargin: "600px" }}
+    light={{
+      src: "/images/work/flip-absences/desktop-mobile-light.jpg",
+      alt: "Flip Absences on desktop and mobile in light mode",
+      width: 3840,
+      height: 2160,
+    }}
+    dark={{
+      src: "/images/work/flip-absences/desktop-mobile-dark.jpg",
+      alt: "Flip Absences on desktop and mobile in dark mode",
+      width: 3840,
+      height: 2160,
+    }}
+  />
+  <WorkText title="Built across mobile and web">
+
+Absences had to feel native to both of Flip’s product environments. I adapted layouts and interaction patterns for mobile and web while keeping the same structure and behavior across both.
+
+The experience also supported light and dark themes throughout, making the feature feel consistent across every surface.
+
+</WorkText>
+</div>
+
+  <WorkKpi title="Time off, without the HR-system friction." qualifier="Up to" value="2× faster" description="From start to finish of requesting absences, versus common HR systems.">
+    <p>For frontline employees, requesting leave could mean paper forms, separate HR tools, forgotten credentials or MFA. By bringing the full flow into Flip, employees could manage time off in the app they already used — <strong>completing a request in just 1–3 minutes in testing.</strong></p>
+  </WorkKpi>
+</div>

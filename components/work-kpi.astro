@@ -1,0 +1,34 @@
+---
+import { ZapIcon } from "lucide-react";
+
+interface Props {
+  title: string;
+  qualifier: string;
+  value: string;
+  description: string;
+}
+
+const { title, qualifier, value, description } = Astro.props;
+---
+
+<section class="work-block work-block--content">
+  <div class="work-kpi">
+    <div class="work-kpi-heading">
+      <ZapIcon
+        className="size-16 text-accent"
+        fill="currentColor"
+        aria-hidden="true"
+        strokeWidth={0}
+      />
+      <h2>{title}</h2>
+    </div>
+    <div class="work-kpi-columns">
+      <div class="work-prose text-muted-foreground"><slot /></div>
+      <div class="work-kpi-stat">
+        <p class="work-kpi-qualifier">{qualifier}</p>
+        <p class="work-kpi-value">{value}</p>
+        <p class="work-prose text-muted-foreground">{description}</p>
+      </div>
+    </div>
+  </div>
+</section>

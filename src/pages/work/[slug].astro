@@ -1,5 +1,6 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
+import "../../styles/work.css";
 import Layout from "../../layouts/Layout.astro";
 import WorkMedia from "@/components/work-media.astro";
 import {
@@ -30,50 +31,56 @@ export async function getStaticPaths() {
 
 const { entry, prevHref, nextHref } = Astro.props;
 const { title, description } = entry.data;
+const rendered = entry.body?.trim() ? await render(entry) : null;
+const Content = rendered?.Content;
 const cover = getWorkCover(entry.id);
-const gallery = getWorkGallery(entry.id);
+const gallery = Content ? [] : getWorkGallery(entry.id);
 ---
 
 <Layout
   title={title}
   description={description}
+  socialImage={cover.src}
   workNav={{ title, prevHref, nextHref }}
+  fullWidth={Boolean(Content)}
 >
-  <div class="flex flex-col gap-(--space-6) py-(--space-8) md:py-(--space-16)">
-    <div class="flex max-w-(--layout-prose) flex-col gap-(--space-2)">
-      <h1
-        class="text-3xl leading-(--leading-title) font-(--font-weight-title) tracking-(--tracking-title)"
-      >
-        {title}
-      </h1>
-      <p
-        class="text-base leading-normal font-(--font-weight-text) text-muted-foreground"
-      >
-        {description}
-      </p>
-    </div>
-    <WorkMedia
-      src={cover.src}
-      type={cover.type}
-      alt={workMediaAlt(title, cover.src, "cover")}
-      width={cover.width}
-      height={cover.height}
-      loading="eager"
-    />
-    {
-      gallery.length > 0 && (
-        <div class="grid gap-(--space-4) sm:grid-cols-2">
-          {gallery.map((item) => (
-            <WorkMedia
-              src={item.src}
-              type={item.type}
-              alt={workMediaAlt(title, item.src, "gallery")}
-              width={item.width}
-              height={item.height}
-            />
-          ))}
+  {
+    Content ? (
+      <article class="work">
+        <Content />
+      </article>
+    ) : (
+      <div class="flex flex-col gap-(--space-6) py-(--space-8) md:py-(--space-16)">
+        <div class="flex max-w-(--layout-prose) flex-col gap-(--space-2)">
+          <h1 class="text-3xl leading-(--leading-title) font-(--font-weight-title) tracking-(--tracking-title)">
+            {title}
+          </h1>
+          <p class="text-base leading-normal font-(--font-weight-text) text-muted-foreground">
+            {description}
+          </p>
         </div>
-      )
-    }
-  </div>
+        <WorkMedia
+          src={cover.src}
+          type={cover.type}
+          alt={workMediaAlt(title, cover.src, "cover")}
+          width={cover.width}
+          height={cover.height}
+          loading="eager"
+        />
+        {gallery.length > 0 && (
+          <div class="grid gap-(--space-4) sm:grid-cols-2">
+            {gallery.map((item) => (
+              <WorkMedia
+                src={item.src}
+                type={item.type}
+                alt={workMediaAlt(title, item.src, "gallery")}
+                width={item.width}
+                height={item.height}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
 </Layout>

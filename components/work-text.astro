@@ -1,0 +1,12 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="work-block work-block--prose work-text">
+  <h2>{title}</h2>
+  <div class="work-prose"><slot /></div>
+</section>

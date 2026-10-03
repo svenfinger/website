@@ -8,7 +8,7 @@ const { title, prevHref, nextHref } = Astro.props;
 ---
 
 <nav
-  class="sticky top-0 z-50 border-b border-(--color-border-subtle) bg-background"
+  class="sticky top-0 z-50 bg-background"
   aria-label="Work navigation"
   data-page-intro
   data-work-nav
@@ -46,3 +46,62 @@ const { title, prevHref, nextHref } = Astro.props;
     </div>
   </div>
 </nav>
+
+<style>
+  nav::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  nav[data-cover-passed]::after {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  let coverObserver: IntersectionObserver | undefined;
+
+  document.addEventListener("astro:before-swap", () => {
+    coverObserver?.disconnect();
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    coverObserver?.disconnect();
+
+    const nav = document.querySelector<HTMLElement>("[data-work-nav]");
+    if (!nav) return;
+
+    const cover = document.querySelector<HTMLElement>(".work-cover");
+    if (!cover) {
+      nav.setAttribute("data-cover-passed", "");
+      return;
+    }
+
+    const updateBorder = () => {
+      nav.toggleAttribute(
+        "data-cover-passed",
+        cover.getBoundingClientRect().bottom <=
+          nav.getBoundingClientRect().bottom,
+      );
+    };
+
+    updateBorder();
+    coverObserver = new IntersectionObserver(
+      ([entry]) => {
+        nav.toggleAttribute(
+          "data-cover-passed",
+          !entry.isIntersecting &&
+            entry.boundingClientRect.bottom <=
+              nav.getBoundingClientRect().bottom,
+        );
+      },
+      { rootMargin: `-${nav.offsetHeight}px 0px 0px 0px` },
+    );
+    coverObserver.observe(cover);
+  });
+</script>

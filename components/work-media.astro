@@ -1,36 +1,59 @@
 ---
-const { src, type, alt, width, height, loading = "lazy" } = Astro.props;
+interface Props {
+  src: string;
+  type?: "image" | "video";
+  poster?: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: "lazy" | "eager";
+  size?: "media" | "page" | "content" | "prose" | "full";
+}
+
+const {
+  src,
+  type = "image",
+  poster,
+  alt,
+  width,
+  height,
+  loading = "lazy",
+  size,
+} = Astro.props;
 const className = "h-auto w-full rounded-lg ring-1 ring-(--color-border)";
 const isGif = src.endsWith(".gif");
 ---
 
-{
-  type === "video" ? (
-    <video
-      class={className}
-      data-work-video
-      loop
-      muted
-      playsinline
-      preload={loading === "eager" ? "auto" : "metadata"}
-      src={src}
-      width={width}
-      height={height}
-      aria-label={alt}
-    />
-  ) : (
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      class={className}
-      loading={loading}
-      decoding="async"
-      data-work-gif={isGif ? "" : undefined}
-    />
-  )
-}
+<div class:list={[size && "work-block", size && `work-block--${size}`]}>
+  {
+    type === "video" ? (
+      <video
+        class={className}
+        data-work-video
+        loop
+        muted
+        playsinline
+        preload={loading === "eager" ? "auto" : "metadata"}
+        src={src}
+        poster={poster}
+        width={width}
+        height={height}
+        aria-label={alt}
+      />
+    ) : (
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        class={className}
+        loading={loading}
+        decoding="async"
+        data-work-gif={isGif ? "" : undefined}
+      />
+    )
+  }
+</div>
 
 <script>
   document.addEventListener("astro:page-load", () => {
@@ -67,7 +90,9 @@ const isGif = src.endsWith(".gif");
       for (const video of document.querySelectorAll("video[data-work-video]")) {
         if (video instanceof HTMLVideoElement) {
           video.autoplay = true;
-          void video.play();
+          void video.play().catch(() => {
+            // Keep the poster visible if the browser blocks autoplay.
+          });
         }
       }
     }
