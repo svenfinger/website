@@ -1,11 +1,9 @@
 ---
-import { ArrowUpRightIcon, CopyrightIcon } from "lucide-react";
+import { CopyrightIcon } from "lucide-react";
 
 import { SITE_NAME } from "@/src/lib/site";
 
 const year = new Date().getFullYear();
-const statsHref =
-  "https://plausible.io/svenfinger.com?period=28d&keybindHint=F";
 ---
 
 <footer
@@ -25,10 +23,6 @@ const statsHref =
         {`${year} ${SITE_NAME}`}
       </p>
       <nav aria-label="Footer" class="flex items-center gap-(--space-1)">
-        <a href={statsHref} target="_blank" rel="noreferrer" class="nav-pill">
-          Stats
-          <ArrowUpRightIcon className="size-4" aria-hidden="true" />
-        </a>
         <a href="/privacy" class="nav-pill">Privacy</a>
         <a href="/imprint" class="nav-pill">Imprint</a>
       </nav>

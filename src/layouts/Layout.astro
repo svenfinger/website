@@ -101,11 +101,6 @@ const ogImage = Astro.site ? new URL(socialImage, Astro.site) : undefined;
       <SiteFooter />
     </div>
     <script>
-      import { init } from "@plausible-analytics/tracker";
-      import { SITE_HOST } from "../lib/site";
-
-      init({ domain: SITE_HOST });
-
       function setPageEntry(
         root: HTMLElement,
         navigationType: string,
