@@ -76,6 +76,7 @@ const gallery = Content ? [] : getWorkGallery(entry.id);
                 alt={workMediaAlt(title, item.src, "gallery")}
                 width={item.width}
                 height={item.height}
+                sizes="(min-width: 84rem) 632px, (min-width: 48rem) calc((100vw - 80px) / 2), (min-width: 40rem) calc((100vw - 56px) / 2), calc(100vw - 40px)"
               />
             ))}
           </div>

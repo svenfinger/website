@@ -1,4 +1,6 @@
 ---
+import { getResponsiveImage } from "@/src/lib/images";
+
 interface Props {
   title: string;
   category: string;
@@ -8,6 +10,13 @@ interface Props {
 }
 
 const { title, category, src, type = "image", poster } = Astro.props;
+const responsiveImage =
+  type === "image"
+    ? await getResponsiveImage(src, [768, 1280, 1920, 2560, 3200], "100vw")
+    : undefined;
+const responsivePoster = poster
+  ? await getResponsiveImage(poster, [1280], "100vw")
+  : undefined;
 ---
 
 <header class="work-cover">
@@ -15,7 +24,7 @@ const { title, category, src, type = "image", poster } = Astro.props;
     type === "video" ? (
       <video
         src={src}
-        poster={poster}
+        poster={responsivePoster?.src ?? poster}
         width="3200"
         height="1800"
         loop
@@ -26,10 +35,12 @@ const { title, category, src, type = "image", poster } = Astro.props;
       />
     ) : (
       <img
-        src={src}
+        sizes={responsiveImage?.attributes.sizes}
+        src={responsiveImage?.src ?? src}
+        srcset={responsiveImage?.srcSet.attribute}
         alt=""
-        width="3200"
-        height="1800"
+        width={responsiveImage?.attributes.width ?? 3200}
+        height={responsiveImage?.attributes.height ?? 1800}
         loading="eager"
         fetchpriority="high"
       />

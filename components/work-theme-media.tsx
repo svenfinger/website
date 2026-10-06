@@ -4,6 +4,8 @@ import { ToggleGroup } from "@base-ui/react/toggle-group";
 
 type ThemeImage = {
   src: string;
+  srcSet?: string;
+  sizes?: string;
   alt: string;
   width: number;
   height: number;
@@ -31,6 +33,8 @@ export function WorkThemeMedia({
           <img
             key={imageTheme}
             src={image.src}
+            srcSet={image.srcSet}
+            sizes={image.sizes}
             alt={image.alt}
             width={image.width}
             height={image.height}

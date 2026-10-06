@@ -9,8 +9,8 @@ import WorkIntro from "@/components/work-intro.astro";
 import WorkMedia from "@/components/work-media.astro";
 import WorkText from "@/components/work-text.astro";
 import WorkKpi from "@/components/work-kpi.astro";
-import { WorkCarousel } from "@/components/work-carousel";
-import { WorkThemeMedia } from "@/components/work-theme-media";
+import WorkCarousel from "@/components/work-carousel.astro";
+import WorkThemeMedia from "@/components/work-theme-media.astro";
 
 <WorkCover
   title="Flip Absences"
@@ -80,7 +80,6 @@ Each step focused on the information needed in that moment, keeping an administr
 
 <div class="work-section">
   <WorkCarousel
-    client:visible={{ rootMargin: "600px" }}
     label="Absence request details and supporting states"
     slides={[
       {
@@ -126,7 +125,6 @@ Those supporting states turned Absences into a self-service product rather than 
 
 <div class="work-section">
   <WorkThemeMedia
-    client:visible={{ rootMargin: "600px" }}
     light={{
       src: "/images/work/flip-absences/desktop-mobile-light.jpg",
       alt: "Flip Absences on desktop and mobile in light mode",

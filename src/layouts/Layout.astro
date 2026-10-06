@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import fontUrl from "@fontsource-variable/google-sans-flex/files/google-sans-flex-latin-wght-normal.woff2?url";
-import { SiteHeader } from "@/components/site-header";
+import SiteHeader from "@/components/site-header.astro";
 import SiteFooter from "@/components/site-footer.astro";
 import WorkNav from "@/components/work-nav.astro";
 import { SITE_DESCRIPTION, SITE_NAME } from "../lib/site";
@@ -62,12 +62,7 @@ const ogImage = Astro.site ? new URL(socialImage, Astro.site) : undefined;
   </head>
   <body>
     <div class="flex min-h-svh flex-col">
-      <SiteHeader
-        client:load
-        transition:persist="site-header"
-        currentPath={Astro.url.pathname}
-        sticky={!workNav}
-      />
+      <SiteHeader currentPath={Astro.url.pathname} sticky={!workNav} />
       {
         workNav && (
           <WorkNav

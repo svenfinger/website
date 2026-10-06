@@ -1,5 +1,6 @@
 ---
 import { ArrowUpRightIcon } from "lucide-react";
+import { getResponsiveImage } from "@/src/lib/images";
 import { cardDelay, cardTransition } from "@/src/lib/transitions";
 
 const {
@@ -10,6 +11,13 @@ const {
   external = false,
   index = 0,
 } = Astro.props;
+const responsiveImage = image
+  ? await getResponsiveImage(
+      image,
+      [480, 768, 1280, 1536],
+      "(min-width: 84rem) 624px, (min-width: 48rem) calc((100vw - 96px) / 2), calc(100vw - 40px)",
+    )
+  : undefined;
 ---
 
 <a
@@ -24,7 +32,18 @@ const {
 >
   {
     image ? (
-      <img src={image} alt="" class="aspect-530/298 w-full object-cover" />
+      <img
+        width={responsiveImage?.attributes.width}
+        height={responsiveImage?.attributes.height}
+        sizes={responsiveImage?.attributes.sizes}
+        src={responsiveImage?.src ?? image}
+        srcset={responsiveImage?.srcSet.attribute}
+        alt=""
+        loading={index < 2 ? "eager" : "lazy"}
+        fetchpriority={index === 0 ? "high" : undefined}
+        decoding="async"
+        class="aspect-530/298 w-full object-cover"
+      />
     ) : (
       <div class="aspect-530/298 w-full bg-background" aria-hidden="true" />
     )

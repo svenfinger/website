@@ -9,3 +9,9 @@ export const NAV_ITEMS = [
 ] as const;
 
 export const GET_IN_TOUCH_HREF = "/contact";
+
+export function isActive(href: string, currentPath: string) {
+  const path = currentPath.replace(/\/$/, "") || "/";
+  if (href === "/") return path === "/" || path.startsWith("/work/");
+  return href === path;
+}

@@ -1,0 +1,31 @@
+---
+import type { ComponentProps } from "react";
+import { WorkCarousel } from "./work-carousel";
+import { getResponsiveImage } from "@/src/lib/images";
+
+type Props = ComponentProps<typeof WorkCarousel>;
+
+const { label, slides } = Astro.props;
+const sizes = "(min-width: 44.5rem) 672px, calc(100vw - 40px)";
+const responsiveSlides = await Promise.all(
+  slides.map(async (slide) => {
+    const image = await getResponsiveImage(
+      slide.src,
+      [480, 768, 1280, 1536],
+      sizes,
+    );
+    return {
+      ...slide,
+      src: image?.src ?? slide.src,
+      srcSet: image?.srcSet.attribute,
+      sizes,
+    };
+  }),
+);
+---
+
+<WorkCarousel
+  client:visible={{ rootMargin: "600px" }}
+  label={label}
+  slides={responsiveSlides}
+/>

@@ -1,4 +1,6 @@
 ---
+import { getResponsiveImage } from "@/src/lib/images";
+
 interface Props {
   src: string;
   type?: "image" | "video";
@@ -8,6 +10,7 @@ interface Props {
   height?: number;
   loading?: "lazy" | "eager";
   size?: "media" | "page" | "content" | "prose" | "full";
+  sizes?: string;
 }
 
 const {
@@ -19,9 +22,34 @@ const {
   height,
   loading = "lazy",
   size,
+  sizes,
 } = Astro.props;
 const className = "h-auto w-full rounded-lg ring-1 ring-(--color-border)";
 const isGif = src.endsWith(".gif");
+const maxWidth =
+  size === "media"
+    ? 1536
+    : size === "content"
+      ? 896
+      : size === "prose"
+        ? 672
+        : 1280;
+const imageSizes =
+  sizes ??
+  (size === "full"
+    ? "(min-width: 48rem) calc(100vw - 64px), calc(100vw - 40px)"
+    : `(min-width: ${maxWidth + 64}px) ${maxWidth}px, (min-width: 48rem) calc(100vw - 64px), calc(100vw - 40px)`);
+const responsiveImage =
+  type === "image"
+    ? await getResponsiveImage(
+        src,
+        [480, 768, 1280, 1920, 2560, 3072],
+        imageSizes,
+      )
+    : undefined;
+const responsivePoster = poster
+  ? await getResponsiveImage(poster, [1280], imageSizes)
+  : undefined;
 ---
 
 <div class:list={[size && "work-block", size && `work-block--${size}`]}>
@@ -33,19 +61,24 @@ const isGif = src.endsWith(".gif");
         loop
         muted
         playsinline
-        preload={loading === "eager" ? "auto" : "metadata"}
-        src={src}
-        poster={poster}
+        preload="none"
+        data-src={src}
+        data-poster={responsivePoster?.src ?? poster}
+        poster={
+          loading === "eager" ? (responsivePoster?.src ?? poster) : undefined
+        }
         width={width}
         height={height}
         aria-label={alt}
       />
     ) : (
       <img
-        src={src}
+        sizes={responsiveImage?.attributes.sizes}
+        src={responsiveImage?.src ?? src}
+        srcset={responsiveImage?.srcSet.attribute}
         alt={alt}
-        width={width}
-        height={height}
+        width={responsiveImage?.attributes.width ?? width}
+        height={responsiveImage?.attributes.height ?? height}
         class={className}
         loading={loading}
         decoding="async"
@@ -56,7 +89,16 @@ const isGif = src.endsWith(".gif");
 </div>
 
 <script>
+  let videoCleanup: (() => void) | undefined;
+
+  document.addEventListener("astro:before-swap", () => {
+    videoCleanup?.();
+    videoCleanup = undefined;
+  });
+
   document.addEventListener("astro:page-load", () => {
+    videoCleanup?.();
+    videoCleanup = undefined;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -86,15 +128,66 @@ const isGif = src.endsWith(".gif");
           img.addEventListener("load", freeze, { once: true });
         }
       }
-    } else {
-      for (const video of document.querySelectorAll("video[data-work-video]")) {
-        if (video instanceof HTMLVideoElement) {
-          video.autoplay = true;
-          void video.play().catch(() => {
-            // Keep the poster visible if the browser blocks autoplay.
-          });
+    }
+    const videos = document.querySelectorAll<HTMLVideoElement>(
+      "video[data-work-video]",
+    );
+    if (!videos.length) return;
+    const visibleVideos = new Set<HTMLVideoElement>();
+    const load = (video: HTMLVideoElement) => {
+      if (video.dataset.poster) video.poster = video.dataset.poster;
+      if (reduceMotion && video.poster) return;
+      if (!video.getAttribute("src") && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.preload = "metadata";
+      }
+    };
+    const play = (video: HTMLVideoElement) => {
+      if (reduceMotion || document.hidden) return;
+      load(video);
+      void video.play().catch(() => {
+        // Keep the poster visible if the browser blocks autoplay.
+      });
+    };
+    const loadObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          load(entry.target as HTMLVideoElement);
+          loadObserver.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "300px 0px" },
+    );
+    const playObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) {
+          visibleVideos.add(video);
+          play(video);
+        } else {
+          visibleVideos.delete(video);
+          video.pause();
         }
       }
+    });
+    const updatePlayback = () => {
+      for (const video of visibleVideos) {
+        if (document.hidden) video.pause();
+        else play(video);
+      }
+    };
+
+    for (const video of videos) {
+      loadObserver.observe(video);
+      playObserver.observe(video);
     }
+    document.addEventListener("visibilitychange", updatePlayback);
+    videoCleanup = () => {
+      loadObserver.disconnect();
+      playObserver.disconnect();
+      document.removeEventListener("visibilitychange", updatePlayback);
+      for (const video of videos) video.pause();
+    };
   });
 </script>

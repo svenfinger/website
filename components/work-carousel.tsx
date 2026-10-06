@@ -5,6 +5,8 @@ import { Button } from "@/components/button";
 
 type Slide = {
   src: string;
+  srcSet?: string;
+  sizes?: string;
   alt: string;
   width: number;
   height: number;
@@ -220,6 +222,8 @@ export function WorkCarousel({
           >
             <img
               src={slide.src}
+              srcSet={slide.srcSet}
+              sizes={slide.sizes}
               alt={slide.alt}
               width={slide.width}
               height={slide.height}
