@@ -1,20 +1,12 @@
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { MenuIcon, XIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/button";
 import { GET_IN_TOUCH_HREF, NAV_ITEMS, isActive } from "@/src/lib/site";
 
 export function SiteMenu({ currentPath }: { currentPath: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const closeMenu = () => setMenuOpen(false);
-    document.addEventListener("astro:before-preparation", closeMenu);
-    return () => {
-      document.removeEventListener("astro:before-preparation", closeMenu);
-    };
-  }, []);
 
   return (
     <MenuPrimitive.Root open={menuOpen} onOpenChange={setMenuOpen}>

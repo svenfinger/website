@@ -1,6 +1,10 @@
 # build output
 dist/
 
+# generated video delivery files
+video-output/
+video-masters/
+
 # generated types
 .astro/
 

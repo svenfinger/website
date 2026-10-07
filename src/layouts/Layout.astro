@@ -1,12 +1,10 @@
 ---
 import "../styles/global.css";
-import { ClientRouter } from "astro:transitions";
 import fontUrl from "@fontsource-variable/google-sans-flex/files/google-sans-flex-latin-wght-normal.woff2?url";
 import SiteHeader from "@/components/site-header.astro";
 import SiteFooter from "@/components/site-footer.astro";
 import WorkNav from "@/components/work-nav.astro";
 import { SITE_DESCRIPTION, SITE_NAME } from "../lib/site";
-import { pageTransition, workTransition } from "../lib/transitions";
 
 const {
   title,
@@ -24,13 +22,7 @@ const canonical = Astro.site
 const ogImage = Astro.site ? new URL(socialImage, Astro.site) : undefined;
 ---
 
-<html
-  lang="en"
-  class="semantic-tokens antialiased"
-  data-page-entry="initial"
-  transition:name="root"
-  transition:animate="none"
->
+<html lang="en" class="semantic-tokens antialiased">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -42,7 +34,6 @@ const ogImage = Astro.site ? new URL(socialImage, Astro.site) : undefined;
       type="font/woff2"
       crossorigin
     />
-    <ClientRouter />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
@@ -72,12 +63,7 @@ const ogImage = Astro.site ? new URL(socialImage, Astro.site) : undefined;
           />
         )
       }
-      <div
-        class="flex w-full min-w-0 flex-1 flex-col overflow-x-clip"
-        data-page-content
-        transition:name={workNav ? "work-content" : "page-content"}
-        transition:animate={workNav ? workTransition : pageTransition}
-      >
+      <div class="flex w-full min-w-0 flex-1 flex-col overflow-x-clip">
         <main
           class:list={[
             "flex min-w-0 flex-1 flex-col",
@@ -95,42 +81,5 @@ const ogImage = Astro.site ? new URL(socialImage, Astro.site) : undefined;
       </div>
       <SiteFooter />
     </div>
-    <script>
-      function setPageEntry(
-        root: HTMLElement,
-        navigationType: string,
-        sourceElement?: Element,
-      ) {
-        root.dataset.pageEntry =
-          navigationType === "traverse" ? "history" : "visit";
-
-        const direction =
-          navigationType === "traverse"
-            ? null
-            : sourceElement?.getAttribute("data-work-direction");
-
-        if (direction === "left" || direction === "right") {
-          root.dataset.workDirection = direction;
-        } else {
-          delete root.dataset.workDirection;
-        }
-      }
-
-      document.addEventListener("astro:before-preparation", (event) => {
-        setPageEntry(
-          document.documentElement,
-          event.navigationType,
-          event.sourceElement,
-        );
-      });
-
-      document.addEventListener("astro:before-swap", (event) => {
-        setPageEntry(
-          event.newDocument.documentElement,
-          event.navigationType,
-          event.sourceElement,
-        );
-      });
-    </script>
   </body>
 </html>

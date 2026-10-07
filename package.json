@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "video:encode": "node scripts/encode-video.mjs",
+    "video:sync": "node scripts/sync-videos.mjs",
     "lint": "eslint .",
     "format": "prettier . --write",
     "format:check": "prettier . --check"

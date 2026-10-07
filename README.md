@@ -33,3 +33,7 @@ pnpm dev
 | `pnpm preview`      | Preview the production build |
 | `pnpm lint`         | Run ESLint                   |
 | `pnpm format:check` | Check formatting             |
+
+## Docs
+
+[Video workflow](docs/video-workflow.md) — preparing and updating project videos.

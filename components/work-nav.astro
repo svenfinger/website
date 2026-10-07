@@ -2,7 +2,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 import { buttonClass } from "@/components/button";
-import { pageTransition } from "@/src/lib/transitions";
 
 const { title, prevHref, nextHref } = Astro.props;
 ---
@@ -10,19 +9,13 @@ const { title, prevHref, nextHref } = Astro.props;
 <nav
   class="sticky top-0 z-50 bg-background"
   aria-label="Work navigation"
-  data-page-intro
   data-work-nav
-  transition:name="work-nav"
-  transition:animate={pageTransition}
 >
   <div
     class="page-shell flex h-(--space-16) items-center justify-between gap-(--space-4)"
   >
     <p
       class="min-w-0 flex-1 truncate text-sm leading-(--leading-label) font-(--font-weight-label)"
-      data-work-title
-      transition:name="work-title"
-      transition:animate={pageTransition}
     >
       {title}
     </p>
@@ -31,7 +24,6 @@ const { title, prevHref, nextHref } = Astro.props;
         class={buttonClass({ size: "icon" })}
         href={prevHref}
         aria-label="Previous work"
-        data-work-direction="left"
       >
         <ChevronLeftIcon className="size-4" />
       </a>
@@ -39,7 +31,6 @@ const { title, prevHref, nextHref } = Astro.props;
         class={buttonClass({ size: "icon" })}
         href={nextHref}
         aria-label="Next work"
-        data-work-direction="right"
       >
         <ChevronRightIcon className="size-4" />
       </a>
@@ -64,15 +55,7 @@ const { title, prevHref, nextHref } = Astro.props;
 </style>
 
 <script>
-  let coverObserver: IntersectionObserver | undefined;
-
-  document.addEventListener("astro:before-swap", () => {
-    coverObserver?.disconnect();
-  });
-
-  document.addEventListener("astro:page-load", () => {
-    coverObserver?.disconnect();
-
+  function initWorkNav() {
     const nav = document.querySelector<HTMLElement>("[data-work-nav]");
     if (!nav) return;
 
@@ -91,7 +74,7 @@ const { title, prevHref, nextHref } = Astro.props;
     };
 
     updateBorder();
-    coverObserver = new IntersectionObserver(
+    const coverObserver = new IntersectionObserver(
       ([entry]) => {
         nav.toggleAttribute(
           "data-cover-passed",
@@ -103,5 +86,7 @@ const { title, prevHref, nextHref } = Astro.props;
       { rootMargin: `-${nav.offsetHeight}px 0px 0px 0px` },
     );
     coverObserver.observe(cover);
-  });
+  }
+
+  initWorkNav();
 </script>

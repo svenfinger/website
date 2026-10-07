@@ -18,11 +18,9 @@ const { currentPath, sticky = true } = Astro.props;
 
 <header
   class:list={[
-    "site-header z-50 border-b border-(--color-border-subtle) bg-background",
+    "z-50 border-b border-(--color-border-subtle) bg-background",
     sticky && "sticky top-0",
   ]}
-  transition:name="site-header"
-  transition:animate="none"
 >
   <div class="page-shell">
     <div class="relative flex h-(--space-16) items-center justify-between">
@@ -66,11 +64,7 @@ const { currentPath, sticky = true } = Astro.props;
         Get in touch
       </a>
       <div class="md:hidden">
-        <SiteMenu
-          client:media="(width < 48rem)"
-          transition:persist="site-menu"
-          currentPath={currentPath}
-        />
+        <SiteMenu client:media="(width < 48rem)" currentPath={currentPath} />
       </div>
     </div>
   </div>

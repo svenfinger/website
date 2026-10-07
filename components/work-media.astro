@@ -1,10 +1,12 @@
 ---
 import { getResponsiveImage } from "@/src/lib/images";
+import type { WorkVideoSources } from "@/src/lib/work-video";
 
 interface Props {
   src: string;
   type?: "image" | "video";
   poster?: string;
+  videoSources?: WorkVideoSources;
   alt: string;
   width?: number;
   height?: number;
@@ -17,6 +19,7 @@ const {
   src,
   type = "image",
   poster,
+  videoSources,
   alt,
   width,
   height,
@@ -63,6 +66,8 @@ const responsivePoster = poster
         playsinline
         preload="none"
         data-src={src}
+        data-src-medium={videoSources?.medium}
+        data-src-large={videoSources?.large}
         data-poster={responsivePoster?.src ?? poster}
         poster={
           loading === "eager" ? (responsivePoster?.src ?? poster) : undefined
@@ -89,22 +94,17 @@ const responsivePoster = poster
 </div>
 
 <script>
-  let videoCleanup: (() => void) | undefined;
+  import { getWorkVideoSource } from "@/src/lib/work-video";
 
-  document.addEventListener("astro:before-swap", () => {
-    videoCleanup?.();
-    videoCleanup = undefined;
-  });
-
-  document.addEventListener("astro:page-load", () => {
-    videoCleanup?.();
-    videoCleanup = undefined;
+  function initWorkMedia() {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
     if (reduceMotion) {
-      for (const img of document.querySelectorAll("img[data-work-gif]")) {
+      for (const img of document.querySelectorAll<HTMLImageElement>(
+        "img[data-work-gif]",
+      )) {
         const freeze = () => {
           if (!(img instanceof HTMLImageElement) || !img.naturalWidth) {
             return;
@@ -137,8 +137,9 @@ const responsivePoster = poster
     const load = (video: HTMLVideoElement) => {
       if (video.dataset.poster) video.poster = video.dataset.poster;
       if (reduceMotion && video.poster) return;
-      if (!video.getAttribute("src") && video.dataset.src) {
-        video.src = video.dataset.src;
+      const src = getWorkVideoSource(video);
+      if (!video.getAttribute("src") && src) {
+        video.src = src;
         video.preload = "metadata";
       }
     };
@@ -183,11 +184,7 @@ const responsivePoster = poster
       playObserver.observe(video);
     }
     document.addEventListener("visibilitychange", updatePlayback);
-    videoCleanup = () => {
-      loadObserver.disconnect();
-      playObserver.disconnect();
-      document.removeEventListener("visibilitychange", updatePlayback);
-      for (const video of videos) video.pause();
-    };
-  });
+  }
+
+  initWorkMedia();
 </script>

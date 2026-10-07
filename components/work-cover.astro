@@ -1,5 +1,6 @@
 ---
 import { getResponsiveImage } from "@/src/lib/images";
+import type { WorkVideoSources } from "@/src/lib/work-video";
 
 interface Props {
   title: string;
@@ -7,9 +8,17 @@ interface Props {
   src: string;
   type?: "image" | "video";
   poster?: string;
+  videoSources?: WorkVideoSources;
 }
 
-const { title, category, src, type = "image", poster } = Astro.props;
+const {
+  title,
+  category,
+  src,
+  type = "image",
+  poster,
+  videoSources,
+} = Astro.props;
 const responsiveImage =
   type === "image"
     ? await getResponsiveImage(src, [768, 1280, 1920, 2560, 3200], "100vw")
@@ -23,14 +32,17 @@ const responsivePoster = poster
   {
     type === "video" ? (
       <video
-        src={src}
+        src={videoSources ? undefined : src}
+        data-src={src}
+        data-src-medium={videoSources?.medium}
+        data-src-large={videoSources?.large}
         poster={responsivePoster?.src ?? poster}
         width="3200"
         height="1800"
         loop
         muted
         playsinline
-        preload="auto"
+        preload={videoSources ? "none" : "auto"}
         aria-hidden="true"
       />
     ) : (
@@ -54,16 +66,19 @@ const responsivePoster = poster
 </header>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  import { getWorkVideoSource } from "@/src/lib/work-video";
 
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     for (const video of document.querySelectorAll(".work-cover > video")) {
       if (video instanceof HTMLVideoElement) {
+        const src = getWorkVideoSource(video);
+        if (!video.getAttribute("src") && src) video.src = src;
+        video.preload = "auto";
         video.autoplay = true;
         void video.play().catch(() => {
           // Keep the poster visible if the browser blocks autoplay.
         });
       }
     }
-  });
+  }
 </script>
