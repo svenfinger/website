@@ -1,0 +1,23 @@
+---
+import WorkMedia from "./work-media.astro";
+
+interface Props {
+  label: string;
+  items: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  }[];
+}
+
+const { label, items } = Astro.props;
+const sizes =
+  "(min-width: 84rem) 624px, (min-width: 48rem) calc((100vw - 96px) / 2), calc(100vw - 40px)";
+---
+
+<section class="work-block work-block--page" aria-label={label}>
+  <div class="work-media-grid">
+    {items.map((item) => <WorkMedia {...item} sizes={sizes} />)}
+  </div>
+</section>

@@ -54,6 +54,8 @@ function isGalleryFile(filename: string) {
 }
 
 export function getWorkCover(slug: string): WorkMedia {
+  if (slug === "flip-livestreaming") slug = "flip-livestream";
+
   const cover = listWorkFiles(slug)
     .map((filename) => (isCover(filename) ? toMedia(slug, filename) : null))
     .find(Boolean);

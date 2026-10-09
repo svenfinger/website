@@ -38,6 +38,32 @@
   max-width: none;
 }
 
+.work-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+}
+
+.work-media-grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.work .work-media > :is(img, video, canvas) {
+  box-shadow: none;
+}
+
+.work .work-media::after,
+.work .work-toggle-media::after,
+.work .work-carousel-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 1px solid var(--color-border);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 .work-cover {
   position: relative;
   display: flex;
@@ -156,22 +182,22 @@
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: -0.02em;
+  white-space: pre-line;
 }
 
-.work-theme-media {
+.work-toggle-media {
   position: relative;
   overflow: clip;
   aspect-ratio: 16 / 9;
-  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-surface);
 }
-.work-theme-media img {
+.work-toggle-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.work-theme-toggle {
+.work-media-toggle {
   position: absolute;
   top: var(--space-4);
   left: 50%;
@@ -182,7 +208,7 @@
   border-radius: var(--radius-full);
   background: var(--color-background);
 }
-.work-theme-toggle button {
+.work-media-toggle button {
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
@@ -190,13 +216,13 @@
   line-height: var(--leading-label);
   cursor: pointer;
 }
-.work-theme-toggle button[data-pressed] {
+.work-media-toggle button[data-pressed] {
   background: var(--color-surface);
 }
-.work-theme-toggle button:hover {
+.work-media-toggle button:hover {
   background: var(--color-surface-hover);
 }
-.work-theme-toggle button:focus-visible {
+.work-media-toggle button:focus-visible {
   outline: 2px solid var(--color-foreground);
   outline-offset: 2px;
 }
@@ -235,10 +261,12 @@
   cursor: grabbing;
 }
 .work-carousel-row .work-carousel-slide {
+  position: relative;
   flex: 0 0 var(--slide-width);
   min-width: 0;
   aspect-ratio: 1;
   padding: 0;
+  border: 0;
   border-radius: var(--radius-lg);
   scroll-snap-align: center;
   scroll-snap-stop: always;
@@ -275,6 +303,9 @@
     grid-template-columns: minmax(0, 515fr) minmax(0, 624fr);
     gap: clamp(var(--space-8), 7.35vw, 8.8125rem);
   }
+  .work-media-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .work-kpi {
     padding: var(--space-16);
   }
@@ -282,7 +313,7 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--space-16);
   }
-  .work-theme-toggle {
+  .work-media-toggle {
     top: var(--space-8);
   }
 }
