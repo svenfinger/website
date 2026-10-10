@@ -18,7 +18,7 @@ const { currentPath, sticky = true } = Astro.props;
 
 <header
   class:list={[
-    "z-50 border-b border-(--color-border-subtle) bg-background",
+    "header-backdrop z-50 border-b border-(--color-border-subtle)",
     sticky && "sticky top-0",
   ]}
 >

@@ -203,10 +203,10 @@
   left: 50%;
   translate: -50% 0;
   display: flex;
+  gap: var(--space-1);
   padding: var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
-  background: var(--color-background);
 }
 .work-media-toggle button {
   padding: var(--space-1) var(--space-2);

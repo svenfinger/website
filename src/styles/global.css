@@ -50,6 +50,24 @@
   }
 }
 
+.header-backdrop {
+  background-color: var(--color-background);
+}
+
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+  .header-backdrop {
+    background-color: transparent;
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-background) 0%,
+      color-mix(in oklab, var(--color-background) 90%, transparent) 50%,
+      color-mix(in oklab, var(--color-background) 78%, transparent) 100%
+    );
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

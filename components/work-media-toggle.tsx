@@ -41,7 +41,7 @@ export function WorkMediaToggle({
           />
         ))}
         <ToggleGroup
-          className="work-media-toggle"
+          className="work-media-toggle header-backdrop"
           aria-label={toggleLabel}
           value={[selected]}
           onValueChange={(value) => {
