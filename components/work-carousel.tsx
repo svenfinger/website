@@ -5,6 +5,8 @@ import { Button } from "@/components/button";
 
 type Slide = {
   src: string;
+  type?: "image" | "video";
+  poster?: string;
   srcSet?: string;
   sizes?: string;
   alt: string;
@@ -33,6 +35,41 @@ export function WorkCarousel({
   const activeSlide = useRef(0);
   const mouseScrollTarget = useRef<number | null>(null);
   const rowId = useId();
+
+  useEffect(() => {
+    const videos = row.current?.querySelectorAll("video");
+    if (!videos?.length) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const visible = new Set<HTMLVideoElement>();
+    const updatePlayback = () => {
+      for (const video of videos) {
+        if (visible.has(video) && !reduceMotion.matches && !document.hidden) {
+          if (!video.getAttribute("src") && video.dataset.src)
+            video.src = video.dataset.src;
+          void video.play().catch(() => {
+            // Keep the poster visible if autoplay is unavailable.
+          });
+        } else video.pause();
+      }
+    };
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) visible.add(video);
+        else visible.delete(video);
+      }
+      updatePlayback();
+    });
+    for (const video of videos) observer.observe(video);
+    reduceMotion.addEventListener("change", updatePlayback);
+    document.addEventListener("visibilitychange", updatePlayback);
+    return () => {
+      observer.disconnect();
+      for (const video of videos) video.pause();
+      reduceMotion.removeEventListener("change", updatePlayback);
+      document.removeEventListener("visibilitychange", updatePlayback);
+    };
+  }, []);
 
   function slideOffset(index: number) {
     const element = row.current;
@@ -220,17 +257,31 @@ export function WorkCarousel({
               if (event.currentTarget.matches(":focus-visible")) goTo(index);
             }}
           >
-            <img
-              src={slide.src}
-              srcSet={slide.srcSet}
-              sizes={slide.sizes}
-              alt={slide.alt}
-              width={slide.width}
-              height={slide.height}
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-            />
+            {slide.type === "video" ? (
+              <video
+                data-src={slide.src}
+                poster={slide.poster}
+                width={slide.width}
+                height={slide.height}
+                aria-label={slide.alt}
+                loop
+                muted
+                playsInline
+                preload="none"
+              />
+            ) : (
+              <img
+                src={slide.src}
+                srcSet={slide.srcSet}
+                sizes={slide.sizes}
+                alt={slide.alt}
+                width={slide.width}
+                height={slide.height}
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+              />
+            )}
           </Button>
         ))}
       </div>

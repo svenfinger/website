@@ -9,6 +9,12 @@ const { label, slides } = Astro.props;
 const sizes = "(min-width: 44.5rem) 672px, calc(100vw - 40px)";
 const responsiveSlides = await Promise.all(
   slides.map(async (slide) => {
+    if (slide.type === "video") {
+      const poster = slide.poster
+        ? await getResponsiveImage(slide.poster, [768, 1280], sizes)
+        : undefined;
+      return { ...slide, poster: poster?.src ?? slide.poster };
+    }
     const image = await getResponsiveImage(
       slide.src,
       [480, 768, 1280, 1536],
