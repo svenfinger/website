@@ -1,173 +1,61 @@
 ---
 title: Flip Livestream
-description: Broadcast live video and engage audiences in real time.
-order: 2
+year: 2025
+order: 1
 ---
 
-import { RadioIcon } from "lucide-react";
-import WorkCover from "@/components/work-cover.astro";
-import WorkIntro from "@/components/work-intro.astro";
 import WorkMedia from "@/components/work-media.astro";
-import WorkMediaToggle from "@/components/work-media-toggle.astro";
-import WorkMediaGrid from "@/components/work-media-grid.astro";
-import WorkText from "@/components/work-text.astro";
-import WorkKpi from "@/components/work-kpi.astro";
 
-<WorkCover
-  title="Flip Livestream"
-  category="Internal Communications"
+One of my favorite projects at Flip was Livestream, a feature that lets company leaders broadcast live events to employees who don't work at a desk. I led the design from an early hackathon concept through its first release.
+
+<div class="work-media-stack">
+  <WorkMedia
+    type="video"
+    src="https://media.svenfinger.com/work/flip-livestream/post-e66a4ff09d43fa4c-small.mp4"
+    videoSources={{
+      medium:
+        "https://media.svenfinger.com/work/flip-livestream/post-e66a4ff09d43fa4c-medium.mp4",
+      large:
+        "https://media.svenfinger.com/work/flip-livestream/post-e66a4ff09d43fa4c-large.mp4",
+    }}
+    poster="/images/work/flip-livestream/post-poster.jpg"
+    alt="A Flip Livestream post with a live broadcast preview"
+    width={1600}
+    height={1600}
+    aspectRatio="1 / 1"
+    loading="eager"
+  />
+  <WorkMedia
+    type="video"
+    src="https://media.svenfinger.com/work/flip-livestream/details-12dd56638ebaa04a-small.mp4"
+    videoSources={{
+      medium:
+        "https://media.svenfinger.com/work/flip-livestream/details-12dd56638ebaa04a-medium.mp4",
+      large:
+        "https://media.svenfinger.com/work/flip-livestream/details-12dd56638ebaa04a-large.mp4",
+    }}
+    poster="/images/work/flip-livestream/details-poster.jpg"
+    alt="Live chat and replies during a Flip Livestream broadcast"
+    width={1248}
+    height={1248}
+    aspectRatio="1 / 1"
+  />
+</div>
+
+Part of the fun was using Livestream as we built it. Test broadcasts with colleagues revealed how hard it was to watch the video and follow the chat at once. I designed a studio view that put them side by side.
+
+<WorkMedia
   type="video"
-  src="https://media.svenfinger.com/work/flip-livestreaming/cover-5c86f9e9961c31f4-small.mp4"
-  poster="/images/work/flip-livestream/cover-poster.jpg"
-
-videoSources={{
-    medium: "https://media.svenfinger.com/work/flip-livestreaming/cover-5c86f9e9961c31f4-medium.mp4",
-    large: "https://media.svenfinger.com/work/flip-livestreaming/cover-5c86f9e9961c31f4-large.mp4",
+  src="https://media.svenfinger.com/work/flip-livestream/studio-d1c9dea303936294-small.mp4"
+  videoSources={{
+    medium:
+      "https://media.svenfinger.com/work/flip-livestream/studio-d1c9dea303936294-medium.mp4",
+    large:
+      "https://media.svenfinger.com/work/flip-livestream/studio-d1c9dea303936294-large.mp4",
   }}
+  poster="/images/work/flip-livestream/studio-poster.jpg"
+  alt="Flip Livestream studio view with video and chat side by side"
+  width={2560}
+  height={1440}
+  aspectRatio="16 / 9"
 />
-
-<div class="work-body">
-  <WorkIntro year="2024–2025" role="Lead Product Designer" company="Flip" platforms="Mobile & Web">
-    <p>I led the product design of Flip Livestream from a hackathon proof of concept through beta to its first production release. Working directly with engineering, I shaped the product model and designed the experience across mobile and web, from hosting and screen sharing to live chat, reactions and moderation.</p>
-  </WorkIntro>
-
-<div class="work-section">
-  <WorkMedia
-    size="media"
-    src="/images/work/flip-livestream/opportunity.png"
-    alt="The first Flip Livestream proof of concept embedded in a news post on web"
-    width={3072}
-    height={1728}
-  />
-  <WorkText title="A sudden opportunity">
-
-When Facebook Workplace announced its shutdown, Flip Livestream became an important capability for Flip to close a competitive gap. We used a hackathon to quickly explore the opportunity and prove that a native solution could work.
-
-</WorkText>
-</div>
-
-<div class="work-section">
-  <WorkMedia
-    size="media"
-    src="/images/work/flip-livestream/progression.png"
-    alt="Livestream designs progressing from a proof of concept through beta to the production interface"
-    width={3072}
-    height={1728}
-  />
-  <WorkText title="From hackathon to product">
-
-The proof of concept became the foundation for a beta and eventually the first production release. With every iteration, we expanded the experience around real broadcasting needs while keeping the interface focused and approachable.
-
-</WorkText>
-</div>
-
-<div class="work-section">
-  <WorkMedia
-    size="full"
-    src="/images/work/flip-livestream/post-covers.png"
-    alt="Livestream posts showing scheduled, live, ended and recorded broadcast states"
-    width={3072}
-    height={1728}
-  />
-  <WorkText title="Make livestreaming feel like content">
-
-I proposed treating livestreams like regular Flip posts instead of creating a separate product around them. A scheduled post became the livestream when it started, while the recording and live chat remained afterward as the post video and comments.
-
-This created a continuous experience for users while letting engineering build on concepts the platform already had.
-
-</WorkText>
-</div>
-
-<div class="work-section">
-  <WorkMediaToggle
-    label="Host and viewer controls"
-    toggleLabel="Livestream role"
-    options={[
-      {
-        label: "Host",
-        src: "/images/work/flip-livestream/host-controls.png",
-        alt: "Host controls for microphone, camera, broadcast, screen sharing, reactions, chat and viewers",
-        width: 3072,
-        height: 1728,
-      },
-      {
-        label: "Viewer",
-        src: "/images/work/flip-livestream/viewer-controls.png",
-        alt: "Viewer controls for reactions and live chat",
-        width: 1568,
-        height: 882,
-      },
-    ]}
-  />
-  <WorkText title="One experience, two roles">
-
-Hosts and viewers shared the same core interface, with only the available capabilities changing between roles. This kept the experience familiar for users and gave engineering one straightforward foundation instead of two separate products.
-
-</WorkText>
-</div>
-
-<div class="work-section">
-  <WorkMediaGrid
-    label="Livestream chat, mini player, reactions and broadcast setup"
-    items={[
-      {
-        src: "/images/work/flip-livestream/chat-paused.png",
-        alt: "Live chat pauses while a viewer scrolls through older messages",
-        width: 1248,
-        height: 1248,
-      },
-      {
-        src: "/images/work/flip-livestream/mini-player.png",
-        alt: "A floating mini player keeps the livestream visible while browsing posts",
-        width: 1248,
-        height: 1248,
-      },
-      {
-        src: "/images/work/flip-livestream/reactions.png",
-        alt: "Emoji reactions float above the live chat",
-        width: 1248,
-        height: 1248,
-      },
-      {
-        src: "/images/work/flip-livestream/go-live.png",
-        alt: "Broadcast setup asks the host to check microphone, camera and recording settings before going live",
-        width: 1248,
-        height: 1248,
-      },
-    ]}
-  />
-  <WorkText title="Complex underneath. Simple on screen.">
-
-Behind the minimal interface was a large system of live states and interactions — from reactions, screen sharing and moderation to adaptive layouts, fullscreen viewing and chat behavior.
-
-Small details mattered too: opening comments reshaped the stream dynamically, while scrolling through older messages paused the live chat until the viewer was ready to return.
-
-</WorkText>
-</div>
-
-<div class="work-section">
-  <WorkMedia
-    size="media"
-    src="/images/work/flip-livestream/mobile.png"
-    alt="Flip Livestream on mobile with live chat, keyboard entry and emoji reactions"
-    width={3840}
-    height={2160}
-  />
-  <WorkText title="Designed for wherever people watch">
-
-The experience extended naturally to mobile, where employees could watch, comment and react without the surrounding interface competing with the stream.
-
-Layouts and controls adapted to the available space while keeping the same familiar experience across devices.
-
-</WorkText>
-</div>
-
-  <WorkKpi
-    title="From experiment to a real product"
-    value={"Hackathon\nBeta\nRelease"}
-    description="From an experimental proof of concept to a complete livestream product."
-  >
-    <RadioIcon slot="icon" className="size-16 text-accent" aria-hidden="true" />
-    <p>What started as a hackathon experiment became a production feature used for real broadcasts and demonstrated to prospective partners. I hosted several company-wide livestreams myself, created supporting sales material and later handed the established product over as it continued to evolve.</p>
-  </WorkKpi>
-</div>

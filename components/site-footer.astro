@@ -1,26 +1,192 @@
 ---
-import { CopyrightIcon } from "lucide-react";
+import { spawnSync } from "node:child_process";
+import { ArrowUpIcon, ArrowUpRightIcon, CopyrightIcon } from "lucide-react";
+import SocialIcon from "./social-icon.astro";
+import {
+  EMAIL_HREF,
+  REPOSITORY_URL,
+  SITE_NAME,
+  SOCIAL_LINKS,
+} from "@/src/lib/site";
 
-import { SITE_NAME } from "@/src/lib/site";
+interface Props {
+  showContact?: boolean;
+}
 
+const { showContact = false } = Astro.props;
 const year = new Date().getFullYear();
+const revision = spawnSync("git", ["rev-parse", "HEAD"], {
+  encoding: "utf8",
+}).stdout?.trim();
+const commit =
+  revision && /^[a-f0-9]{40,64}$/.test(revision) ? revision : undefined;
 ---
 
-<footer class="mt-auto border-t border-(--color-border-subtle)">
-  <div class="page-shell">
-    <div
-      class="flex flex-col items-center gap-(--space-4) py-(--space-8) md:h-(--space-16) md:flex-row md:justify-between md:py-0"
-    >
-      <p
-        class="flex items-center gap-(--space-2) text-sm leading-(--leading-label) font-(--font-weight-label)"
-      >
-        <CopyrightIcon className="size-3" aria-hidden="true" />
-        {`${year} ${SITE_NAME}`}
+<footer class="site-footer">
+  {
+    showContact && (
+      <div class="contact-card">
+        <a href={EMAIL_HREF} class="contact-link">
+          <span class="type-label text-muted-foreground">Send email</span>
+          <span class="contact-copy">
+            <span class="flex items-center justify-between gap-(--space-4)">
+              <span class="type-heading">Have something in mind?</span>
+              <ArrowUpRightIcon
+                size={24}
+                aria-hidden="true"
+                className="shrink-0"
+              />
+            </span>
+            <span class="type-small text-muted-foreground">
+              An idea, a question, or just a hello.
+            </span>
+          </span>
+        </a>
+        <nav aria-label="Social links" class="contact-socials">
+          {SOCIAL_LINKS.map((link) => (
+            <a
+              href={link.href}
+              aria-label={link.name}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <SocialIcon name={link.icon} />
+            </a>
+          ))}
+        </nav>
+      </div>
+    )
+  }
+  <div class="footer-details type-small text-muted-foreground">
+    <div class="footer-legal">
+      <p class="flex items-center gap-(--space-2)">
+        <CopyrightIcon size={14} aria-hidden="true" />
+        <span>{year} {SITE_NAME}</span>
       </p>
-      <nav aria-label="Footer" class="flex items-center gap-(--space-1)">
-        <a href="/privacy" class="nav-pill">Privacy</a>
-        <a href="/imprint" class="nav-pill">Imprint</a>
+      <nav aria-label="Legal" class="flex gap-(--space-2)">
+        <a href="/privacy">Privacy</a>
+        <a href="/imprint">Imprint</a>
       </nav>
+    </div>
+    <div class="footer-bottom">
+      <a
+        href={commit ? `${REPOSITORY_URL}/commit/${commit}` : REPOSITORY_URL}
+        target="_blank"
+        rel="noreferrer"
+        class="repository-link"
+        aria-label={commit
+          ? `Website source at commit ${commit.slice(0, 7)}`
+          : "Website source on GitHub"}
+      >
+        <SocialIcon name="github" small />
+        <span class="type-mono"
+          >svenfinger/website{commit && `#${commit.slice(0, 7)}`}</span
+        >
+      </a>
+      <a href="#top" class="elevator-link">
+        Take the elevator <ArrowUpIcon size={16} aria-hidden="true" />
+      </a>
     </div>
   </div>
 </footer>
+
+<style>
+  .site-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .contact-card {
+    overflow: clip;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .contact-link,
+  .contact-copy {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-link {
+    gap: var(--space-4);
+    padding: var(--space-8);
+  }
+
+  .contact-copy {
+    gap: var(--space-2);
+  }
+
+  .contact-socials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-muted-foreground);
+  }
+
+  .contact-socials a {
+    display: flex;
+    justify-content: center;
+    padding-block: var(--space-8);
+  }
+
+  .contact-socials a + a {
+    border-left: 1px solid var(--color-border);
+  }
+
+  .contact-card a {
+    transition: background-color var(--duration-default) var(--ease-standard);
+  }
+
+  .contact-card a:hover {
+    background-color: var(--color-surface-hover);
+  }
+
+  .contact-card a:focus-visible {
+    outline-offset: -4px;
+  }
+
+  .footer-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .footer-legal,
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
+  }
+
+  .repository-link,
+  .elevator-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .elevator-link {
+    gap: var(--space-1);
+  }
+
+  .footer-details a:hover {
+    color: var(--color-foreground);
+  }
+
+  @media (max-width: 47.999rem) {
+    .contact-link {
+      padding: var(--space-6);
+    }
+  }
+</style>

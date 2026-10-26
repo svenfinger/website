@@ -13,13 +13,11 @@ function buttonClass({
   variant = "outline",
 }: ButtonStyle = {}) {
   return cn(
-    "inline-flex origin-center items-center justify-center rounded-md border text-sm leading-(--leading-label) font-(--font-weight-label) brightness-100 outline-none select-none transition-[scale,filter,background-color] duration-(--duration-default) ease-(--ease-standard) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.98] active:brightness-[0.96] active:duration-(--duration-fast) disabled:pointer-events-none disabled:opacity-50 motion-reduce:scale-100 motion-reduce:brightness-100 motion-reduce:hover:brightness-100 motion-reduce:active:scale-100 motion-reduce:active:brightness-100 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-    size === "default" && "px-(--space-2) py-(--space-1)",
-    size === "icon" && "p-(--space-1)",
+    "type-small inline-flex h-(--space-8) shrink-0 origin-center items-center justify-center gap-(--space-2) rounded-md border border-border px-(--space-2) text-foreground outline-none select-none transition-[scale,filter,background-color] duration-(--duration-default) ease-(--ease-standard) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground active:scale-[0.98] active:brightness-[0.8] active:duration-(--duration-fast) disabled:pointer-events-none disabled:opacity-50 motion-reduce:transform-none motion-reduce:active:scale-100 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    size === "icon" && "min-w-8",
     variant === "outline" &&
-      "border-border text-foreground hover:bg-(--color-surface) active:bg-(--color-surface) active:brightness-[0.8]",
-    variant === "blue" &&
-      "border-transparent bg-accent text-accent-foreground hover:bg-(--color-accent-hover) active:brightness-[0.8]",
+      "bg-(--color-surface) hover:bg-(--color-surface-hover)",
+    variant === "blue" && "bg-accent hover:bg-(--color-accent-hover)",
     className,
   );
 }

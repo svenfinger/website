@@ -1,32 +1,82 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
+import { MailIcon } from "lucide-react";
 import Layout from "../layouts/Layout.astro";
-import WorkCard from "@/components/work-card.astro";
-import { getWorkCover } from "../lib/work-media";
+import SiteHeader from "@/components/site-header.astro";
+import SocialIcon from "@/components/social-icon.astro";
+import { buttonClass } from "@/components/button";
+import { EMAIL_HREF, SITE_NAME, SOCIAL_LINKS } from "../lib/site";
+import "../styles/work.css";
 
-const work = (await getCollection("work")).sort(
-  (a, b) => a.data.order - b.data.order,
+const entries = await Promise.all(
+  (await getCollection("work"))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (entry) => ({ entry, ...(await render(entry)) })),
 );
 ---
 
-<Layout
-  title="Work"
-  description="Selected product design and engineering work by Sven Finger."
->
-  <h1 class="sr-only">Work</h1>
-  <div
-    class="grid grid-cols-1 gap-(--space-4) py-(--space-8) md:grid-cols-2 md:gap-(--space-8) md:py-(--space-16)"
-  >
+<Layout title={SITE_NAME} home>
+  <div class="homepage">
+    <section aria-labelledby="intro-title" class="introduction">
+      <SiteHeader home />
+      <div class="intro-copy">
+        <p class="text-balance">
+          Design engineer in Hamburg. I design and build software, take photos,
+          and care about how things work, look, and feel.
+        </p>
+        <nav aria-label="Get in touch" class="flex flex-wrap gap-(--space-2)">
+          <a href={EMAIL_HREF} class={buttonClass({ variant: "blue" })}>
+            <MailIcon size={14} aria-hidden="true" /> Email me
+          </a>
+          {
+            SOCIAL_LINKS.map((link) => (
+              <a
+                href={link.href}
+                aria-label={link.name}
+                target="_blank"
+                rel="noreferrer"
+                class={buttonClass({ size: "icon" })}
+              >
+                <SocialIcon name={link.icon} small />
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </section>
     {
-      work.map((entry, index) => (
-        <WorkCard
-          index={index}
-          href={`/work/${entry.id}`}
-          title={entry.data.title}
-          description={entry.data.description}
-          image={getWorkCover(entry.id).src}
-        />
+      entries.map(({ entry, Content }) => (
+        <article
+          id={entry.id}
+          aria-labelledby={`${entry.id}-title`}
+          class="work-entry"
+        >
+          <h2 id={`${entry.id}-title`} class="type-label text-muted-foreground">
+            {entry.data.year} · {entry.data.title}
+          </h2>
+          <div class="work-content">
+            <Content />
+          </div>
+        </article>
       ))
     }
   </div>
 </Layout>
+
+<style>
+  .introduction {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .intro-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .intro-copy > p {
+    max-width: 29rem;
+  }
+</style>

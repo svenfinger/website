@@ -4,21 +4,11 @@ import { buttonClass } from "@/components/button";
 ---
 
 <Layout title="Not found" description="This page does not exist." noindex>
-  <div
-    class="mx-auto flex w-full max-w-[37em] flex-col gap-(--space-4) py-(--space-8) md:py-(--space-16)"
-  >
-    <h1
-      class="text-3xl leading-(--leading-title) font-(--font-weight-title) tracking-(--tracking-title)"
-    >
-      Page not found
-    </h1>
-    <p
-      class="text-base leading-normal font-(--font-weight-text) text-muted-foreground"
-    >
-      That URL doesn’t exist. Use the menu to keep browsing, or go back to Work.
+  <div class="legal-page">
+    <h1 class="type-display">Page not found</h1>
+    <p class="text-muted-foreground">
+      That URL doesn’t exist. Head back home to see my latest work.
     </p>
-    <a class={buttonClass({ className: "self-start" })} href="/">
-      Back to Work
-    </a>
+    <a class={buttonClass({ className: "self-start" })} href="/"> Back home </a>
   </div>
 </Layout>

@@ -1,5 +1,3 @@
-// src/content.config.ts
-
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
@@ -12,7 +10,7 @@ const work = defineCollection({
 
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    year: z.number().int(),
     order: z.number(),
   }),
 });

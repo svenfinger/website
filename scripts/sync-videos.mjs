@@ -25,7 +25,7 @@ Defaults to video-masters/<project-slug>. Name masters to match their video
 on the page, for example cover.mp4 and detail.mp4. Supported inputs: MP4, MOV, WebM.
 
 Encodes changed videos, uploads all variants to the website R2 bucket, and updates
-the case study after every upload succeeds. Filenames are versioned automatically.
+the work entry after every upload succeeds. Filenames are versioned automatically.
 The website itself is not deployed by this command.`;
 
 function run(command, args, capture = false) {
@@ -72,7 +72,7 @@ function videoAttributes(tag) {
 
 export function findVideoBlocks(content, slug) {
   const blocks = [];
-  const tags = /<(WorkCover|WorkMedia)\b(?:[^"'<>]|"[^"]*"|'[^']*')*\/>/g;
+  const tags = /<WorkMedia\b(?:[^"'<>]|"[^"]*"|'[^']*')*\/>/g;
   for (const match of content.matchAll(tags)) {
     const tag = match[0];
     const { attributes } = videoAttributes(tag);
@@ -85,7 +85,10 @@ export function findVideoBlocks(content, slug) {
         : undefined;
     if (!source) continue;
     let filename = source;
-    if (source.startsWith("https://")) {
+    const localPrefix = `/videos/work/${slug}/`;
+    if (source.startsWith(localPrefix)) {
+      filename = source.slice(localPrefix.length);
+    } else if (source.startsWith("https://")) {
       const url = new URL(source);
       if (url.origin !== origin || !url.pathname.startsWith(`/work/${slug}/`)) {
         continue;
@@ -97,7 +100,7 @@ export function findVideoBlocks(content, slug) {
       .replace(/\.(mp4|mov|webm)$/i, "")
       .replace(/-(?:v\d+|[a-f0-9]{16})-(?:small|medium|large)$/, "");
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name)) continue;
-    blocks.push({ name, tag, component: match[1], index: match.index });
+    blocks.push({ name, tag, index: match.index });
   }
   return blocks;
 }
@@ -123,19 +126,17 @@ export function updateVideoBlock(block, sources, dimensions) {
   ) {
     throw new Error(`Use an inline videoSources object for ${block.name}.`);
   }
-  if (block.component === "WorkMedia") {
-    for (const attribute of ["width", "height"]) {
-      const initializer = attributes.get(attribute)?.initializer;
-      if (
-        initializer &&
-        (!ts.isJsxExpression(initializer) ||
-          !initializer.expression ||
-          !ts.isNumericLiteral(initializer.expression))
-      ) {
-        throw new Error(`Use a numeric ${attribute} for ${block.name}.`);
-      }
-      replacements.set(attribute, `${attribute}={${dimensions[attribute]}}`);
+  for (const attribute of ["width", "height"]) {
+    const initializer = attributes.get(attribute)?.initializer;
+    if (
+      initializer &&
+      (!ts.isJsxExpression(initializer) ||
+        !initializer.expression ||
+        !ts.isNumericLiteral(initializer.expression))
+    ) {
+      throw new Error(`Use a numeric ${attribute} for ${block.name}.`);
     }
+    replacements.set(attribute, `${attribute}={${dimensions[attribute]}}`);
   }
   let tag = block.tag;
   for (const attribute of [...attributes.values()].reverse()) {
@@ -190,7 +191,7 @@ async function syncVideos() {
   }
   const [slug, mastersPath = `video-masters/${slug}`] = positionals;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
-    throw new Error("Provide a project slug, such as flip-absences.");
+    throw new Error("Provide a project slug, such as flip-livestream.");
   }
   const contentPath = path.resolve(`src/content/work/${slug}.mdx`);
   const content = readFileSync(contentPath, "utf8");
@@ -212,12 +213,10 @@ async function syncVideos() {
     const matches = blocks.filter((block) => block.name === name);
     if (!matches.length) {
       throw new Error(
-        `No matching video on ${slug} for ${master.name}. Use src="${master.name}" on a WorkCover or WorkMedia with type="video".`,
+        `No matching video on ${slug} for ${master.name}. Use src="${master.name}" on a WorkMedia with type="video".`,
       );
     }
-    const widths = matches.some((block) => block.component === "WorkMedia")
-      ? "1280,1920,2560"
-      : "1120,1680,2240";
+    const widths = "1280,1920,2560";
     const input = path.join(directory, master.name);
     const hash = createHash("sha256")
       .update(readFileSync(input))
@@ -314,7 +313,7 @@ async function syncVideos() {
   });
   if (readFileSync(contentPath, "utf8") !== content) {
     throw new Error(
-      "The case study changed during processing. Run again to update it safely.",
+      "The work entry changed during processing. Run again to update it safely.",
     );
   }
   const temporaryContent = `${contentPath}.video-sync.tmp`;

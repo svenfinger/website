@@ -1,17 +1,20 @@
 export const SITE_NAME = "Sven Finger";
 export const SITE_DESCRIPTION =
-  "Full-stack design engineer from Hamburg, Germany.";
+  "Design engineer in Hamburg. I design and build software, take photos, and care about how things work, look, and feel.";
 
-export const NAV_ITEMS = [
-  { title: "Work", href: "/" },
-  { title: "Projects", href: "/projects" },
-  { title: "About", href: "/about" },
+export const EMAIL_HREF = "mailto:hi@svenfinger.com";
+export const REPOSITORY_URL = "https://github.com/svenfinger/website";
+
+export const SOCIAL_LINKS = [
+  {
+    name: "LinkedIn",
+    icon: "linkedin",
+    href: "https://www.linkedin.com/in/svenfinger/",
+  },
+  {
+    name: "GitHub",
+    icon: "github",
+    href: "https://github.com/svenfinger",
+  },
+  { name: "X", icon: "x", href: "https://x.com/svenfinger" },
 ] as const;
-
-export const GET_IN_TOUCH_HREF = "/contact";
-
-export function isActive(href: string, currentPath: string) {
-  const path = currentPath.replace(/\/$/, "") || "/";
-  if (href === "/") return path === "/" || path.startsWith("/work/");
-  return href === path;
-}

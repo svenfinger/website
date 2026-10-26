@@ -1,0 +1,45 @@
+---
+interface Props {
+  name: "linkedin" | "github" | "x";
+  small?: boolean;
+}
+
+const { name, small = false } = Astro.props;
+---
+
+<span
+  class:list={["social-icon", small && "social-icon--small"]}
+  aria-hidden="true"
+>
+  <span style={`--icon-url: url('/images/site/${name}.svg')`}></span>
+</span>
+
+<style>
+  .social-icon {
+    position: relative;
+    display: inline-block;
+    flex: none;
+    width: 24px;
+    height: 24px;
+  }
+
+  .social-icon > span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    translate: -50% -50%;
+    background: currentColor;
+    mask: var(--icon-url) center / auto no-repeat;
+  }
+
+  .social-icon--small {
+    width: 14px;
+    height: 14px;
+  }
+
+  .social-icon--small > span {
+    scale: 0.583333;
+  }
+</style>

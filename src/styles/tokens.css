@@ -30,9 +30,6 @@
   --gutter-desktop: calc(var(--spacing) * 8);
   --gutter-mobile: calc(var(--spacing) * 5);
 
-  --layout-media: var(--breakpoint-2xl);
-  --layout-page: var(--container-7xl);
-  --layout-content: var(--container-4xl);
   --layout-prose: var(--container-2xl);
 
   --radius-full: calc(infinity * 1px);
@@ -48,118 +45,41 @@
   --space-24: calc(var(--spacing) * 24);
   --space-32: calc(var(--spacing) * 32);
 
-  /*
-   * text-xs through text-2xl match Tailwind's --text-* tokens and are not
-   * redeclared. These four sizes do not.
-   */
+  /* The 32px display size differs from Tailwind's text-3xl. */
   --text-3xl: 2rem;
-  --text-4xl: 2.75rem;
-  --text-5xl: 4rem;
-  --text-6xl: 5.5rem;
 
-  /*
-   * Text styles. --leading-normal (1.5) and --text-2xl already match Tailwind.
-   * Title is the page headline. Subtitle is the section headline.
-   */
-  --font-weight-text: 420;
-  --font-weight-label: 520;
-  --font-weight-subtitle: 560;
-  --font-weight-title: 580;
-  --leading-label: 1.29;
-  --leading-subtitle: 1.25;
-  --leading-title: 1.16;
-  --tracking-subtitle: -0.005em;
-  --tracking-title: -0.01em;
+  /* Text styles from Figma. */
+  --font-weight-display: 620;
+  --font-weight-heading: 580;
+  --font-weight-body: 400;
+  --font-weight-small: 430;
+  --font-weight-label: 550;
+  --font-weight-mono: 400;
+
+  --leading-display: 1.15;
+  --leading-heading: 1.25;
+  --leading-body: 1.5;
+  --leading-small: 1.45;
+  --leading-label: 1.35;
+  --leading-mono: 1.45;
+
+  --tracking-display: -0.02em;
+  --tracking-heading: -0.01em;
+  --tracking-label: 0.01em;
+  --tracking-mono: 0.01em;
+  --text-mono: 0.8125rem;
 }
 
-/* Content width stays on the layout token; gutter is outside that width. */
 .page-shell {
   width: 100%;
-  max-width: calc(var(--layout-page) + (var(--gutter-mobile) * 2));
-  margin-inline: auto;
-  padding-inline: var(--gutter-mobile);
-}
-
-.media-shell {
-  width: 100%;
-  max-width: calc(var(--layout-media) + (var(--gutter-mobile) * 2));
+  max-width: calc(var(--layout-prose) + var(--gutter-mobile) * 2);
   margin-inline: auto;
   padding-inline: var(--gutter-mobile);
 }
 
 @media (min-width: 48rem) {
   .page-shell {
-    max-width: calc(var(--layout-page) + (var(--gutter-desktop) * 2));
+    max-width: calc(var(--layout-prose) + var(--gutter-desktop) * 2);
     padding-inline: var(--gutter-desktop);
-  }
-
-  .media-shell {
-    max-width: calc(var(--layout-media) + (var(--gutter-desktop) * 2));
-    padding-inline: var(--gutter-desktop);
-  }
-}
-
-.nav-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
-  border-radius: var(--radius-full);
-  padding: var(--space-1) var(--space-2);
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-label);
-  line-height: var(--leading-label);
-  color: var(--color-foreground);
-  filter: brightness(1);
-  transition-property: background-color, filter;
-  transition-duration: var(--duration-default);
-  transition-timing-function: var(--ease-standard);
-}
-
-.nav-pill[aria-current="page"] {
-  background-color: var(--color-surface);
-}
-
-.nav-pill:hover {
-  background-color: var(--color-surface-hover);
-}
-
-.nav-pill:active {
-  filter: brightness(0.8);
-  transition-duration: var(--duration-fast);
-}
-
-.nav-pill:focus-visible {
-  outline: 2px solid var(--color-foreground);
-  outline-offset: 2px;
-}
-
-/* Mobile menu items share nav-pill tokens. Radius, text size, and padding differ. */
-.nav-pill.nav-menu-item {
-  width: 100%;
-  justify-content: flex-start;
-  border-radius: var(--radius-sm);
-  padding: var(--space-2);
-  font-size: var(--text-base);
-}
-
-.nav-pill.nav-menu-action {
-  border: 1px solid var(--color-border);
-}
-
-.nav-pill.nav-menu-item:focus-visible {
-  background-color: var(--color-surface-hover);
-}
-
-.nav-pill.nav-menu-action:hover,
-.nav-pill.nav-menu-action[data-highlighted] {
-  background-color: var(--color-surface);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nav-pill,
-  .nav-pill:hover,
-  .nav-pill:active {
-    filter: brightness(1);
   }
 }

@@ -3,7 +3,6 @@ import "../styles/global.css";
 import fontUrl from "@fontsource-variable/google-sans-flex/files/google-sans-flex-latin-wght-normal.woff2?url";
 import SiteHeader from "@/components/site-header.astro";
 import SiteFooter from "@/components/site-footer.astro";
-import WorkNav from "@/components/work-nav.astro";
 import { SITE_DESCRIPTION, SITE_NAME } from "../lib/site";
 
 const {
@@ -11,8 +10,7 @@ const {
   description = SITE_DESCRIPTION,
   socialImage = "/og.png",
   noindex = false,
-  workNav,
-  fullWidth = false,
+  home = false,
 } = Astro.props;
 
 const pageTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
@@ -51,35 +49,31 @@ const ogImage = Astro.site ? new URL(socialImage, Astro.site) : undefined;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
-  <body>
-    <div class="flex min-h-svh flex-col">
-      <SiteHeader currentPath={Astro.url.pathname} sticky={!workNav} />
-      {
-        workNav && (
-          <WorkNav
-            title={workNav.title}
-            prevHref={workNav.prevHref}
-            nextHref={workNav.nextHref}
-          />
-        )
-      }
-      <div class="flex w-full min-w-0 flex-1 flex-col overflow-x-clip">
-        <main
-          class:list={[
-            "flex min-w-0 flex-1 flex-col",
-            !fullWidth && "page-shell",
-          ]}
-        >
-          <slot>
-            <h1
-              class="text-3xl leading-(--leading-title) font-(--font-weight-title) tracking-(--tracking-title)"
-            >
-              {title}
-            </h1>
-          </slot>
-        </main>
-      </div>
-      <SiteFooter />
+  <body id="top">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="page-shell site-layout">
+      {!home && <SiteHeader />}
+      <main id="main-content">
+        <slot />
+      </main>
+      <SiteFooter showContact={home} />
     </div>
   </body>
 </html>
+
+<style>
+  .skip-link {
+    position: fixed;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 10;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    translate: 0 calc(-100% - var(--space-8));
+  }
+
+  .skip-link:focus {
+    translate: 0;
+  }
+</style>

@@ -121,6 +121,9 @@ importers:
       '@base-ui/react':
         specifier: ^1.8.0
         version: 1.8.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@fontsource-variable/google-sans-code':
+        specifier: ^5.3.2
+        version: 5.3.2
       '@fontsource-variable/google-sans-flex':
         specifier: ^5.3.1
         version: 5.3.1
@@ -880,6 +883,9 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
+
+  '@fontsource-variable/google-sans-code@5.3.2':
+    resolution: {integrity: sha512-kW4RcfoTTObtUWAhlh6hzs8LCDsBNLwVRPqjUIKMkEiabfR3SRGP0Y6erFKd9k1yaRppTSCLSVkxhPKpEW3QPg==}
 
   '@fontsource-variable/google-sans-flex@5.3.1':
     resolution: {integrity: sha512-ItkWlFvW61+BmwOMJQfPY81KpvvslqbiTyfYKceOx+0kEFBzTcPbbMVcL9BKrmqhhqnq36kNs7YRbxonovOmNg==}
@@ -3449,6 +3455,8 @@ snapshots:
       react-dom: 19.2.8(react@19.2.8)
 
   '@floating-ui/utils@0.2.12': {}
+
+  '@fontsource-variable/google-sans-code@5.3.2': {}
 
   '@fontsource-variable/google-sans-flex@5.3.1': {}
 

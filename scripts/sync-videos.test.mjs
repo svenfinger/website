@@ -18,6 +18,33 @@ import { findVideoBlocks, updateVideoBlock } from "./sync-videos.mjs";
 const script = fileURLToPath(new URL("./sync-videos.mjs", import.meta.url));
 const hasFfmpeg = spawnSync("ffmpeg", ["-version"]).status === 0;
 
+test("local draft videos match their master and update every occurrence", () => {
+  const content = `
+    <WorkMedia type="video" src="/videos/work/example/cover.mp4" aspectRatio="1 / 1" />
+    <WorkMedia type="video" src="/videos/work/example/cover.mp4" aspectRatio="16 / 9" />
+    <WorkMedia type="video" src="/videos/work/another-project/cover.mp4" />
+  `;
+  const blocks = findVideoBlocks(content, "example");
+  assert.deepEqual(
+    blocks.map((block) => block.name),
+    ["cover", "cover"],
+  );
+  for (const block of blocks) {
+    const updated = updateVideoBlock(
+      block,
+      {
+        small: "https://media.svenfinger.com/work/example/cover-small.mp4",
+        medium: "https://media.svenfinger.com/work/example/cover-medium.mp4",
+        large: "https://media.svenfinger.com/work/example/cover-large.mp4",
+      },
+      { width: 1280, height: 720 },
+    );
+    assert.match(updated, /src="https:\/\/media\.svenfinger\.com/);
+    assert.match(updated, /aspectRatio=/);
+    assert.match(updated, /width=\{1280\}/);
+  }
+});
+
 test("attribute-like text in an alt description is preserved", () => {
   const content = `<WorkMedia alt="Example width={2560} and src='other.mp4'" type="video" src="detail.mp4" width={1920} height={1080} />`;
   const blocks = findVideoBlocks(content, "example");
@@ -37,9 +64,8 @@ const content = `---
 title: Example
 ---
 
-<WorkCover
-  title="Example"
-  category="Design"
+<WorkMedia
+  alt="Example broadcast"
   type="video"
   src="https://media.svenfinger.com/work/example/cover-v1-small.mp4"
   videoSources={{
@@ -49,7 +75,7 @@ title: Example
   poster="/cover.jpg"
 />
 
-Keep this case study text unchanged.
+Keep this work entry text unchanged.
 
 <WorkMedia
   type="video"
@@ -137,7 +163,7 @@ test(
     assert.equal(result.status, 0, result.stderr);
     assert.equal(project.uploads().length, 6);
     const first = readFileSync(project.contentPath, "utf8");
-    assert.match(first, /Keep this case study text unchanged\./);
+    assert.match(first, /Keep this work entry text unchanged\./);
     assert.match(first, /poster="\/cover.jpg"/);
     assert.match(first, /alt="Requesting time off"/);
     assert.match(first, /width=\{64\}/);

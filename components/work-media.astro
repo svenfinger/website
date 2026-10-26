@@ -11,8 +11,7 @@ interface Props {
   width?: number;
   height?: number;
   loading?: "lazy" | "eager";
-  size?: "media" | "page" | "content" | "prose" | "full";
-  sizes?: string;
+  aspectRatio?: "16 / 9" | "1 / 1" | "2 / 3";
 }
 
 const {
@@ -24,43 +23,27 @@ const {
   width,
   height,
   loading = "lazy",
-  size,
-  sizes,
+  aspectRatio,
 } = Astro.props;
-const className = "h-auto w-full rounded-lg ring-1 ring-(--color-border)";
-const isGif = src.endsWith(".gif");
-const maxWidth =
-  size === "media"
-    ? 1536
-    : size === "content"
-      ? 896
-      : size === "prose"
-        ? 672
-        : 1280;
-const imageSizes =
-  sizes ??
-  (size === "full"
-    ? "(min-width: 48rem) calc(100vw - 64px), calc(100vw - 40px)"
-    : `(min-width: ${maxWidth + 64}px) ${maxWidth}px, (min-width: 48rem) calc(100vw - 64px), calc(100vw - 40px)`);
+const sizes = "(min-width: 44.5rem) 672px, calc(100vw - 40px)";
 const responsiveImage =
   type === "image"
-    ? await getResponsiveImage(
-        src,
-        [480, 768, 1280, 1920, 2560, 3072],
-        imageSizes,
-      )
+    ? await getResponsiveImage(src, [480, 672, 1024, 1344, 2016], sizes)
     : undefined;
 const responsivePoster = poster
-  ? await getResponsiveImage(poster, [1280], imageSizes)
+  ? await getResponsiveImage(poster, [672, 1344], sizes)
   : undefined;
+const posterSrc = responsivePoster?.src ?? poster;
 ---
 
-<div class:list={[size && "work-block", size && `work-block--${size}`]}>
-  <div class="work-media">
-    {
-      type === "video" ? (
+<div
+  class:list={["work-media", aspectRatio && "work-media--framed"]}
+  style={aspectRatio && `aspect-ratio: ${aspectRatio}`}
+>
+  {
+    type === "video" ? (
+      <>
         <video
-          class={className}
           data-work-video
           loop
           muted
@@ -69,30 +52,35 @@ const responsivePoster = poster
           data-src={src}
           data-src-medium={videoSources?.medium}
           data-src-large={videoSources?.large}
-          data-poster={responsivePoster?.src ?? poster}
-          poster={
-            loading === "eager" ? (responsivePoster?.src ?? poster) : undefined
-          }
+          data-poster={posterSrc}
+          poster={loading === "eager" ? posterSrc : undefined}
           width={width}
           height={height}
           aria-label={alt}
         />
-      ) : (
-        <img
-          sizes={responsiveImage?.attributes.sizes}
-          src={responsiveImage?.src ?? src}
-          srcset={responsiveImage?.srcSet.attribute}
-          alt={alt}
-          width={responsiveImage?.attributes.width ?? width}
-          height={responsiveImage?.attributes.height ?? height}
-          class={className}
-          loading={loading}
-          decoding="async"
-          data-work-gif={isGif ? "" : undefined}
-        />
-      )
-    }
-  </div>
+        <noscript>
+          <img
+            src={posterSrc}
+            width={width}
+            height={height}
+            alt={alt}
+            loading={loading}
+          />
+        </noscript>
+      </>
+    ) : (
+      <img
+        src={responsiveImage?.src ?? src}
+        srcset={responsiveImage?.srcSet.attribute}
+        sizes={responsiveImage?.attributes.sizes}
+        width={responsiveImage?.attributes.width ?? width}
+        height={responsiveImage?.attributes.height ?? height}
+        alt={alt}
+        loading={loading}
+        decoding="async"
+      />
+    )
+  }
 </div>
 
 <script>
@@ -103,34 +91,6 @@ const responsivePoster = poster
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    if (reduceMotion) {
-      for (const img of document.querySelectorAll<HTMLImageElement>(
-        "img[data-work-gif]",
-      )) {
-        const freeze = () => {
-          if (!(img instanceof HTMLImageElement) || !img.naturalWidth) {
-            return;
-          }
-
-          const canvas = document.createElement("canvas");
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          canvas.className = img.className;
-          canvas.setAttribute("role", "img");
-          if (img.alt) {
-            canvas.setAttribute("aria-label", img.alt);
-          }
-          canvas.getContext("2d")?.drawImage(img, 0, 0);
-          img.replaceWith(canvas);
-        };
-
-        if (img.complete) {
-          freeze();
-        } else {
-          img.addEventListener("load", freeze, { once: true });
-        }
-      }
-    }
     const videos = document.querySelectorAll<HTMLVideoElement>(
       "video[data-work-video]",
     );
@@ -190,3 +150,40 @@ const responsivePoster = poster
 
   initWorkMedia();
 </script>
+
+<style>
+  .work-media {
+    position: relative;
+    overflow: clip;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .work-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--color-border);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .work-media > :is(img, video) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .work-media--framed > :is(img, video) {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  noscript img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
