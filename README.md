@@ -1,4 +1,4 @@
-# Portfolio
+# Website
 
 Source for [svenfinger.com](https://svenfinger.com), my personal portfolio website.
 A compact homepage with selected work, contact links, and legal pages.
@@ -37,19 +37,3 @@ pnpm dev
 ## Docs
 
 [Video workflow](docs/video-workflow.md) — preparing and updating project videos.
-
-## Content
-
-Add an MDX file to `src/content/work/` with a `title`, `year`, and `order`.
-Entries render on the homepage; they do not create separate project routes.
-Use `WorkMedia` for images and videos, and `work-media-stack` to group media.
-
-The footer links to the Git commit present at build time. If Git metadata is
-unavailable, it links to the repository without showing a revision.
-
-Videos are served from R2 through `media.svenfinger.com`. Full-quality masters
-and generated delivery files stay in the ignored `video-masters/` and
-`video-output/` folders. Only current site assets belong in `public/`.
-
-The contact card appears only on the homepage. Privacy and Imprint retain their
-content and share the compact footer links.
