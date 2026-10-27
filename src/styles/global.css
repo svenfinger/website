@@ -2,11 +2,11 @@
 @import "./tokens.css";
 
 @font-face {
-  font-family: "Google Sans Flex Variable";
+  font-family: "Inter Variable";
   font-style: normal;
   font-display: swap;
-  font-weight: 1 1000;
-  src: url("@fontsource-variable/google-sans-flex/files/google-sans-flex-latin-wght-normal.woff2")
+  font-weight: 100 900;
+  src: url("@fontsource-variable/inter/files/inter-latin-wght-normal.woff2")
     format("woff2-variations");
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
@@ -18,8 +18,8 @@
  * Utilities such as bg-background and rounded-md read these variables.
  */
 @theme {
-  --font-sans: "Google Sans Flex Variable", sans-serif;
-  --font-mono: "Google Sans Code Variable", monospace;
+  --font-sans: "Inter Variable", sans-serif;
+  --font-mono: "Geist Mono Variable", monospace;
 
   --color-background: var(--color-zinc-950);
   --color-foreground: var(--color-zinc-50);
@@ -52,6 +52,17 @@
     @apply font-sans;
     scroll-behavior: smooth;
   }
+
+  p a {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-muted-foreground);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2.5px;
+  }
+
+  p a:hover {
+    text-decoration-color: var(--color-accent);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -70,11 +81,11 @@
 }
 
 @font-face {
-  font-family: "Google Sans Code Variable";
+  font-family: "Geist Mono Variable";
   font-style: normal;
   font-display: swap;
-  font-weight: 300 800;
-  src: url("@fontsource-variable/google-sans-code/files/google-sans-code-latin-wght-normal.woff2")
+  font-weight: 100 900;
+  src: url("@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2")
     format("woff2-variations");
 }
 

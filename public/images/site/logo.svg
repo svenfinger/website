@@ -1,10 +1,1 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Logo" clip-path="url(#clip0_0_159)">
-<path id="Vector" d="M16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0ZM8.00934 26C10.1993 27.7522 12.9773 28.8 16 28.8C19.0227 28.8 21.8007 27.7522 23.9907 26H8.00934ZM6 8.00931C4.24781 10.1992 3.2 12.9772 3.2 16C3.2 19.0227 4.24782 21.8007 6 23.9907V8.00931ZM26 23.9907C27.7522 21.8007 28.8 19.0227 28.8 16C28.8 12.9772 27.7522 10.1992 26 8.00931V23.9907ZM11.1777 22.8H20.8223L16 13.1554L11.1777 22.8ZM9.2 19.6L14.4 9.2H9.2V19.6ZM22.8 19.6V9.2H17.6L22.8 19.6ZM16 3.2C12.9773 3.2 10.1993 4.24782 8.00934 6H23.9907C21.8007 4.24782 19.0227 3.2 16 3.2Z" fill-rule="evenodd" clip-rule="evenodd" fill="#F9F9F9"/>
-</g>
-<defs>
-<clipPath id="clip0_0_159">
-<rect width="32" height="32" fill="white"/>
-</clipPath>
-</defs>
-</svg>
+<svg fill="none" height="528" viewBox="0 0 672 528" width="672" xmlns="http://www.w3.org/2000/svg"><g fill="#f9f9f9"><path d="m672 384h-360c-79.529 0-144 64.471-144 144h-168c0-172.313 139.687-312 312-312h360z"/><path d="m672 168h-672v-168h672z"/></g></svg>

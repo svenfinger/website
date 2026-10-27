@@ -7,7 +7,7 @@ A compact homepage with selected work, contact links, and legal pages.
 
 - **Astro** for static pages and layouts, with **React** for interactive UI.
 - **Tailwind CSS 4** with semantic theme tokens, **Base UI** primitives,
-  **Lucide** icons, and self-hosted **Google Sans Flex / Google Sans Code** typography.
+  **Lucide** icons, and self-hosted **Inter Variable / Geist Mono** typography.
 - **Astro Content Collections + MDX** for homepage work entries.
 - **Cloudflare Workers Static Assets** for hosting the generated site.
 

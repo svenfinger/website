@@ -6,17 +6,18 @@ interface Props {
 }
 
 const { home = false } = Astro.props;
-const Name = home ? "h1" : "a";
+const Name = home ? "h1" : "div";
 ---
 
 <header class="flex items-center gap-(--space-4)">
-  <img src="/images/site/logo.svg" width="32" height="32" alt="" />
-  <span aria-hidden="true" class="h-6 w-px rounded-full bg-border"></span>
-  <Name
-    id={home ? "intro-title" : undefined}
-    href={home ? undefined : "/"}
-    class="type-heading rounded-sm"
-  >
-    {SITE_NAME}
+  <Name id={home ? "intro-title" : undefined}>
+    <a href="/" class="inline-flex rounded-sm">
+      <img
+        src="/images/site/logo.svg"
+        width="32"
+        height="32"
+        alt={`${SITE_NAME} home`}
+      />
+    </a>
   </Name>
 </header>
