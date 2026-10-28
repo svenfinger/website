@@ -78,8 +78,8 @@ play and loop while visible, and pause when offscreen or the tab is hidden.
 
 Homepage entries still live in `src/content/work/` and render directly on the
 home page. Each entry has a `title`, `year`, and `order` in its frontmatter.
-`WorkMedia` supports `aspectRatio="16 / 9"`, `"1 / 1"`, and `"2 / 3"` for both
-images and videos. Omit the prop to preserve the media's natural ratio.
+`WorkMedia` supports `aspectRatio="16 / 9"`, `"3 / 2"`, `"1 / 1"`, and `"2 / 3"`
+for both images and videos. Omit the prop to preserve the media's natural ratio.
 
 Before final media is ready, put a delivery copy in
 `public/videos/work/<project-slug>/` and use its public path:
@@ -107,7 +107,7 @@ the entry. The authored aspect ratio and poster remain unchanged. The command
 performs real uploads; local preview and build do not run it automatically.
 
 The current homepage uses responsive R2 encodes of `post.mov` and
-`details.mov` in square frames, followed by `studio.mov` in a 16:9 frame.
+`details.mov` in square frames, followed by `studio.mov` in a 3:2 frame.
 Their posters are the first decoded frame of each master. For example:
 
 ```sh

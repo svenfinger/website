@@ -18,7 +18,7 @@ This repository contains a personal portfolio designed as a product-like web int
 - Tailwind CSS 4
 - Base UI for interactive primitives
 - Lucide icons
-- Google Sans Flex typography
+- Self-hosted Inter Variable and Geist Mono typography
 - Astro Content Collections and MDX
 - pnpm
 - Cloudflare Workers Static Assets
@@ -43,7 +43,7 @@ This repository contains a personal portfolio designed as a product-like web int
 - Use blue sparingly as the primary interface accent.
 - Project imagery may use unrestricted color.
 - Use Lucide for interface icons.
-- Do not use Inter or Phosphor.
+- Do not use Phosphor.
 - Preserve visible keyboard focus and native accessibility behavior.
 - Respect prefers-reduced-motion for non-essential motion.
 
