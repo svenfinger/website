@@ -1,0 +1,343 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Sven Finger portfolio",
+    "version": "1.0.0",
+    "description": "Read-only public portfolio pages. Send Accept: text/markdown for Markdown or Accept: text/html for HTML at the same URL. Quality values and wildcards are supported; HTML wins otherwise equal preferences. There is no JSON portfolio API and no write API. Unknown URLs return 404, optionally as JSON problem details."
+  },
+  "servers": [
+    {
+      "url": "https://svenfinger.com"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "getPortfolio",
+        "summary": "Read Portfolio",
+        "responses": {
+          "200": {
+            "description": "Portfolio",
+            "headers": {
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Accept"
+              }
+            },
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<!doctype html><html lang=\"en\">\u2026</html>"
+              },
+              "text/markdown": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "# Portfolio\n"
+              }
+            }
+          },
+          "304": {
+            "description": "Selected representation has not changed."
+          },
+          "406": {
+            "$ref": "#/components/responses/Error"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      },
+      "head": {
+        "operationId": "headPortfolio",
+        "summary": "Read representation headers without a response body",
+        "responses": {
+          "200": {
+            "description": "Portfolio",
+            "headers": {
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Accept"
+              }
+            }
+          },
+          "304": {
+            "description": "Selected representation has not changed."
+          },
+          "406": {
+            "description": "Error status; no response body."
+          },
+          "500": {
+            "description": "Error status; no response body."
+          }
+        }
+      }
+    },
+    "/imprint/": {
+      "get": {
+        "operationId": "getImprint",
+        "summary": "Read Imprint",
+        "responses": {
+          "200": {
+            "description": "Imprint",
+            "headers": {
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Accept"
+              }
+            },
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<!doctype html><html lang=\"en\">\u2026</html>"
+              },
+              "text/markdown": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "# Imprint\n"
+              }
+            }
+          },
+          "304": {
+            "description": "Selected representation has not changed."
+          },
+          "406": {
+            "$ref": "#/components/responses/Error"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      },
+      "head": {
+        "operationId": "headImprint",
+        "summary": "Read representation headers without a response body",
+        "responses": {
+          "200": {
+            "description": "Imprint",
+            "headers": {
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Accept"
+              }
+            }
+          },
+          "304": {
+            "description": "Selected representation has not changed."
+          },
+          "406": {
+            "description": "Error status; no response body."
+          },
+          "500": {
+            "description": "Error status; no response body."
+          }
+        }
+      }
+    },
+    "/privacy/": {
+      "get": {
+        "operationId": "getPrivacy",
+        "summary": "Read Privacy",
+        "responses": {
+          "200": {
+            "description": "Privacy",
+            "headers": {
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Accept"
+              }
+            },
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<!doctype html><html lang=\"en\">\u2026</html>"
+              },
+              "text/markdown": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "# Privacy\n"
+              }
+            }
+          },
+          "304": {
+            "description": "Selected representation has not changed."
+          },
+          "406": {
+            "$ref": "#/components/responses/Error"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      },
+      "head": {
+        "operationId": "headPrivacy",
+        "summary": "Read representation headers without a response body",
+        "responses": {
+          "200": {
+            "description": "Privacy",
+            "headers": {
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Accept"
+              }
+            }
+          },
+          "304": {
+            "description": "Selected representation has not changed."
+          },
+          "406": {
+            "description": "Error status; no response body."
+          },
+          "500": {
+            "description": "Error status; no response body."
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "summary": "Read openapi.json",
+        "responses": {
+          "200": {
+            "description": "Static machine-readable file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/robots.txt": {
+      "get": {
+        "summary": "Read robots.txt",
+        "responses": {
+          "200": {
+            "description": "Static machine-readable file",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sitemap.xml": {
+      "get": {
+        "summary": "Read sitemap.xml",
+        "responses": {
+          "200": {
+            "description": "Static machine-readable file",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Problem": {
+        "type": "object",
+        "required": [
+          "type",
+          "title",
+          "status",
+          "detail",
+          "instance",
+          "code",
+          "hint"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "format": "uri-reference"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "minimum": 400,
+            "maximum": 599
+          },
+          "detail": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri-reference"
+          },
+          "code": {
+            "type": "string"
+          },
+          "hint": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "Error": {
+        "description": "JSON requests receive RFC 9457 problem details. Other clients receive plain text, or an empty body when no error representation is acceptable.",
+        "headers": {
+          "Vary": {
+            "schema": {
+              "type": "string"
+            },
+            "example": "Accept"
+          }
+        },
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          },
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          },
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

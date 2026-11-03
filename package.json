@@ -4,7 +4,10 @@
   "version": "1.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/build-markdown.mjs",
+    "typecheck:worker": "wrangler types .astro/worker.d.ts && tsc --noEmit --skipLibCheck --target es2022 --module nodenext --allowImportingTsExtensions worker/index.ts .astro/worker.d.ts",
+    "test:agents": "node --test scripts/agent-readiness.test.mjs",
+    "preview:worker": "wrangler dev --local",
     "preview": "astro preview",
     "video:encode": "node scripts/encode-video.mjs",
     "video:sync": "node scripts/sync-videos.mjs",

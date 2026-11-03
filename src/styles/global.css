@@ -53,14 +53,18 @@
     scroll-behavior: smooth;
   }
 
-  p a {
+  p a,
+  .legal-copy a {
     text-decoration-line: underline;
     text-decoration-color: var(--color-muted-foreground);
     text-decoration-thickness: 1px;
     text-underline-offset: 2.5px;
+    transition: text-decoration-color var(--duration-default)
+      var(--ease-standard);
   }
 
-  p a:hover {
+  p a:hover,
+  .legal-copy a:hover {
     text-decoration-color: var(--color-accent);
   }
 }

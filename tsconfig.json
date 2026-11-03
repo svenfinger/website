@@ -7,6 +7,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": [".astro/types.d.ts", "**/*"],
+  "include": [".astro/types.d.ts", ".astro/worker.d.ts", "**/*"],
   "exclude": ["dist"]
 }

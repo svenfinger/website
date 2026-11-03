@@ -1,2 +1,14 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+
+/privacy/index.md
+  X-Robots-Tag: noindex
+
+/imprint/index.md
+  X-Robots-Tag: noindex
+
+/404.md
+  X-Robots-Tag: noindex

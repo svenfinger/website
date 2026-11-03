@@ -1,5 +1,5 @@
 ---
-import { SITE_NAME } from "@/src/lib/site";
+import { SITE_NAME, SITE_TITLE } from "@/src/lib/site";
 
 interface Props {
   home?: boolean;
@@ -16,8 +16,9 @@ const Name = home ? "h1" : "div";
         src="/images/site/logo.svg"
         width="32"
         height="32"
-        alt={`${SITE_NAME} home`}
+        alt={home ? "" : `${SITE_NAME} home`}
       />
+      {home && <span class="sr-only">{SITE_TITLE}</span>}
     </a>
   </Name>
 </header>

@@ -176,8 +176,16 @@ const commit =
     border-radius: var(--radius-sm);
   }
 
+  .repository-link > :global(.social-icon) {
+    translate: 0 -1px;
+  }
+
   .elevator-link {
     gap: var(--space-1);
+  }
+
+  .footer-details a {
+    transition: color var(--duration-default) var(--ease-standard);
   }
 
   .footer-details a:hover {

@@ -1,4 +1,5 @@
 export const SITE_NAME = "Sven Finger";
+export const SITE_TITLE = `${SITE_NAME} — Design engineer in Hamburg`;
 export const SITE_DESCRIPTION =
   "Design engineer in Hamburg. I design and build software, take photos, and care about how things work, look, and feel.";
 
