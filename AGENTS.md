@@ -47,6 +47,15 @@ This repository contains a personal portfolio designed as a product-like web int
 - Preserve visible keyboard focus and native accessibility behavior.
 - Respect prefers-reduced-motion for non-essential motion.
 
+## Design documentation
+
+- Read `DESIGN.md` before changing the interface. It documents the current design using the [Google Labs DESIGN.md draft format](https://github.com/google-labs-code/design.md/blob/main/docs/spec.md).
+- Update it alongside changes to shared tokens, typography, layout, components, or interaction behavior. Document implemented conventions; keep one-off details beside their component.
+- Keep YAML values synchronized with CSS, including resolved color values when upgrading Tailwind. If documentation and code disagree, inspect the implementation and correct the documentation.
+- Preserve the format mappings: YAML `primary` represents CSS `accent`, and achromatic OKLCH uses zero hue instead of `none` for parser compatibility.
+- Keep borders in prose: CLI 0.4.0 rejects their `color-mix` values and does not recognize component `borderColor`. Unused tokens, motion, and responsive behavior also remain in prose.
+- After editing `DESIGN.md`, run `pnpm dlx @google/design.md lint DESIGN.md` and check formatting. Document validation does not replace checking the rendered interface or accessibility behavior.
+
 ## Quality
 
 - Follow the existing code style and patterns.
